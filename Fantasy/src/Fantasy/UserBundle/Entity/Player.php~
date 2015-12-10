@@ -1,0 +1,49 @@
+<?php
+namespace Fantasy\UserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+/**
+* @ORM\Entity
+* @ORM\Table(name="player")
+*/
+
+class Player
+{
+	/**
+	* @ORM\Id
+	* @ORM\Column(type="text")
+	* @ORM\GeneratedValue(strategy="AUTO")
+	*/
+	protected $id;
+
+	/**
+	* @ORM\Column(type="text")
+	*/
+	protected $name;
+
+	/**
+	* @ORM\Column(type="text")
+	*/
+	protected $lastname;
+
+	/**
+	* @ORM\Column(type="text")
+	*/
+	protected $club;
+
+	/**
+	* @ORM\Column(type="text")
+	*/
+	protected $position;
+
+	/**
+	* @ORM\Column(type="date")
+	*/
+	protected $birthDate;
+	
+	/**
+	* @ORM\Column(type="text")
+	*/
+	protected $nationality;
+}
+?>
