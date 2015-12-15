@@ -4,4 +4,4 @@ fantasy_user_homepage:
 
 fantasy_user_main:
     pattern:     /home
-    defaults: { _controller: FantasyUserBundle:Default:index }
+    defaults: { _controller: FantasyUserBundle:User:list }
