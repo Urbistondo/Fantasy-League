@@ -8,9 +8,9 @@ class UserController extends Controller
 
 	public function listAction()
 	{
-		$players = $this->get('doctrine')->getManager()->createQuery('SELECT name FROM UserBundle:Player')->getPlayers();
+		$players = $this->get('doctrine')->getManager()->createQuery('SELECT name FROM UserBundle:Player');
 
-		return $this->render('UserBundle:User:list.html.php', array('players' => $players));
+		return $this->render('UserBundle:User:list.html.twig', array('players' => $players));
 	}
 
 	public function showAction($id)

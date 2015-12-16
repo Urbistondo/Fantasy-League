@@ -1,0 +1,15 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Players{% endblock %}
+
+{% block body %}
+    {% for player in players %}
+        <article class="player">
+            <div class="name">{{ player.name }}</div>
+        </article>
+    {% else %}
+        <p>No hay jugadores</p>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
