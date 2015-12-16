@@ -1,0 +1,3 @@
+fantasy_user_main:
+    pattern:     /home
+    defaults: { _controller: AppBundle:Default:index }

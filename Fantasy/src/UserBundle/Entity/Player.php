@@ -1,10 +1,12 @@
 <?php
-namespace Fantasy\UserBundle\Entity;
+namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
 * @ORM\Entity
 * @ORM\Table(name="player")
+* @ORM\Entity(repositoryClass="UserBundle\Entity\PlayerRepository")
+* @ORM\HasLifecycleCallbacks()
 */
 
 class Player

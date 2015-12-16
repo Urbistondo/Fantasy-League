@@ -1,5 +1,5 @@
 <?php
-namespace Fantasy\UserBundle\Controller;
+namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,20 +8,20 @@ class UserController extends Controller
 
 	public function listAction()
 	{
-		$players = $this->get('doctrine')->getManager()->createQuery('SELECT id, name, lastname, club FROM FantasyUserBundle:Player p')->execute();
+		$players = $this->get('doctrine')->getManager()->createQuery('SELECT name FROM UserBundle:Player')->getPlayers();
 
-		return $this->render('FantasyUserBundle:Blog:list.html.php', array('players' => $players));
+		return $this->render('UserBundle:User:list.html.php', array('players' => $players));
 	}
 
 	public function showAction($id)
 	{
-		$player = $this->get('doctrine')->getManager()->getRepository('FantasyUserBundle:Post')->find($id);
+		$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
 		if (!$player)
 		{
 			throw $this->createNotFoundException();
 		}
 		
-		return $this->render('FantasyUserBundle:Blog:show.html.php', array('player' => $player));
+		return $this->render('UserBundle:User:show.html.php', array('player' => $player));
 	}
 }
 ?>
