@@ -1,0 +1,40 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Login{% endblock %}
+
+{% block body %}
+    <form action="" method="GET">
+    	Username <input id="username" type="text" name="username"><br>
+	  	Password <input id="password" type="text" name="password"><br>
+	  	<input id="loginButton" type="submit" value="Log in">
+	</form>
+
+	<a href="http://fantasy/app_dev.php/signup"><h5>Don't have an account? Sign up for one</h5></a>
+
+	<script>
+	    $(document).ready(function() {
+	        $('#loginButton').click(function(){
+	        	if ($('#username').val().length != 0 && $('#username').val().length < 30)
+	        	{
+	        		if ($('#password').val().length != 0 && $('#password').val().length < 30)
+	        		{
+	        			alert("Success");
+	        			return false;
+	        		}
+	        		else
+	        		{
+	        		alert("The password must be 1-30 characters");
+	        		return false;
+	        		}
+	        	}
+	        	else
+	        	{
+	        		alert("The username must be 1-30 characters");
+	        		return false;
+	        	}
+	        });
+	    });
+	</script>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

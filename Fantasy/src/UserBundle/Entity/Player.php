@@ -41,7 +41,7 @@ class Player
 	/**
 	* @ORM\Column(type="date")
 	*/
-	protected $birthDate;
+	protected $birth;
 	
 	/**
 	* @ORM\Column(type="text")
@@ -155,30 +155,6 @@ class Player
     }
 
     /**
-     * Set birthDate
-     *
-     * @param \DateTime $birthDate
-     *
-     * @return Player
-     */
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthDate
-     *
-     * @return \DateTime
-     */
-    public function getBirthDate()
-    {
-        return $this->birthDate;
-    }
-
-    /**
      * Set nationality
      *
      * @param string $nationality
@@ -200,5 +176,29 @@ class Player
     public function getNationality()
     {
         return $this->nationality;
+    }
+
+    /**
+     * Set birth
+     *
+     * @param \DateTime $birth
+     *
+     * @return Player
+     */
+    public function setBirth($birth)
+    {
+        $this->birth = $birth;
+
+        return $this;
+    }
+
+    /**
+     * Get birth
+     *
+     * @return \DateTime
+     */
+    public function getBirth()
+    {
+        return $this->birth;
     }
 }

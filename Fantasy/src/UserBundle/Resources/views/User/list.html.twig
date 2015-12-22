@@ -4,7 +4,7 @@
 {% block body %}
     {% for player in players %}
         <article class="player">
-            <div class="name">{{ player.name }}</div>
+            <div class="name">{{ player.name }} {{ player.lastname }}</div>
         </article>
     {% else %}
         <p>No hay jugadores</p>

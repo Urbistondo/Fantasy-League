@@ -1,3 +1,7 @@
 user_home:
     pattern: /
-    defaults: { _controller: UserBundle:User:list }
+    defaults: { _controller: UserBundle:User:login }
+
+user_signup:
+    pattern: /signup
+    defaults: { _controller: UserBundle:User:signup }
