@@ -1,0 +1,31 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Welcome{% endblock %}
+
+{% block body %}
+	<h1>Fantasy League</h1>
+	<form action="" method="post" id="welcomeLoginForm" name="welcomeLoginForm">
+		<input id="loginButton" type="submit" value="Log in">
+		<input id="signupButton" type="submit" value="Sign up">
+	</form>
+
+	<script>
+		$(document).ready(
+			function initialize()
+			{
+				$("#loginButton").click(
+					function()
+					{
+			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/login");     
+					}
+				);
+
+				$("#signupButton").click(
+					function()
+					{
+			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/signup");     
+					}
+				);
+			}
+		);
+	</script>
+{% endblock %}

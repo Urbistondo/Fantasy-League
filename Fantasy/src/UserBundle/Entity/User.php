@@ -34,6 +34,16 @@ class User
 	protected $password;
 
     /**
+    * @ORM\Column(type="text")
+    */
+    protected $name;
+
+    /**
+    * @ORM\Column(type="integer")
+    */
+    protected $points;
+
+    /**
      * Get id
      *
      * @return string
@@ -46,7 +56,7 @@ class User
     /**
      * Set username
      *
-     * @param string $name
+     * @param string $username
      *
      * @return User
      */
@@ -70,11 +80,11 @@ class User
     /**
      * Set email
      *
-     * @param string $lastname
+     * @param string $email
      *
      * @return User
      */
-    public function setemail($email)
+    public function setEmail($email)
     {
         $this->email = $email;
 
@@ -94,7 +104,7 @@ class User
     /**
      * Set password
      *
-     * @param string $club
+     * @param string $password
      *
      * @return User
      */
@@ -113,5 +123,53 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return User
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }

@@ -49,6 +49,11 @@ class Player
 	protected $nationality;
 
     /**
+    * @ORM\Column(type="integer")
+    */
+    protected $points;
+
+    /**
      * Get id
      *
      * @return string
@@ -200,5 +205,29 @@ class Player
     public function getBirth()
     {
         return $this->birth;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return Player
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 }

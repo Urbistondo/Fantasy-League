@@ -1,0 +1,59 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Sign up{% endblock %}
+
+{% block body %}
+    <form action="" method="POST" name="signupForm" onsubmit="return(validate());">
+    	Username <input id="username" type="text" name="username"><br>
+	  	Password <input id="password" type="text" name="password"><br>
+    	First name <input id="name" type="text" name="name"><br>
+    	Email <input id="email" type="text" name="email"><br>
+	  	<input id="signupButton" type="submit" value="Sign up">
+	</form>
+
+	<script>
+		$(document).ready(
+	    function validate()
+	    {
+	        $('#signupButton').click(function()
+	        {
+	        	if ($('#username').val().length != 0 && $('#username').val().length < 30)
+	        	{
+	        		if ($('#password').val().length != 0 && $('#password').val().length < 30)
+	        		{
+	        			if ($('#name').val().length != 0 && $('#name').val().length < 30)
+	        			{
+	        				if ($('#email').val().length != 0 && $('#email').val().length < 50)
+	        				{
+	        					return true;
+	        				}
+	        				else
+	        				{
+	        					alert("The email must be 1-50 characters");
+				        		$('#email').focus();
+				        		return false;
+	        				}
+	        			}
+	        			else
+	        			{
+	        				alert("The name must be 1-30 characters");
+			        		$('#name').focus();
+			        		return false;
+	        			}
+	        		}
+	        		else
+	        		{
+		        		alert("The password must be 1-30 characters");
+		        		$('#password').focus();
+		        		return false;
+	        		}
+	        	}
+	        	else
+	        	{
+	        		alert("The username must be 1-30 characters");
+	        		$('#username').focus();
+	        		return false;
+	        	}
+	        });
+	    });
+	</script>
+{% endblock %}
