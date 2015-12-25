@@ -2,17 +2,15 @@
 {% block title %}Fantasy - Log in{% endblock %}
 
 {% block body %}
-	{% if error == true %}
-		<h3>Invalid username or password</h3>
+	{% if error %}
+		<h3 id="errorMessage">{{ error }}</h3>
 	{% endif %}
-    <form action="{{path('user_prueba')}}" method="POST" name="loginForm" onsubmit="return(validate());">
+    <form action="" method="POST" name="loginForm" onsubmit="return(validate());">
     	Username <input id="username" type="text" name="username" placeholder="Email address"><br>
 	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
-	  	<input id="loginButton" type="submit" value="Log in">
+	  	<button id="loginButton" type="submit">Log in</button>
 	</form>
-{% endblock %}
 
-{% block javascript %}
 	<script>
 	    $(document).ready(
 		    function validate()
@@ -24,7 +22,7 @@
 			        	{
 			        		if ($('#password').val().length != 0 && $('#password').val().length < 30)
 			        		{
-			        			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/login/" + $('#username').val() + "/" + $('#password').val());
+			        			$(this).closest("form").attr("action", "{{ path('user_loginAttempt') }}");
 			        			return true;
 			        		}
 			        		else

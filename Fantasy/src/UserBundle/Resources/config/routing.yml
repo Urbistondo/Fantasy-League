@@ -1,31 +1,37 @@
-user_home:
+user_index:
     pattern: /
     defaults: { _controller: UserBundle:User:index }
 
-user_prueba:
-    pattern: /prueba
-    defaults: { _controller: UserBundle:User:prueba }
-
-user_prueba2:
-    pattern: /prueba2
-    defaults: { _controller: UserBundle:User:prueba2 }
+user_home:
+    pattern: /home
+    defaults: { _controller: UserBundle:User:home }
 
 user_login:
     pattern: /login
     defaults: { _controller: UserBundle:User:login }
 
-user_loginAttempt:
-    pattern:  /login/{username}/{password}
-    defaults: { _controller: UserBundle:User:loginAttempt }
-    requirements:
-        _method: POST
-
 user_signup:
     pattern: /signup
     defaults: { _controller: UserBundle:User:signup }
 
-user_create:
-    pattern:  /create
-    defaults: { _controller: UserBundle:User:create }
+user_loginAttempt:
+    pattern: /loginAttempt
+    defaults: { _controller: UserBundle:User:loginAttempt }
+
+user_signupAttempt:
+    pattern: /signupAttempt
+    defaults: { _controller: UserBundle:User:signupAttempt }
     requirements:
         _method: POST
+
+user_listLeagues:
+    pattern: /leagues
+    defaults: { _controller: UserBundle:User:listLeagues }
+
+user_newLeague:
+    pattern: /leagues/newLeague
+    defaults: { _controller: UserBundle:User:newLeague }
+
+user_createLeague:
+    pattern: /leagues/createLeague
+    defaults: { _controller: UserBundle:User:createLeague }

@@ -1,14 +1,30 @@
-{% extends "UserBundle::layout.html.twig" %}
-{% block title %}Fantasy - Players{% endblock %}
+{% extends "UserBundle:User:home.html.twig" %}
+{% block title %}Fantasy - {{ title }}{% endblock %}
 
 {% block body %}
-    {% for player in players %}
-        <article class="player">
-            <div class="name">{{ player.name }} {{ player.lastname }}</div>
-        </article>
-    {% else %}
-        <p>No hay jugadores</p>
-    {% endfor %}
+	<div id="navmenu"> 
+		<ul>
+		  <li><a href="http://fantasy/app_dev.php/home">Home</a></li>
+		  <li><a href="http://fantasy/app_dev.php/teams">Teams</a></li>
+		  <li><a href="http://fantasy/app_dev.php/leagues">Leagues</a></li>
+		  <li><a href="http://fantasy/app_dev.php/forum">Forum</a></li>
+		  <li><a href="http://fantasy/app_dev.php/rules">Rules</a></li>
+		  <li><a href="http://fantasy/app_dev.php/contact">Contact</a></li>
+		  <li><a href="http://fantasy/app_dev.php/exit">Exit</a></li>
+		</ul>
+	</div>
+
+	<div id="leagues">
+	    <h2>Leagues</h2>
+	    {% for item in items %}
+	        <article class="item">
+	            <div class="item-div">{{ item.getName() }} (Capacity: {{ item.getCapacity() }})</div>
+	        </article>
+	    {% else %}
+	        <p>Oops, this place is empty!</p>
+	    {% endfor %}
+	    <a href="{{ path('user_newLeague') }}"><button id="leagueButton" type="submit">Create league</button></a>
+	</div>
 {% endblock %}
 
 {% block sidebar %}

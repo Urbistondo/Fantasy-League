@@ -2,24 +2,23 @@
 {% block title %}Fantasy - Sign up{% endblock %}
 
 {% block body %}
-	{% if error == true %}
-		<h3>An account already exists with that username</h3>
+	{% if error %}
+		<h3 id="errorMessage">{{ error }}</h3>
 	{% endif %}
-    <form action="{{ path('user_prueba2') }}" method="POST" onsubmit="return(validate());">
-    	Username <input id="username" type="text" name="username"><br>
-	  	Password <input id="password" type="text" name="password"><br>
-    	First name <input id="name" type="text" name="name"><br>
-    	Email <input id="email" type="text" name="email"><br>
-	  	<input id="signupButton" type="submit" value="Sign up">
+    <form action="" method="POST" onsubmit="return(validate());">
+    	Username <input id="username" type="text" name="username" placeholder="Username"><br>
+	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
+    	First name <input id="name" type="text" name="name" placeholder="First name"><br>
+    	Email <input id="email" type="text" name="email" placeholder="Email address"><br>
+	  	<button id="signupButton" type="submit">Sign up</button>
 	</form>
-{% endblock %}
 
-{% block javascript %}
 	<script>
 		$(document).ready(
 	    function validate()
 	    {
-	        $('#signupButton').click(function()
+	        $('#signupButton').click(
+	        function()
 	        {
 	        	if ($('#username').val().length != 0 && $('#username').val().length < 30)
 	        	{
@@ -29,7 +28,7 @@
 	        			{
 	        				if ($('#email').val().length != 0 && $('#email').val().length < 50)
 	        				{
-	        					$(this).closest("form").attr("action", "http://fantasy/app_dev.php/signup/" + $('#username').val() + "/" + $('#password').val() + "/" + $('#name').val() + "/" + $('#email').val());
+	        					$(this).closest("form").attr("action", "{{ path('user_signupAttempt') }}");
 	        					return true;
 	        				}
 	        				else
@@ -62,4 +61,8 @@
 	        });
 	    });
 	</script>
+{% endblock %}
+
+{% block javascript %}
+
 {% endblock %}

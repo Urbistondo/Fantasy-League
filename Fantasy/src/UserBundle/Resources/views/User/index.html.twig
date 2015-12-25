@@ -15,14 +15,14 @@
 				$("#loginButton").click(
 					function()
 					{
-			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/login");     
+			   			$(this).closest("form").attr("action", "{{ path('user_login') }}");  
 					}
 				);
 
 				$("#signupButton").click(
 					function()
 					{
-			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/create");     
+			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/signup");     
 					}
 				);
 			}

@@ -39,6 +39,11 @@ class User
     protected $name;
 
     /**
+    * @ORM\Column(type="boolean")
+    */
+    protected $privileges;
+
+    /**
      * Get id
      *
      * @return string
@@ -142,5 +147,29 @@ class User
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set privileges
+     *
+     * @param string $privileges
+     *
+     * @return User
+     */
+    public function setPrivileges($privileges)
+    {
+        $this->privileges = $privileges;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getPrivileges()
+    {
+        return $this->privileges;
     }
 }

@@ -13,36 +13,5 @@
 {% endblock %}
 
 {% block javascript %}
-	<script>
-	    $(document).ready(
-		    function validate()
-		    {
-		        $('#loginButton').click(
-			        function()
-			        {
-			        	if ($('#username').val().length != 0 && $('#username').val().length < 30)
-			        	{
-			        		if ($('#password').val().length != 0 && $('#password').val().length < 30)
-			        		{
-			        			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/login/" + $('#username').val() + "/" + $('#password').val());
-			        			return true;
-			        		}
-			        		else
-			        		{	
-				        		alert("The password must be 1-30 characters");
-				        		$('#password').focus();
-				        		return false;
-			        		}
-			        	}
-			        	else
-			        	{
-			        		alert("The username must be 1-30 characters");
-			        		$('#username').focus();
-			        		return false;
-			        	}
-			        }
-			    );
-		    }
-		);
-	</script>
+
 {% endblock %}

@@ -1,6 +1,20 @@
 {% extends "UserBundle::layout.html.twig" %}
-{% block title %}Fantasy - Welcome{% endblock %}
+{% block title %}Fantasy - Home{% endblock %}
 
 {% block body %}
-	<h1>{{ name }}</h1>
+	<div id="navmenu"> 
+		<ul>
+		  <li><a href="http://fantasy/app_dev.php/home">Home</a></li>
+		  <li><a href="http://fantasy/app_dev.php/teams">Teams</a></li>
+		  <li><a href="http://fantasy/app_dev.php/leagues">Leagues</a></li>
+		  <li><a href="http://fantasy/app_dev.php/forum">Forum</a></li>
+		  <li><a href="http://fantasy/app_dev.php/rules">Rules</a></li>
+		  <li><a href="http://fantasy/app_dev.php/contact">Contact</a></li>
+		  <li><a href="http://fantasy/app_dev.php/exit">Exit</a></li>
+		</ul>
+	</div>
+
+	{% if message %}
+		<h3 id="message">{{ message }}</h3>
+	{% endif %}
 {% endblock %}
