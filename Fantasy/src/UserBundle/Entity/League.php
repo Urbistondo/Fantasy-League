@@ -4,12 +4,12 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 /**
 * @ORM\Entity
-* @ORM\Table(name="user")
+* @ORM\Table(name="league")
 * @ORM\Entity(repositoryClass="UserBundle\Entity\UserRepository")
 * @ORM\HasLifecycleCallbacks()
 */
 
-class User
+class League
 {
 	/**
 	* @ORM\Id
@@ -21,22 +21,17 @@ class User
 	/**
 	* @ORM\Column(type="text")
 	*/
-	protected $username;
-
-	/**
-	* @ORM\Column(type="text")
-	*/
-	protected $email;
-
-	/**
-	* @ORM\Column(type="text")
-	*/
-	protected $password;
+	protected $name;
 
     /**
     * @ORM\Column(type="text")
     */
-    protected $name;
+    protected $password;
+
+	/**
+	* @ORM\Column(type="integer")
+	*/
+	protected $capacity;
 
     /**
      * Get id
@@ -49,51 +44,27 @@ class User
     }
 
     /**
-     * Set username
+     * Set name
      *
-     * @param string $username
+     * @param string $name
      *
-     * @return User
+     * @return League
      */
-    public function setUsername($username)
+    public function setName($name)
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get name
      *
      * @return string
      */
-    public function getUsername()
+    public function getName()
     {
-        return $this->username;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
+        return $this->name;
     }
 
     /**
@@ -101,7 +72,7 @@ class User
      *
      * @param string $password
      *
-     * @return User
+     * @return League
      */
     public function setPassword($password)
     {
@@ -121,26 +92,26 @@ class User
     }
 
     /**
-     * Set name
+     * Set capacity
      *
-     * @param string $name
+     * @param integer $integer
      *
-     * @return User
+     * @return League
      */
-    public function setName($name)
+    public function setCapacity($capacity)
     {
-        $this->name = $name;
+        $this->capacity = $capacity;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get capacity
      *
-     * @return string
+     * @return integer
      */
-    public function getName()
+    public function getCapacity()
     {
-        return $this->name;
+        return $this->capacity;
     }
 }

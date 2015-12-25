@@ -2,16 +2,30 @@ user_home:
     pattern: /
     defaults: { _controller: UserBundle:User:index }
 
+user_prueba:
+    pattern: /prueba
+    defaults: { _controller: UserBundle:User:prueba }
+
+user_prueba2:
+    pattern: /prueba2
+    defaults: { _controller: UserBundle:User:prueba2 }
+
 user_login:
     pattern: /login
     defaults: { _controller: UserBundle:User:login }
+
+user_loginAttempt:
+    pattern:  /login/{username}/{password}
+    defaults: { _controller: UserBundle:User:loginAttempt }
+    requirements:
+        _method: POST
 
 user_signup:
     pattern: /signup
     defaults: { _controller: UserBundle:User:signup }
 
-user_loginAttempt:
-    pattern:  /attempt/{username}/{password}
-    defaults: { _controller: UserBundle:User:loginAttempt }
+user_create:
+    pattern:  /create
+    defaults: { _controller: UserBundle:User:create }
     requirements:
         _method: POST

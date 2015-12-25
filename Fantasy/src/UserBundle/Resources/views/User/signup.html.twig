@@ -1,15 +1,20 @@
-{% extends "UserBundle::layout.html.twig" %}
+{% extends "UserBundle:User:formlayout.html.twig" %}
 {% block title %}Fantasy - Sign up{% endblock %}
 
 {% block body %}
-    <form action="" method="POST" name="signupForm" onsubmit="return(validate());">
+	{% if error == true %}
+		<h3>An account already exists with that username</h3>
+	{% endif %}
+    <form action="{{ path('user_prueba2') }}" method="POST" onsubmit="return(validate());">
     	Username <input id="username" type="text" name="username"><br>
 	  	Password <input id="password" type="text" name="password"><br>
     	First name <input id="name" type="text" name="name"><br>
     	Email <input id="email" type="text" name="email"><br>
 	  	<input id="signupButton" type="submit" value="Sign up">
 	</form>
+{% endblock %}
 
+{% block javascript %}
 	<script>
 		$(document).ready(
 	    function validate()
@@ -24,6 +29,7 @@
 	        			{
 	        				if ($('#email').val().length != 0 && $('#email').val().length < 50)
 	        				{
+	        					$(this).closest("form").attr("action", "http://fantasy/app_dev.php/signup/" + $('#username').val() + "/" + $('#password').val() + "/" + $('#name').val() + "/" + $('#email').val());
 	        					return true;
 	        				}
 	        				else
