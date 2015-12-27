@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Entity\League;
 use UserBundle\Form\UserType;
-use UserBundle\Modals\Login;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
@@ -43,10 +42,7 @@ class UserController extends Controller
 			$user = $repository->findOneBy(array('username'=>$username, 'password'=>$password));
 			if($user)
 			{
-				$login = new Login();
-				$login->setUsername($username);
-				$login->setPassword($password);
-				$session->set('login', $login);
+				$session->set('user', $user);
 				return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 			}
 			else
@@ -90,58 +86,6 @@ class UserController extends Controller
 	public function homeAction()
 	{
 		return $this->render('UserBundle:User:home.html.twig', array('message' => false));
-	}
-
-	public function listTeamsAction()
-	{
-		$session=$this->getRequest()->getSession();
-		$username=$session->get('login')->getUsername();
-
-		return $this->render('UserBundle:User:list.html.twig', array('title' => $username));
-		//$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('team_name' => 'Equipo prueba', 'league_id' => 1));
-
-		//return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams"));
-	}
-
-	public function listLeaguesAction()
-	{
-		$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
-
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $leagues, 'title' => "Leagues"));
-	}
-
-	public function newLeagueAction()
-	{
-		$error = false;
-		return $this->render('UserBundle:User:league.html.twig', array('error' => $error));
-	}
-
-	public function createLeagueAction(Request $request)
-	{
-		if($request->getMethod()=='POST')
-		{
-			$name = $request->get('name');
-			$password = $request->get('password');
-			$capacity = $request->get('capacity');
-			$admin_id = 0;
-
-			$league = new League();
-			$league->setLeagueName($name);
-			$league->setLeaguePassword($password);
-			$league->setLeagueCapacity($capacity);
-			$league->setLeagueAdminId($admin_id);
-
-			$em = $this->getDoctrine()->getEntityManager();
-			$em->persist($league);
-			$em->flush();
-
-			$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
-			return $this->render('UserBundle:User:list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => 'League added to database succesfully'));
-		}
-		else
-		{
-			return $this->render('UserBundle:User:league.html.twig', array('error' => false));
-		}
 	}
 
 	public function listAction()

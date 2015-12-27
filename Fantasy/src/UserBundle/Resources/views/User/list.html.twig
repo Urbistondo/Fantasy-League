@@ -1,9 +1,45 @@
 {% extends "UserBundle:User:home.html.twig" %}
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
-{% block body %}
-	<h1>{{ title }}</h1>
+{% block container %}
+	<div id="item-list">
+		<h3>{{ title }}</h3>
+		{% if type == 'League' %}
+			<h5>Select a league below and click "Join" or create a new one clicking on "Create"</h5>
+			{% for item in items %}
+				<ul>
+					<li><a>{{ item.getLeagueName() }}</a></li>
+				</ul>
+			{% endfor %}
+			</br>
+			<button>Join</button>
+			<button>Create</button>
+		{% endif %}
+
+		{% if type == "Team" %}
+			{% for item in items %}
+				<ul>
+					<li><a>{{ item.getTeamName() }}</a></li>
+				</ul>
+			{% endfor %}
+			</br>
+		{% endif %}
+	</div>
+
+	<script>
+	    $(document).ready(
+	    	alert('Ayyyyy');
+		    $('li').click(
+			function ()
+			{
+			    
+			    //var text = $(this).text();
+			    //alert('Text is ' + text);
+			});
+		);
+	</script>
 {% endblock %}
 
-{% block sidebar %}
+{% block javascripts %}
+
 {% endblock %}

@@ -26,24 +26,24 @@ user_signupAttempt:
 
 user_listTeams:
     pattern: /teams
-    defaults: { _controller: UserBundle:User:listTeams }
+    defaults: { _controller: UserBundle:Team:listTeams }
 
 user_newTeam:
-    pattern: /leagues/newTeam
-    defaults: { _controller: UserBundle:User:newTeam }
+    pattern: /teams/new
+    defaults: { _controller: UserBundle:Team:newTeam }
 
 user_createTeam:
-    pattern: /leagues/createTeam
-    defaults: { _controller: UserBundle:User:createTeam }
+    pattern: /teams/create
+    defaults: { _controller: UserBundle:Team:createTeam }
 
-user_listLeagues:
-    pattern: /leagues
-    defaults: { _controller: UserBundle:User:listLeagues }
+user_joinLeague:
+    pattern: /leagues/join
+    defaults: { _controller: UserBundle:League:listLeagues }
 
 user_newLeague:
-    pattern: /leagues/newLeague
-    defaults: { _controller: UserBundle:User:newLeague }
+    pattern: /leagues/new
+    defaults: { _controller: UserBundle:League:newLeague }
 
 user_createLeague:
-    pattern: /leagues/createLeague
-    defaults: { _controller: UserBundle:User:createLeague }
+    pattern: /leagues/create
+    defaults: { _controller: UserBundle:League:createLeague }
