@@ -16,102 +16,131 @@ class League
 	* @ORM\Column(type="integer")
 	* @ORM\GeneratedValue(strategy="AUTO")
 	*/
-	protected $id;
+	protected $league_id;
 
 	/**
 	* @ORM\Column(type="text")
 	*/
-	protected $name;
+	protected $league_name;
 
     /**
     * @ORM\Column(type="text")
     */
-    protected $password;
+    protected $league_password;
 
 	/**
 	* @ORM\Column(type="integer")
 	*/
-	protected $capacity;
+	protected $league_capacity;
 
     /**
-     * Get id
+    * @ORM\Column(type="integer")
+    */
+    protected $league_admin_id;
+
+    /**
+     * Get league_id
      *
      * @return string
      */
-    public function getId()
+    public function getLeagueId()
     {
         return $this->id;
     }
 
     /**
-     * Set name
+     * Set league_name
      *
-     * @param string $name
+     * @param string $league_name
      *
      * @return League
      */
-    public function setName($name)
+    public function setLeagueName($league_name)
     {
-        $this->name = $name;
+        $this->league_name = $league_name;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get league_name
      *
      * @return string
      */
-    public function getName()
+    public function getLeagueName()
     {
-        return $this->name;
+        return $this->league_name;
     }
 
     /**
-     * Set password
+     * Set league_password
      *
-     * @param string $password
+     * @param string $league_password
      *
      * @return League
      */
-    public function setPassword($password)
+    public function setLeaguePassword($league_password)
     {
-        $this->password = $password;
+        $this->league_password = $league_password;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get league_password
      *
      * @return string
      */
-    public function getPassword()
+    public function getLeaguePassword()
     {
-        return $this->password;
+        return $this->league_password;
     }
 
     /**
-     * Set capacity
+     * Set league_capacity
      *
      * @param integer $integer
      *
      * @return League
      */
-    public function setCapacity($capacity)
+    public function setLeagueCapacity($league_capacity)
     {
-        $this->capacity = $capacity;
+        $this->league_capacity = $league_capacity;
 
         return $this;
     }
 
     /**
-     * Get capacity
+     * Get league_capacity
      *
      * @return integer
      */
-    public function getCapacity()
+    public function getLeagueCapacity()
     {
-        return $this->capacity;
+        return $this->league_capacity;
+    }
+
+    /**
+     * Set league_admin_id
+     *
+     * @param integer $integer
+     *
+     * @return League
+     */
+    public function setLeagueAdminId($league_admin_id)
+    {
+        $this->league_admin_id = $league_admin_id;
+
+        return $this;
+    }
+
+    /**
+     * Get league_admin_id
+     *
+     * @return integer
+     */
+    public function getLeagueAdminId()
+    {
+        return $this->league_admin_id;
     }
 }

@@ -14,11 +14,11 @@
 		</ul>
 	</div>
 
-	<div id="leagues">
+	<div id="league-list">
 	    <h2>Leagues</h2>
 	    {% for item in items %}
 	        <article class="item">
-	            <div class="item-div">{{ item.getName() }} (Capacity: {{ item.getCapacity() }})</div>
+	            <div class="item-div">{{ item.getLeagueName() }} (Capacity: {{ item.getLeagueCapacity() }})</div>
 	        </article>
 	    {% else %}
 	        <p>Oops, this place is empty!</p>

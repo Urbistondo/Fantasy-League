@@ -39,7 +39,6 @@ class UserController extends Controller
 			$user = $repository->findOneBy(array('username'=>$username, 'password'=>$password));
 			if($user)
 			{
-				$currentUser = $user;
 				return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 			}
 			else
@@ -108,9 +107,10 @@ class UserController extends Controller
 			$admin_id = 0;
 
 			$league = new League();
-			$league->setName($name);
-			$league->setPassword($password);
-			$league->setCapacity($capacity);
+			$league->setLeagueName($name);
+			$league->setLeaguePassword($password);
+			$league->setLeagueCapacity($capacity);
+			$league->setLeagueAdminId($admin_id);
 
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->persist($league);
