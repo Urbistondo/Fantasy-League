@@ -2,29 +2,7 @@
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
 {% block body %}
-	<div id="navmenu"> 
-		<ul>
-		  <li><a href="http://fantasy/app_dev.php/home">Home</a></li>
-		  <li><a href="http://fantasy/app_dev.php/teams">Teams</a></li>
-		  <li><a href="http://fantasy/app_dev.php/leagues">Leagues</a></li>
-		  <li><a href="http://fantasy/app_dev.php/forum">Forum</a></li>
-		  <li><a href="http://fantasy/app_dev.php/rules">Rules</a></li>
-		  <li><a href="http://fantasy/app_dev.php/contact">Contact</a></li>
-		  <li><a href="http://fantasy/app_dev.php/exit">Exit</a></li>
-		</ul>
-	</div>
-
-	<div id="team-list">
-	    <h2>Teams</h2>
-	    {% for item in items %}
-	        <article class="item">
-	            <div class="item-div">{{ item.getTeamName() }}</div>
-	        </article>
-	    {% else %}
-	        <p>Oops, this place is empty!</p>
-	    {% endfor %}
-	    <a href="{{ path('user_newTeam') }}"><button id="teamButton" type="submit">Create team</button></a>
-	</div>
+	<h1>{{ title }}</h1>
 {% endblock %}
 
 {% block sidebar %}

@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Entity\League;
 use UserBundle\Form\UserType;
+use UserBundle\Modals\Login;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
@@ -28,17 +30,23 @@ class UserController extends Controller
 
 	public function loginAttemptAction(Request $request)
 	{
+		$session=$this->getRequest()->getSession();
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('UserBundle:User');
+
 		if($request->getMethod()=='POST')
 		{
+			$session->clear();
 			$username=$request->get('username');
 			$password=$request->get('password');
-
-			$em = $this->getDoctrine()->getEntityManager();
-			$repository = $em->getRepository('UserBundle:User');
 
 			$user = $repository->findOneBy(array('username'=>$username, 'password'=>$password));
 			if($user)
 			{
+				$login = new Login();
+				$login->setUsername($username);
+				$login->setPassword($password);
+				$session->set('login', $login);
 				return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 			}
 			else
@@ -86,9 +94,13 @@ class UserController extends Controller
 
 	public function listTeamsAction()
 	{
-		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('team_name' => 'Equipo prueba', 'league_id' => 1));
+		$session=$this->getRequest()->getSession();
+		$username=$session->get('login')->getUsername();
 
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams"));
+		return $this->render('UserBundle:User:list.html.twig', array('title' => $username));
+		//$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('team_name' => 'Equipo prueba', 'league_id' => 1));
+
+		//return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams"));
 	}
 
 	public function listLeaguesAction()
