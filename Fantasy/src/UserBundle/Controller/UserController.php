@@ -84,6 +84,13 @@ class UserController extends Controller
 		return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 	}
 
+	public function listTeamsAction()
+	{
+		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('team_name' => 'Equipo prueba', 'league_id' => 1));
+
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams"));
+	}
+
 	public function listLeaguesAction()
 	{
 		$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();

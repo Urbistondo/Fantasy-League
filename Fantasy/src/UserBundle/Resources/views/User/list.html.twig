@@ -14,16 +14,16 @@
 		</ul>
 	</div>
 
-	<div id="league-list">
-	    <h2>Leagues</h2>
+	<div id="team-list">
+	    <h2>Teams</h2>
 	    {% for item in items %}
 	        <article class="item">
-	            <div class="item-div">{{ item.getLeagueName() }} (Capacity: {{ item.getLeagueCapacity() }})</div>
+	            <div class="item-div">{{ item.getTeamName() }}</div>
 	        </article>
 	    {% else %}
 	        <p>Oops, this place is empty!</p>
 	    {% endfor %}
-	    <a href="{{ path('user_newLeague') }}"><button id="leagueButton" type="submit">Create league</button></a>
+	    <a href="{{ path('user_newTeam') }}"><button id="teamButton" type="submit">Create team</button></a>
 	</div>
 {% endblock %}
 

@@ -24,6 +24,18 @@ user_signupAttempt:
     requirements:
         _method: POST
 
+user_listTeams:
+    pattern: /teams
+    defaults: { _controller: UserBundle:User:listTeams }
+
+user_newTeam:
+    pattern: /leagues/newTeam
+    defaults: { _controller: UserBundle:User:newTeam }
+
+user_createTeam:
+    pattern: /leagues/createTeam
+    defaults: { _controller: UserBundle:User:createTeam }
+
 user_listLeagues:
     pattern: /leagues
     defaults: { _controller: UserBundle:User:listLeagues }
