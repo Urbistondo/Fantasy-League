@@ -53,9 +53,13 @@ user_createLeague:
     defaults: { _controller: UserBundle:League:createLeague }
 
 user_showTeam:
-    pattern: /teams/{league_id}/{team_id}
+    pattern: /teams/{league_id}/{team_id}/{modify}
     defaults: {_controller: UserBundle:Team:showTeam }
 
 user_modifyEleven:
-    pattern: /teams/{team_id}/modify
+    pattern: /teams/modify
     defaults: {_controller: UserBundle:Team:modifyEleven }
+
+user_updateEleven:
+    pattern: /teams/update
+    defaults: {_controller: UserBundle:Team:updateEleven }

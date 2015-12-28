@@ -13,28 +13,44 @@
 			</ul>
 			</br>
 			<form action="" method="GET">
-				<button>Join</button>
-				<button>Create</button>
+				<button id="joinButton">Join</button>
+				<button id="createButton">Create</button>
 			</form>
 		{% endif %}
 
-		{% if type == 'Player' %}
-			<h5>This is yout current starting eleven</h5>
+		{% if type == 'Player' and modify == "false" %}
+			<h5>This is your current starting eleven</h5>
 			<ul>
 			{% for item in items %}
 				<li><a>{{ item.getPosition() }} ----> {{ item.getName() }}</a></li>
 			{% endfor %}
 			</ul>
 			</br>
-			<form action="{{ path('user_modifyEleven', { 'team_id':  1}) }}" method="GET">
+			<form action="{{ path('user_modifyEleven', { 'modify': "true" }) }}" method="GET">
 				<button>Modify</button>
+			</form>
+		{% elseif type == 'Player' and modify == "true" %}
+			<form action="" method="GET" id="selectForm">
+				{% for i in 0..10 %}
+					<select>
+						<li> 
+							<option disabled selected> -- Select a player -- </option>
+				            {% for item in items %}
+				                <option value="{{ item.getId() }}">{{ item.getPosition() }} ----> {{ item.getName() }}</option>
+				            {% endfor %}                
+				        </li>
+					</select>
+					</br>
+				{% endfor %}
+			<button id="updateButton">Update</button>
 			</form>
 		{% endif %}
 
 		{% if type == "Team" and items|length > 0 %}
 			<ul>
 			{% for item in items %}
-				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId() }) }}">{{ item.getTeamName() }}</a></li>
+				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'modify': "false" }) }}">
+				{{ item.getTeamName() }}</a></li>
 			{% endfor %}
 			</ul>
 			</br>
@@ -50,14 +66,35 @@
 
 	<script>
 	    $(document).ready(
-	    	alert('Ayyyyy');
-		    $('li').click(
-			function ()
-			{
-			    
-			    //var text = $(this).text();
-			    //alert('Text is ' + text);
-			});
+	    	function()
+		    {
+			    $('#joinButton').click(
+			    	function()
+			    	{
+			    		alert("I am an alert box!");
+			    	})
+
+			    $('#createButton').click(
+			    	function()
+			    	{
+			    		alert("I am an alert box too!");
+			    	})
+
+			    $("#updateButton").click(
+				    function()
+				    {
+					    var selectedValues = [];    
+					    $("#selectForm").children(
+						    function()
+						    {
+						        if ()
+						        selectedValues[i] = $(selected).text(); 
+						    }
+						);
+					    alert(selectedValues.length);
+					}
+				)
+			}
 		);
 	</script>
 {% endblock %}
