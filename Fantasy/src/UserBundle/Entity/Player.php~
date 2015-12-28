@@ -49,6 +49,16 @@ class Player
 	protected $nationality;
 
     /**
+    * @ORM\Column(type="integer")
+    */
+    protected $points;
+
+    /**
+    * @ORM\Column(type="integer")
+    */
+    protected $value;
+
+    /**
      * Get id
      *
      * @return string
@@ -155,30 +165,6 @@ class Player
     }
 
     /**
-     * Set birthDate
-     *
-     * @param \DateTime $birthDate
-     *
-     * @return Player
-     */
-    public function setBirthDate($birthDate)
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    /**
-     * Get birthDate
-     *
-     * @return \DateTime
-     */
-    public function getBirthDate()
-    {
-        return $this->birthDate;
-    }
-
-    /**
      * Set nationality
      *
      * @param string $nationality
@@ -200,5 +186,77 @@ class Player
     public function getNationality()
     {
         return $this->nationality;
+    }
+
+    /**
+     * Set birth
+     *
+     * @param \DateTime $birth
+     *
+     * @return Player
+     */
+    public function setBirth($birth)
+    {
+        $this->birth = $birth;
+
+        return $this;
+    }
+
+    /**
+     * Get birth
+     *
+     * @return \DateTime
+     */
+    public function getBirth()
+    {
+        return $this->birth;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return Player
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set value
+     *
+     * @param integer $value
+     *
+     * @return Player
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * Get value
+     *
+     * @return integer
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }
