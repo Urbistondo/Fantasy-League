@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * @ORM\Entity
 * @ORM\Table(name="eleven")
-* @ORM\Entity(repositoryClass="UserBundle\Entity\UserRepository")
+* @ORM\Entity(repositoryClass="UserBundle\Entity\ElevenRepository")
 * @ORM\HasLifecycleCallbacks()
 */
 
@@ -13,68 +13,68 @@ class Eleven
 {
 	/**
 	* @ORM\Id
-	* @ORM\Column(type="text")
+	* @ORM\Column(type="integer")
 	*/
 	protected $team_id;
 
 	/**
     * @ORM\Id
-	* @ORM\Column(type="int")
+	* @ORM\Column(type="integer")
 	*/
 	protected $user_id;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $goalkeeper;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
-    protected $defense1;
+    protected $defender1;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
-    protected $defense2;
+    protected $defender2;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
-    protected $defense3;
+    protected $defender3;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
-    protected $defense4;
+    protected $defender4;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $midfielder1;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $midfielder2;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $midfielder3;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $midfielder4;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $striker1;
 
     /**
-    * @ORM\Column(type="int")
+    * @ORM\Column(type="integer")
     */
     protected $striker2;
 
@@ -105,7 +105,7 @@ class Eleven
     /**
      * Get user_id
      *
-     * @return string
+     * @return integer
      */
     public function getUserId()
     {
@@ -129,7 +129,7 @@ class Eleven
     /**
      * Get goalkeeper
      *
-     * @return string
+     * @return integer
      */
     public function getGoalkeeper()
     {
@@ -153,7 +153,7 @@ class Eleven
     /**
      * Get defender1
      *
-     * @return string
+     * @return integer
      */
     public function getDefender1()
     {
@@ -177,7 +177,7 @@ class Eleven
     /**
      * Get defender2
      *
-     * @return string
+     * @return integer
      */
     public function getDefender2()
     {
@@ -201,7 +201,7 @@ class Eleven
     /**
      * Get defender3
      *
-     * @return string
+     * @return integer
      */
     public function getDefender3()
     {
@@ -225,7 +225,7 @@ class Eleven
     /**
      * Get defender4
      *
-     * @return string
+     * @return integer
      */
     public function getDefender4()
     {
@@ -249,7 +249,7 @@ class Eleven
     /**
      * Get midfielder1
      *
-     * @return string
+     * @return integer
      */
     public function getMidfielder1()
     {
@@ -273,7 +273,7 @@ class Eleven
     /**
      * Get midfielder2
      *
-     * @return string
+     * @return integer
      */
     public function getMidfielder2()
     {
@@ -297,7 +297,7 @@ class Eleven
     /**
      * Get midfielder3
      *
-     * @return string
+     * @return integer
      */
     public function getMidfielder3()
     {
@@ -321,7 +321,7 @@ class Eleven
     /**
      * Get midfielder4
      *
-     * @return string
+     * @return integer
      */
     public function getMidfielder4()
     {
@@ -345,7 +345,7 @@ class Eleven
     /**
      * Get striker1
      *
-     * @return string
+     * @return integer
      */
     public function getStriker1()
     {
@@ -369,7 +369,7 @@ class Eleven
     /**
      * Get striker2
      *
-     * @return string
+     * @return integer
      */
     public function getStriker2()
     {
@@ -391,98 +391,15 @@ class Eleven
     }
 
     /**
-     * Set defense1
+     * Get players
      *
-     * @param \int $defense1
-     *
-     * @return Eleven
+     * @return integer []
      */
-    public function setDefense1(\int $defense1)
+    public function getPlayers()
     {
-        $this->defense1 = $defense1;
+        $players = [$this->goalkeeper, $this->defender1, $this->defender2, $this->defender3, $this->defender4, $this->midfielder1, $this->midfielder2, 
+        $this->midfielder3, $this->midfielder4, $this->striker1, $this->striker2];
 
-        return $this;
-    }
-
-    /**
-     * Get defense1
-     *
-     * @return \int
-     */
-    public function getDefense1()
-    {
-        return $this->defense1;
-    }
-
-    /**
-     * Set defense2
-     *
-     * @param \int $defense2
-     *
-     * @return Eleven
-     */
-    public function setDefense2(\int $defense2)
-    {
-        $this->defense2 = $defense2;
-
-        return $this;
-    }
-
-    /**
-     * Get defense2
-     *
-     * @return \int
-     */
-    public function getDefense2()
-    {
-        return $this->defense2;
-    }
-
-    /**
-     * Set defense3
-     *
-     * @param \int $defense3
-     *
-     * @return Eleven
-     */
-    public function setDefense3(\int $defense3)
-    {
-        $this->defense3 = $defense3;
-
-        return $this;
-    }
-
-    /**
-     * Get defense3
-     *
-     * @return \int
-     */
-    public function getDefense3()
-    {
-        return $this->defense3;
-    }
-
-    /**
-     * Set defense4
-     *
-     * @param \int $defense4
-     *
-     * @return Eleven
-     */
-    public function setDefense4(\int $defense4)
-    {
-        $this->defense4 = $defense4;
-
-        return $this;
-    }
-
-    /**
-     * Get defense4
-     *
-     * @return \int
-     */
-    public function getDefense4()
-    {
-        return $this->defense4;
+        return $players;
     }
 }

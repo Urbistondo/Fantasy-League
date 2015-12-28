@@ -6,41 +6,42 @@
 		<h3>{{ title }}</h3>
 		{% if type == 'League' %}
 			<h5>Select a league below and click "Join" or create a new one clicking on "Create"</h5>
+			<ul>
 			{% for item in items %}
-				<ul>
-					<li><a>{{ item.getLeagueName() }}</a></li>
-				</ul>
+				<li><a>{{ item.getLeagueName() }}</a></li>
 			{% endfor %}
+			</ul>
 			</br>
-			<button>Join</button>
-			<button>Create</button>
+			<form action="" method="GET">
+				<button>Join</button>
+				<button>Create</button>
+			</form>
 		{% endif %}
-
 
 		{% if type == 'Player' %}
 			<h5>This is yout current starting eleven</h5>
+			<ul>
 			{% for item in items %}
-				<ul>
-					<li><a>{{ item.getName() }}</a></li>
-				</ul>
+				<li><a>{{ item.getPosition() }} ----> {{ item.getName() }}</a></li>
 			{% endfor %}
+			</ul>
 			</br>
-			<button>Join</button>
-			<button>Create</button>
+			<form action="{{ path('user_modifyEleven', { 'team_id':  1}) }}" method="GET">
+				<button>Modify</button>
+			</form>
 		{% endif %}
 
 		{% if type == "Team" and items|length > 0 %}
+			<ul>
 			{% for item in items %}
-				<ul>
-					<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId() }) }}">{{ item.getTeamName() }}</a></li>
-				</ul>
+				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId() }) }}">{{ item.getTeamName() }}</a></li>
 			{% endfor %}
+			</ul>
 			</br>
 			<button>Create</button>
 		{% elseif type == "Team" and items|length == 0 %}
 			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
 			</br>
-
 			<form action="{{ path('user_newTeam') }}" method="GET">
 			    <button id="createTeamButton">Create</button>
 			</form>
