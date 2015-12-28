@@ -51,3 +51,6 @@ user_newLeague:
 user_createLeague:
     pattern: /leagues/create
     defaults: { _controller: UserBundle:League:createLeague }
+user_showTeam:
+    pattern: /teams/{league_id}
+    defaults: {_controller: UserBundle:Team:showTeam }

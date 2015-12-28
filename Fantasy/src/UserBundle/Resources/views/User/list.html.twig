@@ -16,10 +16,23 @@
 			<button>Create</button>
 		{% endif %}
 
+
+		{% if type == 'Player' %}
+			<h5>This is yout current starting eleven</h5>
+			{% for item in items %}
+				<ul>
+					<li><a>{{ item.getName() }}</a></li>
+				</ul>
+			{% endfor %}
+			</br>
+			<button>Join</button>
+			<button>Create</button>
+		{% endif %}
+
 		{% if type == "Team" and items|length > 0 %}
 			{% for item in items %}
 				<ul>
-					<li><a>{{ item.getTeamName() }}</a></li>
+					<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId() }) }}">{{ item.getTeamName() }}</a></li>
 				</ul>
 			{% endfor %}
 			</br>

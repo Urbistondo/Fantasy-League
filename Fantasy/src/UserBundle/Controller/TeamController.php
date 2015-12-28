@@ -27,6 +27,15 @@ class TeamController extends Controller
 	{
 		return $this->render('UserBundle:User:teamform.html.twig');
 	}
+	public function showTeamAction($league_id)
+	{
+		$session=$this->getRequest()->getSession();
+		$session->set('league_id', $league_id);
+		$user=$session->get('user');
+		$user_id = $user->getId();
+		$players = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findBy(array('user_id' => $user_id));
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 'type' => "Player"));
+	}
 
 	public function createTeamAction()
 	{
@@ -36,5 +45,6 @@ class TeamController extends Controller
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
+
 }
 ?>
