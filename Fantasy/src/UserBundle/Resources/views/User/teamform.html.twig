@@ -1,0 +1,51 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Create a team{% endblock %}
+
+{% block body %}
+    <form action="" method="POST" name="teamForm" onsubmit="return(validate());">
+    	Team name <input id="team_name" type="text" placeholder="Team name"><br>
+	  	League id <input id="league_id" type="text" placeholder="League ID"><br>
+	  	<input id="teamButton" type="submit" value="Create team">
+	  	<input id="cancelButton" type="submit" value="Cancel">
+	</form>
+
+	<script>
+		$(document).ready(
+	    function validate()
+	    {
+	        $('#teamButton').click(
+	        function()
+	        {
+	        	if ($('#team_name').val().length != 0 && $('#team_name').val().length <= 50)
+	        	{
+	        		if ($('#league_id').val().length != 0 && $('#league_id').val().length <= 5)
+	        		{
+	        			$(this).closest("form").attr("action", "{{ path('user_createTeam') }}");
+	        		}
+	        		else
+	        		{
+		        		alert("The ID of the league must be 1-5 characters");
+		        		$('#password').focus();
+		        		return false;
+	        		}
+	        	}
+	        	else
+	        	{
+	        		alert("The name of the team must be 1-50 characters");
+	        		$('#username').focus();
+	        		return false;
+	        	}
+	        });
+
+	        $('#cancelButton').click(
+	        function()
+	        {
+	        	$(this).closest("form").attr("action", "{{ path('user_home') }}");
+	        });
+	    });
+	</script>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

@@ -17,14 +17,12 @@ class UserController extends Controller
 
 	public function loginAction()
 	{
-		$error = false;
-		return $this->render('UserBundle:User:login.html.twig', array('error' => $error));
+		return $this->render('UserBundle:User:login.html.twig', array('error' => false));
 	}
 
 	public function signupAction()
 	{
-		$error = false;
-		return $this->render('UserBundle:User:signup.html.twig', array('error' => $error));
+		return $this->render('UserBundle:User:signup.html.twig', array('message' => false));
 	}
 
 	public function loginAttemptAction(Request $request)
@@ -43,7 +41,9 @@ class UserController extends Controller
 			if($user)
 			{
 				$session->set('user', $user);
-				return $this->render('UserBundle:User:home.html.twig', array('message' => false));
+
+				return $this->redirect($this->generateUrl('user_listTeams'));
+				//return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 			}
 			else
 			{
@@ -58,6 +58,9 @@ class UserController extends Controller
 
 	public function signupAttemptAction(Request $request)
 	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('UserBundle:User');
+
 		if($request->getMethod()=='POST')
 		{
 			$username=$request->get('username');
@@ -65,27 +68,42 @@ class UserController extends Controller
 			$name=$request->get('name');
 			$email=$request->get('email');
 
-			$user = new User();
-			$user->setUsername($username);
-			$user->setPassword($password);
-			$user->setName($name);
-			$user->setEmail($email);
-			$user->setPrivileges(false);
+			$user = $repository->findOneBy(array('username'=>$username));
+			if($user)
+			{
+				return $this->render('UserBundle:User:signup.html.twig', array('message' => 'That username is taken. Please choose another one'));
+			}
+			else
+			{
+				$user = new User();
+				$user->setUsername($username);
+				$user->setPassword($password);
+				$user->setName($name);
+				$user->setEmail($email);
+				$user->setPrivileges(false);
 
-			$em = $this->getDoctrine()->getEntityManager();
-			$em->persist($user);
-			$em->flush();
-			return $this->render('UserBundle:User:home.html.twig', array('message' => 'User added to database succesfully'));
+				$em = $this->getDoctrine()->getEntityManager();
+				$em->persist($user);
+				$em->flush();
+				return $this->render('UserBundle:User:home.html.twig', array('message' => 'User added to database succesfully'));
+			}
 		}
 		else
 		{
-			return $this->render('UserBundle:User:signup.html.twig', array('error' => false));
+			return $this->render('UserBundle:User:signup.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
 		}
 	}
 
 	public function homeAction()
 	{
 		return $this->render('UserBundle:User:home.html.twig', array('message' => false));
+	}
+
+	public function exitAction()
+	{
+		$session=$this->getRequest()->getSession();
+		$session->clear();
+		return $this->render('UserBundle:User:index.html.twig');
 	}
 
 	public function listAction()

@@ -24,6 +24,10 @@ user_signupAttempt:
     requirements:
         _method: POST
 
+user_exit:
+    pattern: /exit
+    defaults: { _controller: UserBundle:User:exit }
+
 user_listTeams:
     pattern: /teams
     defaults: { _controller: UserBundle:Team:listTeams }

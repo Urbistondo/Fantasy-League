@@ -22,5 +22,19 @@ class TeamController extends Controller
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
+
+	public function newTeamAction()
+	{
+		return $this->render('UserBundle:User:teamform.html.twig');
+	}
+
+	public function createTeamAction()
+	{
+		$session=$this->getRequest()->getSession();
+		$user=$session->get('user');
+		$user_id = $user->getId();
+		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
+	}
 }
 ?>

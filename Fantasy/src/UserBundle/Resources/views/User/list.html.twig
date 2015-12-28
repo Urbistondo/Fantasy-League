@@ -16,13 +16,21 @@
 			<button>Create</button>
 		{% endif %}
 
-		{% if type == "Team" %}
+		{% if type == "Team" and items|length > 0 %}
 			{% for item in items %}
 				<ul>
 					<li><a>{{ item.getTeamName() }}</a></li>
 				</ul>
 			{% endfor %}
 			</br>
+			<button>Create</button>
+		{% elseif type == "Team" and items|length == 0 %}
+			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
+			</br>
+
+			<form action="{{ path('user_newTeam') }}" method="GET">
+			    <button id="createTeamButton">Create</button>
+			</form>
 		{% endif %}
 	</div>
 
