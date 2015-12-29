@@ -1,0 +1,10 @@
+admin_login:
+    pattern: /login
+    defaults: { _controller: AdminBundle:Security:login }
+
+admin_login_check:
+    pattern: /login_check
+
+admin_logout:
+    pattern: /logout
+

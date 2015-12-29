@@ -1,0 +1,27 @@
+{% extends "UserBundle:User:formlayout.html.twig" %}
+{% block title %}Fantasy - Log in{% endblock %}
+
+{% block body %}
+	
+		
+	
+    <form action="" method="POST" name="loginForm" onsubmit="return(validate());">
+    	Username <input id="username" type="text" name="username" placeholder="Email address"><br>
+	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
+	  	<button id="loginButton" type="submit">Log in</button>
+	</form>
+
+	<script>
+	    $(document).ready(
+		    function validate()
+		    {
+		        $('#loginButton').click(
+			        function()
+			        {
+			        	$(this).closest("form").attr("action", "{{ path('admin_logout') }}");
+			        }
+			    );
+		    }
+		);
+	</script>
+{% endblock %}

@@ -135,7 +135,6 @@ class TeamController extends Controller
 			$eleven->setStriker2($striker2);
 
 			$em = $this->getDoctrine()->getEntityManager();
-			$em->persist($eleven);
 			$em->flush();
 			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
 				'type' => "Player", 'modify' => false));

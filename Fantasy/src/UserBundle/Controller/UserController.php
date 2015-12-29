@@ -12,7 +12,16 @@ class UserController extends Controller
 {
 	public function indexAction()
 	{
-		return $this->render('UserBundle:User:index.html.twig');
+		$session=$this->getRequest()->getSession();
+		$user = $session->get('user');
+		if ($user != null)
+		{
+			return $this->redirect($this->generateUrl('user_listTeams'));
+		}
+		else
+		{
+			return $this->render('UserBundle:User:index.html.twig');
+		}
 	}
 
 	public function loginAction()
