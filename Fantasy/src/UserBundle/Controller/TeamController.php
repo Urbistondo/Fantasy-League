@@ -28,38 +28,49 @@ class TeamController extends Controller
 	{
 		return $this->render('UserBundle:User:teamform.html.twig');
 	}
+
 	public function showTeamAction($league_id, $team_id, $modify)
 	{
 		$session=$this->getRequest()->getSession();
-		$session->set('league_id', $league_id);
-		$session->set('team_id', $team_id);
-		if ($modify == "false")
+		$user = $session->get('user');
+		$user_id = $user->getId();
+		$result = $this->get('doctrine')->getManager()->getRepository('UserBundle:Compete')->findOneBy(array('user_id' => $user_id, 'league_id' => $league_id));
+		$result2 = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('user_id' => $user_id, 'team_id' => $team_id));
+		if ($result != null && $result2 != null)
 		{
-			$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
-			$aux = array();
-			$aux = $eleven->getPlayers();
-			$players = array();
-			foreach ($aux as $id)
+			$session->set('league_id', $league_id);
+			$session->set('team_id', $team_id);
+			if ($modify == "false")
 			{
-				$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
-				array_push($players, $player);
+				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
+				$aux = array();
+				$aux = $eleven->getPlayers();
+				$players = array();
+				foreach ($aux as $id)
+				{
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
+					array_push($players, $player);
+				}
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
+					'type' => "Player", 'modify' => $modify));
 			}
-			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-				'type' => "Player", 'modify' => $modify));
+			else
+			{
+				$player_ids = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id));
+				$players = array();
+				foreach ($player_ids as $id)
+				{
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
+					array_push($players, $player);
+				}
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Choose your starting eleven", 'message' => false, 
+					'type' => "Player", 'modify' => $modify));
+			}
 		}
 		else
 		{
-			$player_ids = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id));
-			$players = array();
-			foreach ($player_ids as $id)
-			{
-				$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
-				array_push($players, $player);
-			}
-			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Choose your starting eleven", 'message' => false, 
-				'type' => "Player", 'modify' => $modify));
+			return $this->render('UserBundle:User:index.html.twig');
 		}
-		
 	}
 
 	public function createTeamAction()
