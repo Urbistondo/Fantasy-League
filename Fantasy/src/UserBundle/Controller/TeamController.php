@@ -36,12 +36,12 @@ class TeamController extends Controller
 
 	public function leaguePasswordAction($league_id)
 	{
-		return $this->render('UserBundle:User:leaguepassword.html.twig', array('league_id' => $league_id));
+		return $this->render('UserBundle:League:leaguepassword.html.twig', array('league_id' => $league_id));
 	}
 
 	public function newTeamAction($league_id)
 	{
-		return $this->render('UserBundle:User:teamform.html.twig', array('league_id' => $league_id));
+		return $this->render('UserBundle:Team:teamform.html.twig', array('league_id' => $league_id));
 	}
 
 	public function showTeamAction($league_id, $team_id, $edit)
@@ -199,6 +199,16 @@ class TeamController extends Controller
 		{
 			return $this->render('UserBundle:User:signup.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
 		}
+	}
+
+	public function showPlayerAction($player_id)
+	{
+		$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($player_id);
+		if (!$player)
+		{
+			throw $this->createNotFoundException();
+		}
+		return $this->render('UserBundle:Team:showplayer.html.twig', array('player' => $player));
 	}
 }
 ?>

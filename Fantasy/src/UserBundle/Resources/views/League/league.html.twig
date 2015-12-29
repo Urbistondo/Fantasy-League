@@ -1,0 +1,15 @@
+{% extends "UserBundle:User:layout.html.twig" %}
+{% block title %}Fantasy - Create a league{% endblock %}
+
+{% block body %}
+    <form action="{{ path('user_createLeague') }}" method="POST" name="loginForm" onsubmit="return(validate());">
+    	Name <input id="name" type="text" name="name" placeholder="Name"><br>
+	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
+	  	Capacity <input id="capacity" type="text" name="capacity" placeholder="Maximum number of players"><br>
+	  	<input id="leagueButton" type="submit" value="Create">
+	</form>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

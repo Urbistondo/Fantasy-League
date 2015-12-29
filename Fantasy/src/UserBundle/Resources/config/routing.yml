@@ -69,3 +69,7 @@ user_editEleven:
 user_updateEleven:
     pattern: /teams/update
     defaults: {_controller: UserBundle:Team:updateEleven }
+
+user_showPlayer:
+    pattern: /viewplayer/{player_id}
+    defaults: {_controller: UserBundle:Team:showPlayer }

@@ -27,7 +27,7 @@ class LeagueController extends Controller
 	public function newLeagueAction()
 	{
 		$error = false;
-		return $this->render('UserBundle:User:league.html.twig', array('error' => $error));
+		return $this->render('UserBundle:League:league.html.twig', array('error' => $error));
 	}
 
 	public function createLeagueAction(Request $request)
@@ -54,14 +54,14 @@ class LeagueController extends Controller
 		}
 		else
 		{
-			return $this->render('UserBundle:User:league.html.twig', array('error' => false));
+			return $this->render('UserBundle:League:league.html.twig', array('error' => false));
 		}
 	}
 
 	public function joinLeagueAction()
 	{
 		$error = false;
-		return $this->render('UserBundle:User:league.html.twig', array('error' => $error));
+		return $this->render('UserBundle:League:league.html.twig', array('error' => $error));
 	}
 }
 ?>

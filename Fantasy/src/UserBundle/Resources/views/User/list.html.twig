@@ -18,7 +18,7 @@
 			<h5>This is your current starting eleven</h5>
 			<ul>
 			{% for item in items %}
-				<li><a>{{ item.getPosition() }} ----> {{ item.getName() }}</a></li>
+				<li><a href="{{ path('user_showPlayer', {'player_id': item.getId()}) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li>
 			{% endfor %}
 			</ul>
 			</br>
@@ -132,18 +132,6 @@
 	    $(document).ready(
 	    	function()
 		    {
-			    $('#joinButton').click(
-			    	function()
-			    	{
-			    		alert("I am an alert box!");
-			    	})
-
-			    $('#createButton').click(
-			    	function()
-			    	{
-			    		alert("I am an alert box too!");
-			    	})
-
 			    $("#updateButton").click(
 				    function()
 				    {

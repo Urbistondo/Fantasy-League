@@ -1,0 +1,27 @@
+{% extends "UserBundle:User:home.html.twig" %}
+{% block title %}Fantasy - {{ player.getName()}}{% endblock %}
+
+{% block container %}
+
+  <table style="width:50%">
+    <tr>
+      <th>Name</th>
+      <th>Lastname</th>
+      <th>Nationality</th>
+      <th>Club</th>
+      <th>Position</th>
+      <th>Points</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>{{ player.getName() }}</td>
+      <td>{{ player.getLastname() }}</td>
+      <td>{{ player.getNationality() }}</td>
+      <td>{{ player.getClub() }}</td> 
+      <td>{{ player.getPosition() }}</td>
+      <td>{{ player.getPoints() }}</td>
+      <td>{{ player.getValue() }}</td>
+    </tr>
+  </table>
+
+{% endblock %}

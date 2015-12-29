@@ -52,7 +52,6 @@ class UserController extends Controller
 				$session->set('user', $user);
 
 				return $this->redirect($this->generateUrl('user_listTeams'));
-				//return $this->render('UserBundle:User:home.html.twig', array('message' => false));
 			}
 			else
 			{
@@ -113,24 +112,6 @@ class UserController extends Controller
 		$session=$this->getRequest()->getSession();
 		$session->clear();
 		return $this->render('UserBundle:User:index.html.twig');
-	}
-
-	public function listAction()
-	{
-		$players = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->getPlayers();
-
-		return $this->render('UserBundle:User:list.html.twig', array('players' => $players));
-	}
-
-	public function showAction($id)
-	{
-		$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
-		if (!$player)
-		{
-			throw $this->createNotFoundException();
-		}
-		
-		return $this->render('UserBundle:User:show.html.php', array('player' => $player));
 	}
 }
 ?>
