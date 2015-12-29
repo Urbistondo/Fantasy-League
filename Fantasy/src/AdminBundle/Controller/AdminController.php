@@ -27,7 +27,7 @@ class AdminController extends Controller
     	return $this->render('AdminBundle::playerform.html.twig', array('edit' => false, 'message' => false));
     }
 
-    public function addPlayerAction(Request $request, $edit)
+    public function addPlayerAction(Request $request, $edit, $player_id)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $em->getRepository('UserBundle:Player');
@@ -43,7 +43,15 @@ class AdminController extends Controller
             $points=$request->get('points');
             $values=$request->get('value');
 
-            $player = new Player();
+            if ($edit != "true")
+            {
+                $player = new Player();
+            }
+            else if ($edit == "true")
+            {
+                $player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($player_id);
+            }
+            
             $player->setName($name);
             $player->setLastname($lastname);
             $player->setBirth(new \DateTime($birth));
@@ -53,14 +61,9 @@ class AdminController extends Controller
             $player->setPoints($points);
             $player->setValue($values);
 
-            $em = $this->getDoctrine()->getEntityManager();
-            if ($edit != true)
+            if ($edit != "true")
             {
                 $em->persist($player);
-            }
-            else
-            {   
-                $em->merge($player);
             }
             $em->flush();
             return $this->render('AdminBundle::player.html.twig', array('message' => 'Player added to database succesfully'));

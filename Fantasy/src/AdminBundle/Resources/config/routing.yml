@@ -21,7 +21,7 @@ admin_players_create:
     defaults: { _controller: AdminBundle:Admin:createPlayer }
 
 admin_players_add:
-    pattern: /players/add/{edit}
+    pattern: /players/add/{edit}/{player_id}
     defaults: { _controller: AdminBundle:Admin:addPlayer }
 
 admin_players_list:

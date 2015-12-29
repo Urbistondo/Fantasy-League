@@ -3,7 +3,7 @@
 
 {% block body %}
 	{% if edit == true %}
-    <form action="{{ path('admin_players_add', {'edit': true}) }}" method="POST" onsubmit="return(validate());">
+    <form action="{{ path('admin_players_add', {'edit': "true", 'player_id': player.getId() }) }}" method="POST" onsubmit="return(validate());">
     	Name <input id="name" type="text" name="name" placeholder="Name" value="{{ player.getName() }}"><br>
 	  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname" value="{{ player.getLastname() }}"><br>
     	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
@@ -15,7 +15,7 @@
 	  	<button id="signupButton" type="submit">Sign up</button>
 	</form>
 	{% else %}
-	<form action="{{ path('admin_players_add', {'edit': false}) }}" method="POST" onsubmit="return(validate());">
+	<form action="{{ path('admin_players_add', {'edit': "false", 'player_id': 0}) }}" method="POST" onsubmit="return(validate());">
     	Name <input id="name" type="text" name="name" placeholder="Name"><br>
 	  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname"><br>
     	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
