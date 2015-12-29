@@ -1,5 +1,4 @@
 <?php
-// src/Blogger/AdminBundle/Controller/Admin.php
 namespace AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,7 +50,7 @@ class AdminController extends Controller
             {
                 $player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($player_id);
             }
-            
+
             $player->setName($name);
             $player->setLastname($lastname);
             $player->setBirth(new \DateTime($birth));
