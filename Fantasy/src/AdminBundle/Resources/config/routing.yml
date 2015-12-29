@@ -35,3 +35,27 @@ admin_players_edit:
 admin_players_remove:
     pattern: /players/remove/{player_id}
     defaults: { _controller: AdminBundle:Admin:removePlayer }
+
+admin_leagues:
+    pattern: /leagues
+    defaults: { _controller: AdminBundle:Admin:leagues }
+
+admin_leagues_create:
+    pattern: /leagues/create
+    defaults: { _controller: AdminBundle:Admin:createLeague }
+
+admin_leagues_add:
+    pattern: /leagues/add/{edit}/{league_id}
+    defaults: { _controller: AdminBundle:Admin:addLeague }
+
+admin_leagues_list:
+    pattern: /leagues/list/{edit}
+    defaults: { _controller: AdminBundle:Admin:listLeague }
+
+admin_leagues_edit:
+    pattern: /leagues/edit/{league_id}
+    defaults: { _controller: AdminBundle:Admin:editLeague }
+
+admin_leagues_remove:
+    pattern: /leagues/remove/{league_id}
+    defaults: { _controller: AdminBundle:Admin:removeLeague }

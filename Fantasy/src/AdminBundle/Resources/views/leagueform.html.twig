@@ -1,0 +1,42 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Add league{% endblock %}
+
+{% block body %}
+	{% if edit == true %}
+	    <form action="{{ path('admin_leagues_add', {'edit': "true", 'league_id': league.getLeagueId() }) }}" method="POST" onsubmit="return(validate());">
+	    	Name <input id="league_name" type="text" name="league_name" placeholder="Name for the league" value="{{ league.getLeagueName() }}"><br>
+	    	Password <input id="league_password" type="text" name="league_password" placeholder="Password" value="{{ league.getLeaguePassword() }}"><br>
+		  	Capacity <input id="league_capacity" type="text" name="league_capacity" placeholder="Maximum number of users" value="{{ league.getLeagueCapacity() }}"><br>
+	    	Administrator <input id="nationality" type="text" name="league_admin_id" placeholder="ID of administrator" value="{{ league.getLeagueAdminId() }}"><br>
+		  	<button id="editButton" type="submit">Edit</button>
+		</form>
+	{% elseif edit == false %}
+		<form action="{{ path('admin_leagues_add', {'edit': "false", 'league_id': 0 }) }}" method="POST" onsubmit="return(validate());">
+	    	Name <input id="league_name" type="text" name="league_name" placeholder="Name for the league"><br>
+	    	Password <input id="league_password" type="text" name="league_password" placeholder="Password"><br>
+		  	Capacity <input id="league_capacity" type="text" name="league_capacity" placeholder="Maximum number of users"><br>
+	    	Administrator <input id="nationality" type="text" name="league_admin_id" placeholder="ID of administrator"><br>
+		  	<button id="editButton" type="submit">Remove</button>
+		</form>
+	{% endif %}
+
+	{% if message != false %}
+		<h3>{{ message }}</h3>
+	{% endif %}
+
+	<script>
+		$(document).ready(
+	    function validate()
+	    {
+	        $('#signupButton').click(
+	        function()
+	        {
+	        	
+	        })
+	    });
+	</script>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

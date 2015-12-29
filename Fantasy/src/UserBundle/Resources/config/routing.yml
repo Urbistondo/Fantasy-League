@@ -17,6 +17,8 @@ user_signup:
 user_loginAttempt:
     pattern: /loginAttempt
     defaults: { _controller: UserBundle:User:loginAttempt }
+    requirements:
+        _method: POST
 
 user_signupAttempt:
     pattern: /signupAttempt
@@ -32,12 +34,16 @@ user_listTeams:
     pattern: /teams
     defaults: { _controller: UserBundle:Team:listTeams }
 
+user_leaguePassword:
+    pattern: /teams/league/{league_id}
+    defaults: { _controller: UserBundle:Team:leaguePassword }
+
 user_newTeam:
-    pattern: /teams/new
+    pattern: /teams/new/{league_id}
     defaults: { _controller: UserBundle:Team:newTeam }
 
 user_createTeam:
-    pattern: /teams/create
+    pattern: /teams/create/{league_id}
     defaults: { _controller: UserBundle:Team:createTeam }
 
 user_joinLeague:
@@ -53,12 +59,12 @@ user_createLeague:
     defaults: { _controller: UserBundle:League:createLeague }
 
 user_showTeam:
-    pattern: /teams/{league_id}/{team_id}/{modify}
+    pattern: /teams/{league_id}/{team_id}/{edit}
     defaults: {_controller: UserBundle:Team:showTeam }
 
-user_modifyEleven:
-    pattern: /teams/modify
-    defaults: {_controller: UserBundle:Team:modifyEleven }
+user_editEleven:
+    pattern: /teams/edit
+    defaults: {_controller: UserBundle:Team:editEleven }
 
 user_updateEleven:
     pattern: /teams/update

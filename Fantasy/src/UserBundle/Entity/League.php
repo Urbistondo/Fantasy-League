@@ -45,7 +45,7 @@ class League
      */
     public function getLeagueId()
     {
-        return $this->id;
+        return $this->league_id;
     }
 
     /**

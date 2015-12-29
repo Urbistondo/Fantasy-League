@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Entity\League;
 use UserBundle\Entity\Eleven;
+use UserBundle\Entity\Team;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeamController extends Controller
@@ -33,12 +34,17 @@ class TeamController extends Controller
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
 
-	public function newTeamAction()
+	public function leaguePasswordAction($league_id)
 	{
-		return $this->render('UserBundle:User:teamform.html.twig');
+		return $this->render('UserBundle:User:leaguepassword.html.twig', array('league_id' => $league_id));
 	}
 
-	public function showTeamAction($league_id, $team_id, $modify)
+	public function newTeamAction($league_id)
+	{
+		return $this->render('UserBundle:User:teamform.html.twig', array('league_id' => $league_id));
+	}
+
+	public function showTeamAction($league_id, $team_id, $edit)
 	{
 		$session=$this->getRequest()->getSession();
 		$user = $session->get('user');
@@ -49,7 +55,7 @@ class TeamController extends Controller
 		{
 			$session->set('league_id', $league_id);
 			$session->set('team_id', $team_id);
-			if ($modify == "false")
+			if ($edit == "false")
 			{
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
 				$aux = array();
@@ -61,7 +67,7 @@ class TeamController extends Controller
 					array_push($players, $player);
 				}
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-					'type' => "Player", 'modify' => $modify));
+					'type' => "Player", 'edit' => $edit));
 			}
 			else
 			{
@@ -74,7 +80,7 @@ class TeamController extends Controller
 					array_push($players, $player);
 				}
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Choose your starting eleven", 'message' => false, 
-					'type' => "Player", 'modify' => $modify));
+					'type' => "Player", 'edit' => $edit));
 			}
 		}
 		else
@@ -83,8 +89,47 @@ class TeamController extends Controller
 		}
 	}
 
-	public function createTeamAction()
+	public function createTeamAction(Request $request, $league_id)
 	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$repository = $em->getRepository('UserBundle:Team');
+		$session=$this->getRequest()->getSession();
+		$user=$session->get('user');
+		$user_id = $user->getId();
+
+		if($request->getMethod()=='POST')
+		{
+			$team_name=$request->get('team_name');
+			$league_id=$league_id;
+			$user_id=$user_id;
+
+			$team = $repository->findOneBy(array('league_id'=>$league_id, 'user_id' => $user_id));
+			if($team)
+			{
+				return $this->render('UserBundle:User:home.html.twig', array('message' => 'You already have a team in that league'));
+			}
+			else
+			{
+				$team = new Team();
+				$team->setTeamName($team_name);
+				$team->setLeagueId($league_id);
+				$team->setUserId($user_id);
+				$team->setPoints(0);
+
+				$em->persist($team);
+				$em->flush();
+
+				$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team"));
+			}
+		}
+		else
+		{
+			return $this->render('UserBundle:User:home.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
+		}
+
+
+
 		$session=$this->getRequest()->getSession();
 		$user=$session->get('user');
 		$user_id = $user->getId();
@@ -92,12 +137,12 @@ class TeamController extends Controller
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
 
-	public function modifyElevenAction()
+	public function editElevenAction()
 	{
 		$session = $this->getRequest()->getSession();
 		$league_id = $session->get('league_id');
 		$team_id = $session->get('team_id');
-		return $this->redirectToRoute('user_showTeam', array('league_id' => $league_id, 'team_id' => $team_id, 'modify' => "true"), 301);
+		return $this->redirectToRoute('user_showTeam', array('league_id' => $league_id, 'team_id' => $team_id, 'edit' => "true"), 301);
 	}
 
 	public function updateElevenAction(Request $request)
@@ -147,7 +192,7 @@ class TeamController extends Controller
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->flush();
 			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-				'type' => "Player", 'modify' => false));
+				'type' => "Player", 'edit' => false));
 		}
 		else
 		{

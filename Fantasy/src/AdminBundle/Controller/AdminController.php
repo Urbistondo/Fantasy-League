@@ -91,6 +91,76 @@ class AdminController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
     	$em->remove($player);
 		$em->flush();
-    	return $this->render('AdminBundle::player.html.twig');
+    	return $this->render('AdminBundle::player.html.twig', array('message' => 'Player removed from database succesfully'));
+    }
+
+    public function leaguesAction()
+    {
+        return $this->render('AdminBundle::league.html.twig', array('message' => false));
+    }
+
+    public function createLeagueAction()
+    {
+        return $this->render('AdminBundle::leagueform.html.twig', array('edit' => false, 'message' => false));
+    }
+
+    public function addLeagueAction(Request $request, $edit, $league_id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $repository = $em->getRepository('UserBundle:League');
+
+        if($request->getMethod()=='POST')
+        {
+            $league_name=$request->get('league_name');
+            $league_password=$request->get('league_password');
+            $league_capacity=$request->get('league_capacity');
+            $league_admin_id=$request->get('league_admin_id');
+
+            if ($edit != "true")
+            {
+                $league = new League();
+            }
+            else if ($edit == "true")
+            {
+                $league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);
+            }
+
+            $league->setLeagueName($league_name);
+            $league->setLeaguePassword($league_password);
+            $league->setLeagueCapacity($league_capacity);
+            $league->setLeagueAdminId($league_admin_id);
+
+            if ($edit != "true")
+            {
+                $em->persist($league);
+            }
+            $em->flush();
+            return $this->render('AdminBundle::league.html.twig', array('message' => 'League added to database succesfully'));
+        }
+        else
+        {
+            return $this->render('AdminBundle::leagueform.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
+        }
+    }
+
+    public function listLeagueAction($edit)
+    {
+        $leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
+        return $this->render('AdminBundle::list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => false, 'type' => 'League', 'edit' => $edit));
+    }
+
+    public function editLeagueAction($league_id)
+    {
+        $league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findOneBy(array('league_id' => $league_id));
+        return $this->render('AdminBundle::leagueform.html.twig', array('edit' => true, 'league' => $league, 'message' => false));
+    }
+
+    public function removeLeagueAction($league_id)
+    {
+        $league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findOneBy(array('league_id' => $league_id));
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($league);
+        $em->flush();
+        return $this->render('AdminBundle::league.html.twig', array('message' => 'League removed from database succesfully'));
     }
 }   

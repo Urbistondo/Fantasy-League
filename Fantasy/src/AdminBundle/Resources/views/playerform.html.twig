@@ -3,29 +3,29 @@
 
 {% block body %}
 	{% if edit == true %}
-    <form action="{{ path('admin_players_add', {'edit': "true", 'player_id': player.getId() }) }}" method="POST" onsubmit="return(validate());">
-    	Name <input id="name" type="text" name="name" placeholder="Name" value="{{ player.getName() }}"><br>
-	  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname" value="{{ player.getLastname() }}"><br>
-    	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
-    	Nationality <input id="nationality" type="text" name="nationality" placeholder="Nationality" value="{{ player.getNationality() }}"><br>
-    	Club <input id="club" type="text" name="club" placeholder="Club" value="{{ player.getClub() }}"><br>
-    	Position <input id="position" type="text" name="position" placeholder="Position" value="{{ player.getPosition() }}"><br>
-    	Points <input id="points" type="text" name="points" placeholder="Points" value="{{ player.getPoints() }}"><br>
-    	Value <input id="value" type="text" name="value" placeholder="Value" value="{{ player.getValue() }}"><br>
-	  	<button id="signupButton" type="submit">Sign up</button>
-	</form>
+	    <form action="{{ path('admin_players_add', {'edit': "true", 'player_id': player.getId() }) }}" method="POST" onsubmit="return(validate());">
+	    	Name <input id="name" type="text" name="name" placeholder="Name" value="{{ player.getName() }}"><br>
+		  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname" value="{{ player.getLastname() }}"><br>
+	    	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
+	    	Nationality <input id="nationality" type="text" name="nationality" placeholder="Nationality" value="{{ player.getNationality() }}"><br>
+	    	Club <input id="club" type="text" name="club" placeholder="Club" value="{{ player.getClub() }}"><br>
+	    	Position <input id="position" type="text" name="position" placeholder="Position" value="{{ player.getPosition() }}"><br>
+	    	Points <input id="points" type="text" name="points" placeholder="Points" value="{{ player.getPoints() }}"><br>
+	    	Value <input id="value" type="text" name="value" placeholder="Value" value="{{ player.getValue() }}"><br>
+		  	<button id="signupButton" type="submit">Edit</button>
+		</form>
 	{% else %}
-	<form action="{{ path('admin_players_add', {'edit': "false", 'player_id': 0}) }}" method="POST" onsubmit="return(validate());">
-    	Name <input id="name" type="text" name="name" placeholder="Name"><br>
-	  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname"><br>
-    	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
-    	Nationality <input id="nationality" type="text" name="nationality" placeholder="Nationality"><br>
-    	Club <input id="club" type="text" name="club" placeholder="Club"><br>
-    	Position <input id="position" type="text" name="position" placeholder="Position"><br>
-    	Points <input id="points" type="text" name="points" placeholder="Points"><br>
-    	Value <input id="value" type="text" name="value" placeholder="Value"><br>
-	  	<button id="signupButton" type="submit">Sign up</button>
-	</form>
+		<form action="{{ path('admin_players_add', {'edit': "false", 'player_id': 0}) }}" method="POST" onsubmit="return(validate());">
+	    	Name <input id="name" type="text" name="name" placeholder="Name"><br>
+		  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname"><br>
+	    	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
+	    	Nationality <input id="nationality" type="text" name="nationality" placeholder="Nationality"><br>
+	    	Club <input id="club" type="text" name="club" placeholder="Club"><br>
+	    	Position <input id="position" type="text" name="position" placeholder="Position"><br>
+	    	Points <input id="points" type="text" name="points" placeholder="Points"><br>
+	    	Value <input id="value" type="text" name="value" placeholder="Value"><br>
+		  	<button id="signupButton" type="submit">Remove</button>
+		</form>
 	{% endif %}
 
 	{% if message != false %}

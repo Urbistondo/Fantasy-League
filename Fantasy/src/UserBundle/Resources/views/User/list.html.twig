@@ -5,20 +5,16 @@
 	<div id="item-list">
 		<h3>{{ title }}</h3>
 		{% if type == 'League' %}
-			<h5>Select a league below and click "Join" or create a new one clicking on "Create"</h5>
+			<h5>Click on a league below to join it</h5>
 			<ul>
 			{% for item in items %}
-				<li><a>{{ item.getLeagueName() }}</a></li>
+				<li><a href="{{ path('user_leaguePassword', {'league_id': item.getLeagueId()}) }}">{{ item.getLeagueName() }}</a></li>
 			{% endfor %}
 			</ul>
 			</br>
-			<form action="" method="GET">
-				<button id="joinButton">Join</button>
-				<button id="createButton">Create</button>
-			</form>
 		{% endif %}
 
-		{% if type == 'Player' and modify == "false" %}
+		{% if type == 'Player' and edit == "false" %}
 			<h5>This is your current starting eleven</h5>
 			<ul>
 			{% for item in items %}
@@ -26,10 +22,10 @@
 			{% endfor %}
 			</ul>
 			</br>
-			<form action="{{ path('user_modifyEleven', { 'modify': "true" }) }}" method="GET">
-				<button>Modify</button>
+			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
+				<button>Edit</button>
 			</form>
-		{% elseif type == 'Player' and modify == "true" %}
+		{% elseif type == 'Player' and edit == "true" %}
 			<form action="" method="POST" id="selectForm">
 				<!--{% for i in 0..10 %}
 					<select>
@@ -115,16 +111,18 @@
 		{% if type == "Team" and items|length > 0 %}
 			<ul>
 			{% for item in items %}
-				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'modify': "false" }) }}">
+				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'edit': "false" }) }}">
 				{{ item.getTeamName() }}</a></li>
 			{% endfor %}
 			</ul>
 			</br>
-			<button>Create</button>
+			<form action="{{ path('user_joinLeague') }}" method="GET">
+			    <button id="createTeamButton">Create</button>
+			</form>
 		{% elseif type == "Team" and items|length == 0 %}
 			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
 			</br>
-			<form action="{{ path('user_newTeam') }}" method="GET">
+			<form action="{{ path('user_joinLeague') }}" method="GET">
 			    <button id="createTeamButton">Create</button>
 			</form>
 		{% endif %}

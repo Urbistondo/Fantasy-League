@@ -1,19 +1,35 @@
 {% extends "UserBundle:User:home.html.twig" %}
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
+{% block menu %}{% endblock %}
+
 {% block container %}
-	{% if type == 'Player' and edit == true %}
+	{% if type == 'Player' and edit == "true" %}
 		<h5>Players</h5>
 		<ul>
 		{% for item in items %}
-			<li><a href="{{ path('admin_players_edit', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+			<li><a href="{{ path('admin_players_edit', { 'player_id': item.getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
 		{% endfor %}
 		</ul>
-	{% elseif type == 'Player' and edit == false %}
+	{% elseif type == 'Player' and edit == "false" %}
 		<h5>Players</h5>
 		<ul>
 		{% for item in items %}
-			<li><a href="{{ path('admin_players_remove', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+			<li><a href="{{ path('admin_players_remove', { 'player_id': item.getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+		{% endfor %}
+		</ul>
+	{% elseif type == 'League' and edit == "true" %}
+		<h5>Leagues</h5>
+		<ul>
+		{% for item in items %}
+			<li><a href="{{ path('admin_leagues_edit', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></li></br>
+		{% endfor %}
+		</ul>
+	{% elseif type == 'League' and edit == "false" %}
+		<h5>Leagues</h5>
+		<ul>
+		{% for item in items %}
+			<li><a href="{{ path('admin_leagues_remove', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></li></br>
 		{% endfor %}
 		</ul>
 	{% endif %}
