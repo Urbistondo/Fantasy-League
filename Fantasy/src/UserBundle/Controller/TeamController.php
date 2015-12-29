@@ -65,11 +65,12 @@ class TeamController extends Controller
 			}
 			else
 			{
-				$player_ids = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id));
+				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
 				$players = array();
-				foreach ($player_ids as $id)
+				foreach ($belongs as $belong)
 				{
-					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
+					$id = $belong->getPlayerId();
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
 					array_push($players, $player);
 				}
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Choose your starting eleven", 'message' => false, 

@@ -2,11 +2,18 @@
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
 {% block container %}
-	{% if type == 'Player' and modify == "false" %}
+	{% if type == 'Player' and edit == true %}
 		<h5>Players</h5>
 		<ul>
 		{% for item in items %}
-			<li><a href="{{ path('admin_players_remove_id', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+			<li><a href="{{ path('admin_players_edit', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+		{% endfor %}
+		</ul>
+	{% elseif type == 'Player' and edit == false %}
+		<h5>Players</h5>
+		<ul>
+		{% for item in items %}
+			<li><a href="{{ path('admin_players_remove', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
 		{% endfor %}
 		</ul>
 	{% endif %}

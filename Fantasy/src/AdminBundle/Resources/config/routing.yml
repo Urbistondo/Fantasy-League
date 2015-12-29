@@ -20,10 +20,18 @@ admin_players_create:
     pattern: /players/create
     defaults: { _controller: AdminBundle:Admin:createPlayer }
 
-admin_players_remove:
-    pattern: /players/remove
-    defaults: { _controller: AdminBundle:Admin:removePlayer }
+admin_players_add:
+    pattern: /players/add/{edit}
+    defaults: { _controller: AdminBundle:Admin:addPlayer }
 
-admin_players_remove_id:
+admin_players_list:
+    pattern: /players/list/{edit}
+    defaults: { _controller: AdminBundle:Admin:listPlayer }
+
+admin_players_edit:
+    pattern: /players/edit/{player_id}
+    defaults: { _controller: AdminBundle:Admin:editPlayer }
+
+admin_players_remove:
     pattern: /players/remove/{player_id}
-    defaults: { _controller: AdminBundle:Admin:removePlayerId }
+    defaults: { _controller: AdminBundle:Admin:removePlayer }
