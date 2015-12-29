@@ -39,6 +39,11 @@ class Team
     protected $points;
 
     /**
+    * @ORM\Column(type="integer")
+    */
+    protected $money;
+
+    /**
      * Get team_id
      *
      * @return string
@@ -154,6 +159,30 @@ class Team
     public function setPoints($points)
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get money
+     *
+     * @return string
+     */
+    public function getMoney()
+    {
+        return $this->money;
+    }
+
+    /**
+     * Set money
+     *
+     * @param integer $integer
+     *
+     * @return Team
+     */
+    public function setMoney($money)
+    {
+        $this->money = $money;
 
         return $this;
     }

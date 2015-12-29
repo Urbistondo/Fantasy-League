@@ -115,6 +115,7 @@ class TeamController extends Controller
 				$team->setLeagueId($league_id);
 				$team->setUserId($user_id);
 				$team->setPoints(0);
+				$team->setMoney(20000000);
 
 				$em->persist($team);
 				$em->flush();
