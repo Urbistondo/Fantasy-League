@@ -58,6 +58,10 @@ class AdminController extends Controller
             {
                 $em->persist($player);
             }
+            else
+            {   
+                $em->merge($player);
+            }
             $em->flush();
             return $this->render('AdminBundle::player.html.twig', array('message' => 'Player added to database succesfully'));
         }
