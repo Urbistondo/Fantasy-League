@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Entity\League;
+use UserBundle\Entity\Eleven;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeamController extends Controller
@@ -83,43 +84,55 @@ class TeamController extends Controller
 		$session = $this->getRequest()->getSession();
 		$league_id = $session->get('league_id');
 		$team_id = $session->get('team_id');
+		$user = $session->get('user');
+		$user_id = $user->getId();
 
 		$em = $this->getDoctrine()->getEntityManager();
 		$repository = $em->getRepository('UserBundle:Eleven');
 
 		if($request->getMethod()=='POST')
 		{
-			$username=$request->get('username');
-			$password=$request->get('password');
-			$name=$request->get('name');
-			$email=$request->get('email');
+			$goalkeeper=$request->get('select1');
+			$defender1=$request->get('select2');
+			$defender2=$request->get('select3');
+			$defender3=$request->get('select4');
+			$defender4=$request->get('select5');
+			$midfielder1=$request->get('select6');
+			$midfielder2=$request->get('select7');
+			$midfielder3=$request->get('select8');
+			$midfielder4=$request->get('select9');
+			$striker1=$request->get('select10');
+			$striker2=$request->get('select11');
 
-			$user = $repository->findOneBy(array('username'=>$username));
-			if($user)
-			{
-				return $this->render('UserBundle:User:signup.html.twig', array('message' => 'That username is taken. Please choose another one'));
-			}
-			else
-			{
-				$user = new User();
-				$user->setUsername($username);
-				$user->setPassword($password);
-				$user->setName($name);
-				$user->setEmail($email);
-				$user->setPrivileges(false);
+			$players = array();
+			array_push($players, $goalkeeper, $defender1, $defender2, $defender3, $defender4, $midfielder1, $midfielder2, $midfielder3, $midfielder4, 
+				 $striker1, $striker2);
 
-				$em = $this->getDoctrine()->getEntityManager();
-				$em->persist($user);
-				$em->flush();
-				return $this->render('UserBundle:User:home.html.twig', array('message' => 'User added to database succesfully'));
-			}
+			$eleven = new Eleven();
+			$eleven->setTeamId($team_id);
+			$eleven->setUserId($user_id);
+			$eleven->setGoalkeeper($goalkeeper);
+			$eleven->setDefender1($defender1);
+			$eleven->setDefender2($defender2);
+			$eleven->setDefender3($defender3);
+			$eleven->setDefender4($defender4);
+			$eleven->setMidfielder1($midfielder1);
+			$eleven->setMidfielder2($midfielder2);
+			$eleven->setMidfielder3($midfielder3);
+			$eleven->setMidfielder4($midfielder4);
+			$eleven->setStriker1($striker1);
+			$eleven->setStriker2($striker2);
+
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->persist($eleven);
+			$em->flush();
+			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
+				'type' => "Player", 'modify' => false));
 		}
 		else
 		{
 			return $this->render('UserBundle:User:signup.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
 		}
-
-		return $this->render('UserBundle:User:index.html.twig');
 	}
 }
 ?>

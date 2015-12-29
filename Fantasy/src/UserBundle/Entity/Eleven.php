@@ -81,7 +81,7 @@ class Eleven
     /**
      * Get team_id
      *
-     * @return string
+     * @return integer
      */
     public function getTeamId()
     {
@@ -91,7 +91,7 @@ class Eleven
     /**
      * Set team_id
      *
-     * @param string $team_id
+     * @param integer $team_id
      *
      * @return Eleven
      */
@@ -115,7 +115,7 @@ class Eleven
     /**
      * Set user_id
      *
-     * @param string $user_id
+     * @param integer $user_id
      *
      * @return Eleven
      */
