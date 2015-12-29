@@ -1,0 +1,32 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Add player{% endblock %}
+
+{% block body %}
+    <form action="" method="POST" onsubmit="return(validate());">
+    	Name <input id="name" type="text" name="name" placeholder="Name"><br>
+	  	Lastname <input id="lastname" type="text" name="lastname" placeholder="Lastname"><br>
+    	Birthdate <input id="birthdate" type="date" name="birthdate" placeholder="Date of birth"><br>
+    	Nationality <input id="nationality" type="text" name="nationality" placeholder="Nationality"><br>
+    	Club <input id="club" type="text" name="club" placeholder="Club"><br>
+    	Position <input id="position" type="text" name="position" placeholder="Position"><br>
+    	Points <input id="points" type="text" name="points" placeholder="Points"><br>
+    	Value <input id="value" type="text" name="value" placeholder="Value"><br>
+	  	<button id="signupButton" type="submit">Sign up</button>
+	</form>
+
+	<script>
+		$(document).ready(
+	    function validate()
+	    {
+	        $('#signupButton').click(
+	        function()
+	        {
+	        	
+	        }
+	    });
+	</script>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

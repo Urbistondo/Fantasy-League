@@ -2,26 +2,13 @@
 {% block title %}Fantasy - Log in{% endblock %}
 
 {% block body %}
-	
-		
-	
-    <form action="" method="POST" name="loginForm" onsubmit="return(validate());">
-    	Username <input id="username" type="text" name="username" placeholder="Email address"><br>
-	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
-	  	<button id="loginButton" type="submit">Log in</button>
-	</form>
+    <form action="{{ path('admin_login_check') }}" method="POST" class="login">
+	    <label for="username">Usuario:</label>
+	    <input type="text" id="username" name="_username" value="{{ last_username }}"/>
 
-	<script>
-	    $(document).ready(
-		    function validate()
-		    {
-		        $('#loginButton').click(
-			        function()
-			        {
-			        	$(this).closest("form").attr("action", "{{ path('admin_logout') }}");
-			        }
-			    );
-		    }
-		);
-	</script>
+	    <label for="password">Contraseña:</label>
+	    <input type="password" id="password" name="_password" />
+
+	  	<button id="loginButton" type="submit">Logout</button>
+	</form>
 {% endblock %}

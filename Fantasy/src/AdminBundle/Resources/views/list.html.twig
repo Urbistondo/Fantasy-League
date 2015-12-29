@@ -1,0 +1,13 @@
+{% extends "UserBundle:User:home.html.twig" %}
+{% block title %}Fantasy - {{ title }}{% endblock %}
+
+{% block container %}
+	{% if type == 'Player' and modify == "false" %}
+		<h5>Players</h5>
+		<ul>
+		{% for item in items %}
+			<li><a href="{{ path('admin_players_remove_id', { 'player_id': item. getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}

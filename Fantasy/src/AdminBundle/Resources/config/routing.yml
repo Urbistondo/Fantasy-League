@@ -8,3 +8,22 @@ admin_login_check:
 admin_logout:
     pattern: /logout
 
+admin_home:
+    pattern: /
+    defaults: { _controller: AdminBundle:Admin:home }
+
+admin_players:
+    pattern: /players
+    defaults: { _controller: AdminBundle:Admin:players }
+
+admin_players_create:
+    pattern: /players/create
+    defaults: { _controller: AdminBundle:Admin:createPlayer }
+
+admin_players_remove:
+    pattern: /players/remove
+    defaults: { _controller: AdminBundle:Admin:removePlayer }
+
+admin_players_remove_id:
+    pattern: /players/remove/{player_id}
+    defaults: { _controller: AdminBundle:Admin:removePlayerId }

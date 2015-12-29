@@ -11,8 +11,17 @@ class LeagueController extends Controller
 {
 	public function listLeaguesAction()
 	{
-		$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => false, 'type' => "League"));
+		$session=$this->getRequest()->getSession();
+		$user=$session->get('user');
+		if ($user != null)
+		{
+			$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
+			return $this->render('UserBundle:User:list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => false, 'type' => "League"));
+		}
+		else
+		{
+			return $this->redirectToRoute('user_index');
+		}
 	}
 
 	public function newLeagueAction()

@@ -1,0 +1,29 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Player{% endblock %}
+
+{% block body %}
+    <div id="navmenu"> 
+		<ul>
+		  <li><a href="http://fantasy/app_dev.php/admin/players/create">Add player</a></li>
+		  <li><a href="http://fantasy/app_dev.php/teams">Edit player</a></li>
+		  <li><a href="http://fantasy/app_dev.php/admin/players/remove">Remove player</a></li>
+		  <li><a href="http://fantasy/app_dev.php/exit">Exit</a></li>
+		</ul>
+	</div>
+
+	<script>
+		$(document).ready(
+	    function validate()
+	    {
+	        $('#signupButton').click(
+	        function()
+	        {
+	        	
+	        }
+	    });
+	</script>
+{% endblock %}
+
+{% block javascript %}
+
+{% endblock %}

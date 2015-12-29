@@ -11,13 +11,33 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class AdminController extends Controller
 {
-
-	
-
-    public function adminAction(){
-        
-    	return $this->render('AdminBundle::admin.html.twig', array('creado' => false));
+    public function homeAction()
+    {
+    	return $this->render('AdminBundle::admin.html.twig');
     }
 
-   
- }   
+    public function playersAction()
+    {
+    	return $this->render('AdminBundle::player.html.twig');
+    }
+
+    public function createPlayerAction()
+    {
+    	return $this->render('AdminBundle::playerform.html.twig');
+    }
+
+    public function removePlayerAction()
+    {
+    	$players = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findAll();
+    	return $this->render('AdminBundle::list.html.twig', array('items' => $players, 'title' => "Players", 'message' => false, 'type' => 'Player', 'modify' => "false"));
+    }
+
+    public function removePlayerIdAction($player_id)
+    {
+    	$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $player_id));
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$em->remove($player);
+		$em->flush();
+    	return $this->render('AdminBundle::player.html.twig');
+    }
+}   
