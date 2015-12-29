@@ -2,7 +2,6 @@
 namespace UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 /**
 * @ORM\Entity
 * @ORM\Table(name="user")
@@ -10,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 * @ORM\HasLifecycleCallbacks()
 */
 
-class User IMPLEMENTS UserInterface
+class User
 {
 	/**
 	* @ORM\Id
@@ -173,33 +172,4 @@ class User IMPLEMENTS UserInterface
     {
         return $this->privileges;
     }
-
-      /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        
-    }
-      /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getRoles()
-    {
-        
-    }
-      /**
-     * Get name
-     *
-     * @return string
-     */
-    public function eraseCredentials()
-    {
-        return $this->privileges;
-    }
-
 }
