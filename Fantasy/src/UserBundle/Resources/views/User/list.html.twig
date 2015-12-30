@@ -27,17 +27,6 @@
 			</form>
 		{% elseif type == 'Player' and edit == "true" %}
 			<form action="" method="POST" id="selectForm">
-				<!--{% for i in 0..10 %}
-					<select>
-						<li> 
-							<option disabled selected> -- Select a player -- </option>
-				            {% for item in items %}
-				                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-				            {% endfor %}                
-				        </li>
-					</select>
-					</br>
-				{% endfor %}-->
 				<select id="select1" name="select1">
 					<option disabled selected> --Select a player -- </option>
 					{% for item in items %}

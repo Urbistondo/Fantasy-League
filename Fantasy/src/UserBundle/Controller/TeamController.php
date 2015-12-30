@@ -7,6 +7,7 @@ use UserBundle\Entity\User;
 use UserBundle\Entity\League;
 use UserBundle\Entity\Eleven;
 use UserBundle\Entity\Team;
+use UserBundle\Entity\Belong1;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeamController extends Controller
@@ -71,7 +72,7 @@ class TeamController extends Controller
 			}
 			else
 			{
-				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
+				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong1')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
 				$players = array();
 				foreach ($belongs as $belong)
 				{
