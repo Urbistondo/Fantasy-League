@@ -3,7 +3,32 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Fantasy{% endblock %}</title>
-        {% block stylesheets %}<link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.css') }}" />{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.css') }}" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <style type="text/css">
+                /* Regular desktop/laptop */
+                @media (min-width: 1200px)
+                {
+                    
+                }
+                /* Small desktop/laptop */
+                @media (min-width: 768px) and (max-width: 979px)
+                {
+                    
+                }
+                /* Tablet/phablet */
+                @media (max-width: 767px)
+                {
+                    
+                }
+                /* Smartphone */
+                @media (max-width: 480px)
+                {
+                    
+                }
+            </style>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
