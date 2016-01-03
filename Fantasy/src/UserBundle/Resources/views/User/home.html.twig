@@ -4,13 +4,13 @@
 {% block menu %}
 	<div id="navmenu"> 
 		<ul>
-		  <li><a href="http://fantasy/app.php/teams">Home</a></li>
-		  <li><a href="http://fantasy/app.php/teams">Teams</a></li>
-		  <li><a href="http://fantasy/app.php/leagues/join">Leagues</a></li>
-		  <li><a href="http://fantasy/app.php/forum">Forum</a></li>
-		  <li><a href="http://fantasy/app.php/rules">Rules</a></li>
-		  <li><a href="http://fantasy/app.php/contact">Contact</a></li>
-		  <li><a href="http://fantasy/app.php/exit">Exit</a></li>
+		  <li><a href="{{ path('user_listTeams') }}">Home</a></li>
+		  <li><a href="{{ path('user_listTeams') }}">Teams</a></li>
+		  <li><a href="{{ path('user_joinLeague') }}">Leagues</a></li>
+		  <li><a href="">Forum</a></li>
+		  <li><a href="">Rules</a></li>
+		  <li><a href="">Contact</a></li>
+		  <li><a href="{{ path('user_exit') }}">Exit</a></li>
 		</ul>
 	</div>
 {% endblock %}

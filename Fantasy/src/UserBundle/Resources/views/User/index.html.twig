@@ -3,15 +3,13 @@
 
 {% block body %}
 	<div class="container">
-		<div class="row-fluid">
-			<div class="span12">
-				<h1 class="text-center">Fantasy League</h1>
-				<div class="well">
-					<form action="" method="post" id="welcomeLoginForm" name="welcomeLoginForm">
-						<input id="loginButton" type="submit" value="Log in">
-						<input id="signupButton" type="submit" value="Sign up">
-					</form>
-				</div>
+		<div class="col-md-12 text-center">
+			<h1><b>Fantasy League</b></h1>
+			<div class="well">
+				<form action="" method="post" id="welcomeLoginForm" name="welcomeLoginForm">
+					<button class="btn btn-primary" id="loginButton" type="submit" value="Log in">Log in</button>
+					<button class="btn btn-primary" id="signupButton" type="submit" value="Sign up">Sign up</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -30,7 +28,7 @@
 				$("#signupButton").click(
 					function()
 					{
-			   			$(this).closest("form").attr("action", "http://fantasy/app_dev.php/signup");     
+			   			$(this).closest("form").attr("action", "{{ path('user_signup') }}");     
 					}
 				);
 			}

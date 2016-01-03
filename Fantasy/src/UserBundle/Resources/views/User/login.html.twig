@@ -6,9 +6,11 @@
 		<h3 id="errorMessage">{{ error }}</h3>
 	{% endif %}
     <form action="" method="POST" name="loginForm" onsubmit="return(validate());">
-    	Username <input id="username" type="text" name="username" placeholder="Email address"><br>
-	  	Password <input id="password" type="password" name="password" placeholder="Password"><br>
-	  	<button id="loginButton" type="submit">Log in</button>
+    	<label>Username</label>
+    	<input id="inputUsername" type="text" name="username" placeholder="Email address"><br>
+	  	<label>Password</label>
+	  	<input id="inputPassword" type="password" name="password" placeholder="Password"><br>
+	  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button>
 	</form>
 
 	<script>
@@ -18,9 +20,9 @@
 		        $('#loginButton').click(
 			        function()
 			        {
-			        	if ($('#username').val().length != 0 && $('#username').val().length < 30)
+			        	if ($('#inputUsername').val().length != 0 && $('#inputUsername').val().length < 30)
 			        	{
-			        		if ($('#password').val().length != 0 && $('#password').val().length < 30)
+			        		if ($('#inputPassword').val().length != 0 && $('#inputPassword').val().length < 30)
 			        		{
 			        			$(this).closest("form").attr("action", "{{ path('user_loginAttempt') }}");
 			        			return true;
@@ -28,14 +30,14 @@
 			        		else
 			        		{	
 				        		alert("The password must be 1-30 characters");
-				        		$('#password').focus();
+				        		$('#inputPassword').focus();
 				        		return false;
 			        		}
 			        	}
 			        	else
 			        	{
 			        		alert("The username must be 1-30 characters");
-			        		$('#username').focus();
+			        		$('#inputUsername').focus();
 			        		return false;
 			        	}
 			        }
