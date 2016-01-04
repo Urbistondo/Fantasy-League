@@ -29,6 +29,11 @@ class Team
 	protected $league_id;
 
     /**
+    * @ORM\Column(type="string")
+    */
+    protected $league_name;
+
+    /**
     * @ORM\Column(type="integer")
     */
     protected $user_id;
@@ -94,7 +99,7 @@ class Team
     /**
      * Get league_id
      *
-     * @return string
+     * @return integer
      */
     public function getLeagueId()
     {
@@ -104,13 +109,37 @@ class Team
     /**
      * Set league_id
      *
-     * @param string $league_id
+     * @param integer $league_id
      *
      * @return Team
      */
     public function setLeagueId($league_id)
     {
         $this->league_id = $league_id;
+
+        return $this;
+    }
+
+    /**
+     * Get league_name
+     *
+     * @return string
+     */
+    public function getLeagueName()
+    {
+        return $this->league_name;
+    }
+
+    /**
+     * Set league_name
+     *
+     * @param string $league_name
+     *
+     * @return Team
+     */
+    public function setLeagueName($league_name)
+    {
+        $this->league_name = $league_name;
 
         return $this;
     }

@@ -16,14 +16,28 @@
 
 		{% if type == 'Player' and edit == "false" %}
 			<h5>This is your current starting eleven</h5>
-			<ul>
-			{% for item in items %}
-				<li><a href="{{ path('user_showPlayer', {'player_id': item.getId()}) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li>
-			{% endfor %}
-			</ul>
-			</br>
+
+			<table class="table table-bordered table-striped table-hover">
+				<tr>
+					<th>Name</th>
+					<th>Lastname</th>
+					<th>Position</th>
+					<th>Club</th>
+					<th>Points</th>
+				</tr>
+
+				{% for item in items %}
+					<tr class="clickable-row">
+						<td>{{ item.getName() }}</td>
+						<td>{{ item.getLastname() }}</td>
+						<td>{{ item.getPosition() }}</td>
+						<td>{{ item.getClub() }}</td>
+						<td>{{ item.getPoints() }}</td>
+					</tr>
+				{% endfor %}
+			</table></br>
 			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
-				<button>Edit</button>
+				<button class="btn btn-primary" id="#editButton">Edit</button>
 			</form>
 		{% elseif type == 'Player' and edit == "true" %}
 			<form action="" method="POST" id="selectForm">
@@ -93,30 +107,41 @@
 		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
 		            {% endfor %}
 		        </select></br>
-			<button id="updateButton">Update</button>
+			<button class="btn btn-primary" id="updateButton">Update</button>
 			</form>
 		{% endif %}
 
 		{% if type == "Team" and items|length > 0 %}
-			<ul>
-			{% for item in items %}
-				<li><a href="{{ path('user_showTeam', { 'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'edit': "false" }) }}">
-				{{ item.getTeamName() }}</a></li>
-			{% endfor %}
-			</ul>
-			</br>
+			<table class="table table-bordered table-striped table-hover">
+				<tr>
+					<th>Team name</th>
+					<th>League name</th>
+					<th>Points</th>
+				</tr>
+
+				{% for item in items %}
+					<tr class="clickable-row" data-href="">
+						<td>{{ item.getTeamName() }}</td>
+						<td>{{ item.getLeagueName() }}</td>
+						<td>{{ item.getPoints() }}</td>
+					</tr>
+				{% endfor %}
+			</table></br>
+
 			<form action="{{ path('user_joinLeague') }}" method="GET">
-			    <button id="createTeamButton">Create</button>
+			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
 			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
 			</br>
 			<form action="{{ path('user_joinLeague') }}" method="GET">
-			    <button id="createTeamButton">Create</button>
+			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
 			</form>
 		{% endif %}
 	</div>
+{% endblock %}
 
+{% block javascripts %}
 	<script>
 	    $(document).ready(
 	    	function()
@@ -129,11 +154,14 @@
 					    $(this).closest("form").attr("action", "{{ path('user_updateEleven') }}");
 					}
 				)
+
+			    $(".clickable-row").click(
+			    	function ()
+				    {
+					   	//How do we redirect the user to the team page from here.
+					}
+				)
 			}
 		);
 	</script>
-{% endblock %}
-
-{% block javascripts %}
-
 {% endblock %}
