@@ -2,17 +2,36 @@
 {% block title %}Fantasy - Log in{% endblock %}
 
 {% block body %}
-	{% if error %}
-		<h3 id="errorMessage">{{ error }}</h3>
-	{% endif %}
-    <form action="" method="POST" name="loginForm" onsubmit="return(validate());">
-    	<label>Username</label>
-    	<input id="inputUsername" type="text" name="username" placeholder="Email address"><br>
-	  	<label>Password</label>
-	  	<input id="inputPassword" type="password" name="password" placeholder="Password"><br>
-	  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button>
-	</form>
 
+	<div class="container">
+		<div class="col-md-4 text-center">
+			<legend>Log in information</legend>
+
+			{% if error %}
+				<h4 id="errorMessage">{{ error }}</h4>
+			{% endif %}
+
+		    <form class="horizontal-form" role="form" action="" method="POST" onsubmit="return(validate());">
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="email">Username</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="text" name="username" id="inputUsername" placeholder="Username" required autofocus>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="password">Password</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="password" name="password" id="inputPassword" placeholder="Password" required>
+		    		</div>
+		    	</div>
+			  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
 	<script>
 	    $(document).ready(
 		    function validate()
@@ -20,9 +39,9 @@
 		        $('#loginButton').click(
 			        function()
 			        {
-			        	if ($('#inputUsername').val().length != 0 && $('#inputUsername').val().length < 30)
+			        	if ($('#inputUsername').val().length < 30)
 			        	{
-			        		if ($('#inputPassword').val().length != 0 && $('#inputPassword').val().length < 30)
+			        		if ($('#inputPassword').val().length < 30)
 			        		{
 			        			$(this).closest("form").attr("action", "{{ path('user_loginAttempt') }}");
 			        			return true;

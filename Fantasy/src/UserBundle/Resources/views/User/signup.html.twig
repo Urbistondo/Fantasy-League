@@ -2,37 +2,40 @@
 {% block title %}Fantasy - Sign up{% endblock %}
 
 {% block body %}
-	{% if message %}
-		<h3 id="message">{{ message }}</h3>
-	{% endif %}
+	
 	<div class="container">
-		<div class="col-md-12 text-center">
+		<div class="col-md-4 text-center">
 			<legend>Account information</legend>
+
+			{% if message %}
+				<h4 id="message">{{ message }}</h4>
+			{% endif %}
+
 		    <form class="horizontal-form" role="form" action="" method="POST" onsubmit="return(validate());">
 		    	<div class="form-group">
-		    		<label class="control-label col-md-6 text-right" for="email">Username</label>
-		    		<div class="col-md-6">
+		    		<label class="control-label col-md-4 text-right" for="email">Username</label>
+		    		<div class="col-md-8">
 		    			<input class="form-control" type="text" name="username" id="inputUsername" placeholder="Username" required autofocus>
 		    		</div>
 		    	</div>
 		    	
 		    	<div class="form-group">
-		    		<label class="control-label col-md-6 text-right" for="password">Password</label>
-		    		<div class="col-md-6">
+		    		<label class="control-label col-md-4 text-right" for="password">Password</label>
+		    		<div class="col-md-8">
 		    			<input class="form-control" type="password" name="password" id="inputPassword" placeholder="Password" required>
 		    		</div>
 		    	</div>
 
 		    	<div class="form-group">
-		    		<label class="control-label col-md-6 text-right" for="password">First name</label>
-		    		<div class="col-md-6">
+		    		<label class="control-label col-md-4 text-right" for="password">First name</label>
+		    		<div class="col-md-8">
 		    			<input class="form-control" type="text" name="name" id="inputName" placeholder="First name" required>
 		    		</div>
 		    	</div>
 
 		    	<div class="form-group">
-		    		<label class="control-label col-md-6 text-right" for="password">Email</label>
-		    		<div class="col-md-6">
+		    		<label class="control-label col-md-4 text-right" for="password">Email</label>
+		    		<div class="col-md-8">
 		    			<input class="form-control" type="email" name="email" id="inputEmail" placeholder="Email address" required>
 		    		</div>
 		    	</div>
@@ -40,7 +43,9 @@
 			</form>
 		</div>
 	</div>
+{% endblock %}
 
+{% block javascripts %}
 	<script>
 		$(document).ready(
 	    function validate()
@@ -48,13 +53,13 @@
 	        $('#signupButton').click(
 	        function()
 	        {
-	        	if ($('#inputUsername').val().length != 0 && $('#inputUsername').val().length <= 30)
+	        	if ($('#inputUsername').val().length <= 30)
 	        	{
-	        		if ($('#inputPassword').val().length != 0 && $('#inputPassword').val().length <= 30)
+	        		if ($('#inputPassword').val().length <= 30)
 	        		{
-	        			if ($('#inputName').val().length != 0 && $('#inputName').val().length <= 30)
+	        			if ($('#inputName').val().length <= 30)
 	        			{
-	        				if ($('#inputEmail').val().length != 0 && $('#inputEmail').val().length <= 50)
+	        				if ($('#inputEmail').val().length <= 50)
 	        				{
 	        					$(this).closest("form").attr("action", "{{ path('user_signupAttempt') }}");
 	        					return true;
@@ -89,8 +94,4 @@
 	        });
 	    });
 	</script>
-{% endblock %}
-
-{% block javascript %}
-
 {% endblock %}

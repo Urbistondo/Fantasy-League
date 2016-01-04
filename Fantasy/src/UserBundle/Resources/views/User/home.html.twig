@@ -2,8 +2,9 @@
 {% block title %}Fantasy - Home{% endblock %}
 
 {% block menu %}
-	<div id="navmenu"> 
-		<ul>
+	<nav class="navbar navbar-inverse nav-stacked span3">
+	  <div class="container">
+	    <ul>
 		  <li><a href="{{ path('user_listTeams') }}">Home</a></li>
 		  <li><a href="{{ path('user_listTeams') }}">Teams</a></li>
 		  <li><a href="{{ path('user_joinLeague') }}">Leagues</a></li>
@@ -12,5 +13,7 @@
 		  <li><a href="">Contact</a></li>
 		  <li><a href="{{ path('user_exit') }}">Exit</a></li>
 		</ul>
-	</div>
+	  </div>
+	</nav>
+
 {% endblock %}
