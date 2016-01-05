@@ -1,13 +1,13 @@
-{% extends "UserBundle::layout.html.twig" %}
+{% extends "AdminBundle::admin.html.twig" %}
 {% block title %}Fantasy - Player{% endblock %}
 
 {% block body %}
     <div id="navmenu"> 
 		<ul>
-		  <li><a href="http://fantasy/app_dev.php/admin/players/create">Add player</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/players/list/true">Edit player</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/players/list/false">Remove player</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/logout">Exit</a></li>
+		  <li><a href="{{ path('admin_players_create') }}">Add player</a></li>
+		  <li><a href="{{ path('admin_players_list', { 'edit': 1 }) }}">Edit player</a></li>
+		  <li><a href="{{ path('admin_players_list', { 'edit': 0 }) }}">Remove player</a></li>
+		  <li><a href="{{ path('admin_logout') }}">Exit</a></li>
 		</ul>
 	</div>
 
@@ -15,19 +15,21 @@
 		<h3>{{ message }}</h3>
 	{% endif %}
 
-	<script>
-		$(document).ready(
-	    function validate()
-	    {
-	        $('#signupButton').click(
-	        function()
-	        {
-	        	
-	        }
-	    });
-	</script>
+
 {% endblock %}
 
-{% block javascript %}
-
+{% block javascripts %}
+	<script>
+		$(document).ready(
+		    function validate()
+		    {
+		        $('#signupButton').click(
+			        function()
+			        {
+			        	
+			        }
+		        )
+		    }
+		);
+	</script>
 {% endblock %}

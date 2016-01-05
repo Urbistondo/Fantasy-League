@@ -1,36 +1,81 @@
-{% extends "UserBundle:User:home.html.twig" %}
+{% extends "AdminBundle::admin.html.twig" %}
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
-{% block menu %}{% endblock %}
-
 {% block container %}
-	{% if type == 'Player' and edit == "true" %}
-		<h5>Players</h5>
-		<ul>
-		{% for item in items %}
-			<li><a href="{{ path('admin_players_edit', { 'player_id': item.getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
-		{% endfor %}
-		</ul>
-	{% elseif type == 'Player' and edit == "false" %}
-		<h5>Players</h5>
-		<ul>
-		{% for item in items %}
-			<li><a href="{{ path('admin_players_remove', { 'player_id': item.getId() }) }}">{{ item.getPosition() }} ----> {{ item.getName() }}</a></li></br>
-		{% endfor %}
-		</ul>
-	{% elseif type == 'League' and edit == "true" %}
-		<h5>Leagues</h5>
-		<ul>
-		{% for item in items %}
-			<li><a href="{{ path('admin_leagues_edit', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></li></br>
-		{% endfor %}
-		</ul>
-	{% elseif type == 'League' and edit == "false" %}
-		<h5>Leagues</h5>
-		<ul>
-		{% for item in items %}
-			<li><a href="{{ path('admin_leagues_remove', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></li></br>
-		{% endfor %}
-		</ul>
+	{% if type == 'Player' and edit %}
+		<h5>Edit player</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Position</th>
+				<th>Club</th>
+				<th>Points</th>
+			</tr>
+
+			{% for item in items %}
+				<tr class="clickable-row">
+					<td><a href="{{ path('admin_players_edit', { 'player_id': item.getId() }) }}">{{ item.getName() }}</a></td>
+					<td>{{ item.getLastname() }}</td>
+					<td>{{ item.getPosition() }}</td>
+					<td>{{ item.getClub() }}</td>
+					<td>{{ item.getPoints() }}</td>
+				</tr>
+			{% endfor %}
+		</table></br>
+	{% elseif type == 'Player' and not edit %}
+		<h5>Remove player</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Position</th>
+				<th>Club</th>
+				<th>Points</th>
+			</tr>
+
+			{% for item in items %}
+				<tr class="clickable-row">
+					<td>{{ item.getName() }}</td>
+					<td>{{ item.getLastname() }}</td>
+					<td>{{ item.getPosition() }}</td>
+					<td>{{ item.getClub() }}</td>
+					<td>{{ item.getPoints() }}</td>
+				</tr>
+			{% endfor %}
+		</table></br>
+		<form action="{{ path('admin_players_remove', { 'player_id': item.getId() }) }}" method="GET">
+			<button class="btn btn-primary" id="#editButton">Edit</button>
+		</form>
+	{% elseif type == 'League' and edit %}
+		<h5>Edit league</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<th>League name</th>
+				<th>Capacity</th>
+			</tr>
+
+			{% for item in items %}
+				<tr class="clickable-row">
+					<td><a href="{{ path('admin_leagues_edit', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></td>
+					<td>{{ item.getLeagueCapacity() }}</td>
+				</tr>
+			{% endfor %}
+		</table></br>
+	{% elseif type == 'League' and not edit %}
+		<h5>Remove league</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tr>
+				<th>League name</th>
+				<th>Capacity</th>
+			</tr>
+
+			{% for item in items %}
+				<tr class="clickable-row">
+					<td><a href="{{ path('admin_leagues_remove', { 'league_id': item.getLeagueId() }) }}">{{ item.getLeagueName() }}</a></td>
+					<td>{{ item.getLeagueCapacity() }}</td>
+				</tr>
+			{% endfor %}
+		</table></br>
 	{% endif %}
 {% endblock %}

@@ -121,7 +121,8 @@
 
 				{% for item in items %}
 					<tr class="clickable-row" data-href="">
-						<td>{{ item.getTeamName() }}</td>
+						<td><a href="{{ path('user_showTeam', {'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'edit': "false"}) }}">
+						{{ item.getTeamName() }}</a></td>
 						<td>{{ item.getLeagueName() }}</td>
 						<td>{{ item.getPoints() }}</td>
 					</tr>

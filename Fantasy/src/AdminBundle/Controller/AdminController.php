@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function homeAction()
     {
-    	return $this->render('AdminBundle::admin.html.twig');
+    	return $this->render('AdminBundle::admin.html.twig', array('message' => false));
     }
 
     public function playersAction()
@@ -162,5 +162,36 @@ class AdminController extends Controller
         $em->remove($league);
         $em->flush();
         return $this->render('AdminBundle::league.html.twig', array('message' => 'League removed from database succesfully'));
+    }
+
+    public function updateMarketsAction()
+    {
+        $markets = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findAll();
+        $players = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findAll();
+        $player_ids = array();
+        foreach ($players as $player)
+        {
+            array_push($player_ids, $player->getId());
+        }
+        foreach ($markets as $market)
+        {
+            $league_id = $market->getLeagueId();
+            $league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);
+            $unavailable_players = $market->getPlayers();
+            $available_players = array_diff($player_ids, $unavailable_players);
+            $available_players = array_values($available_players);
+            $new_players = array();
+            for ($i = 0; $i < 5; $i++)
+            {
+                $random = rand(0, (count($available_players) - 1));
+                array_push($new_players, $available_players[$random]);
+                unset($available_players[$random]);
+                $available_players = array_values($available_players);
+            }
+            $market->setPlayers($new_players);
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->flush();
+        }
+        return $this->render('AdminBundle::admin.html.twig', array('message' => 'Markets updated succesfully'));
     }
 }   

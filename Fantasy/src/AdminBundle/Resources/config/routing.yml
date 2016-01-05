@@ -59,3 +59,7 @@ admin_leagues_edit:
 admin_leagues_remove:
     pattern: /leagues/remove/{league_id}
     defaults: { _controller: AdminBundle:Admin:removeLeague }
+
+admin_update_markets:
+    pattern: /leagues/update
+    defaults: { _controller: AdminBundle:Admin:updateMarkets }

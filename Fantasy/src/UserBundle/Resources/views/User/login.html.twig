@@ -7,8 +7,8 @@
 		<div class="col-md-4 text-center">
 			<legend>Log in information</legend>
 
-			{% if error %}
-				<h4 id="errorMessage">{{ error }}</h4>
+			{% if message %}
+				<h4 id="message">{{ message }}</h4>
 			{% endif %}
 
 		    <form class="horizontal-form" role="form" action="" method="POST" onsubmit="return(validate());">
@@ -25,7 +25,8 @@
 		    			<input class="form-control" type="password" name="password" id="inputPassword" placeholder="Password" required>
 		    		</div>
 		    	</div>
-			  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button>
+			  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button></br>
+			  	<a href="{{ path('admin_home') }}">Log in as administrator</a>
 			</form>
 		</div>
 	</div>

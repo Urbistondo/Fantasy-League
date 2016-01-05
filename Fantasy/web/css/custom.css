@@ -1,0 +1,16 @@
+.navbar {
+	background-color: #002E6E;
+}
+
+.navbar a {
+    color: white;
+}
+
+th {
+	background-color: #003C8F;
+	color: #FFFFFF;
+}
+
+.glyphicon {
+	margin-right: 15px;
+}

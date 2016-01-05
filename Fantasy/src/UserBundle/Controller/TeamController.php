@@ -7,7 +7,8 @@ use UserBundle\Entity\User;
 use UserBundle\Entity\League;
 use UserBundle\Entity\Eleven;
 use UserBundle\Entity\Team;
-use UserBundle\Entity\Belong1;
+use UserBundle\Entity\Belong;
+use UserBundle\Entity\Compete;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class TeamController extends Controller
@@ -35,11 +36,6 @@ class TeamController extends Controller
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
 
-	public function leaguePasswordAction($league_id)
-	{
-		return $this->render('UserBundle:League:leaguepassword.html.twig', array('league_id' => $league_id));
-	}
-
 	public function newTeamAction($league_id)
 	{
 		return $this->render('UserBundle:Team:teamform.html.twig', array('league_id' => $league_id));
@@ -59,20 +55,27 @@ class TeamController extends Controller
 			if ($edit == "false")
 			{
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
-				$aux = array();
-				$aux = $eleven->getPlayers();
-				$players = array();
-				foreach ($aux as $id)
+				if ($eleven != null)
 				{
-					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
-					array_push($players, $player);
+					$aux = array();
+					$aux = $eleven->getPlayers();
+					$players = array();
+					foreach ($aux as $id)
+					{
+						$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
+						array_push($players, $player);
+					}
+					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
+						'type' => "Player", 'edit' => $edit));
+					}
+				else
+				{
+					return $this->render('UserBundle:User:index.html.twig');
 				}
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-					'type' => "Player", 'edit' => $edit));
 			}
 			else
 			{
-				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong1')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
+				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
 				$players = array();
 				foreach ($belongs as $belong)
 				{
@@ -93,33 +96,67 @@ class TeamController extends Controller
 	public function createTeamAction(Request $request, $league_id)
 	{
 		$em = $this->getDoctrine()->getEntityManager();
-		$repository = $em->getRepository('UserBundle:Team');
-		$session=$this->getRequest()->getSession();
-		$user=$session->get('user');
+		$session = $this->getRequest()->getSession();
+		$user = $session->get('user');
 		$user_id = $user->getId();
 
 		if($request->getMethod()=='POST')
 		{
-			$team_name=$request->get('team_name');
-			$league_id=$league_id;
-			$user_id=$user_id;
-
-			$team = $repository->findOneBy(array('league_id'=>$league_id, 'user_id' => $user_id));
+			$team = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('league_id'=>$league_id, 'user_id' => $user_id));
 			if($team)
 			{
 				return $this->render('UserBundle:User:home.html.twig', array('message' => 'You already have a team in that league'));
 			}
 			else
 			{
+				$team_name = $request->get('team_name');
+				$league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);
+				$league_name = $league->getLeagueName();
 				$team = new Team();
 				$team->setTeamName($team_name);
 				$team->setLeagueId($league_id);
+				$team->setLeagueName($league_name);
 				$team->setUserId($user_id);
 				$team->setPoints(0);
 				$team->setMoney(20000000);
 
+				$compete = new Compete();
+				$compete->setLeagueId($league_id);
+				$compete->setLeagueName($league_name);
+				$compete->setUserId($user_id);
+				$compete->setUserUserName($user->getName());
+
 				$em->persist($team);
+				$em->persist($compete);
 				$em->flush();
+
+				$players = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findAll();
+				$player_ids = array();
+
+				foreach ($players as $player)
+		        {
+		            array_push($player_ids, $player->getId());
+		        }
+
+				$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
+	            $league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);
+	            $unavailable_players = $market->getPlayers();
+	            $available_players = array_diff($player_ids, $unavailable_players);
+	            $available_players = array_values($available_players);
+
+	            for ($i = 0; $i < 5; $i++)
+	            {
+	                $random = rand(0, (count($available_players) - 1));
+	                $belong = new Belong();
+					$belong->setTeamId($team->getTeamId());
+					$belong->setLeagueId($league_id);
+					$belong->setPlayerId($available_players[$random]);
+	                unset($available_players[$random]);
+	                $available_players = array_values($available_players);
+	                $em->persist($belong);
+	            }
+
+	            $em->flush();
 
 				$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team"));
@@ -127,10 +164,8 @@ class TeamController extends Controller
 		}
 		else
 		{
-			return $this->render('UserBundle:User:home.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
+			throw $this->createNotFoundException('There was an unexpected problem. Please try again or contact the administrators.');
 		}
-
-
 
 		$session=$this->getRequest()->getSession();
 		$user=$session->get('user');

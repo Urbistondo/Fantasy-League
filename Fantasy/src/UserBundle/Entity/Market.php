@@ -21,7 +21,7 @@ class Market
 	/**
 	* @ORM\Column(type="integer")
 	*/
-	protected $id_league;
+	protected $league_id;
 
 	/**
 	* @ORM\Column(type="integer")
@@ -48,85 +48,6 @@ class Market
 	*/
 	protected $id_player5;
 
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player6;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player7;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player8;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player9;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player10;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player11;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player12;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player13;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player14;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player15;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player16;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player17;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player18;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player19;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-	protected $id_player20;
-
-	/**
-	* @ORM\Column(type="integer")
-	*/
-
     /**
      * Get id
      *
@@ -138,27 +59,27 @@ class Market
     }
 
     /**
-     * Set idLeague
+     * Set league_id
      *
-     * @param string $idLeague
+     * @param string $league_id
      *
      * @return Market
      */
-    public function setIdLeague($idLeague)
+    public function setLeagueId($league_id)
     {
-        $this->id_league = $idLeague;
+        $this->league_id = $league_id;
 
         return $this;
     }
 
     /**
-     * Get idLeague
+     * Get league_id
      *
      * @return string
      */
-    public function getIdLeague()
+    public function getLeagueId()
     {
-        return $this->id_league;
+        return $this->league_id;
     }
 
     /**
@@ -282,362 +203,30 @@ class Market
     }
 
     /**
-     * Set idPlayer6
+     * Set players
      *
-     * @param string $idPlayer6
+     *@param integer []
      *
      * @return Market
      */
-    public function setIdPlayer6($idPlayer6)
+    public function setPlayers($players)
     {
-        $this->id_player6 = $idPlayer6;
-
+        $this->id_player1 = $players[0];
+        $this->id_player2 = $players[1];
+        $this->id_player3 = $players[2];
+        $this->id_player4 = $players[3];
+        $this->id_player5 = $players[4];
         return $this;
     }
 
     /**
-     * Get idPlayer6
+     * Get players
      *
-     * @return string
+     * @return integer []
      */
-    public function getIdPlayer6()
+    public function getPlayers()
     {
-        return $this->id_player6;
-    }
-
-    /**
-     * Set idPlayer7
-     *
-     * @param string $idPlayer7
-     *
-     * @return Market
-     */
-    public function setIdPlayer7($idPlayer7)
-    {
-        $this->id_player7 = $idPlayer7;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer7
-     *
-     * @return string
-     */
-    public function getIdPlayer7()
-    {
-        return $this->id_player7;
-    }
-
-    /**
-     * Set idPlayer8
-     *
-     * @param string $idPlayer8
-     *
-     * @return Market
-     */
-    public function setIdPlayer8($idPlayer8)
-    {
-        $this->id_player8 = $idPlayer8;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer8
-     *
-     * @return string
-     */
-    public function getIdPlayer8()
-    {
-        return $this->id_player8;
-    }
-
-    /**
-     * Set idPlayer9
-     *
-     * @param string $idPlayer9
-     *
-     * @return Market
-     */
-    public function setIdPlayer9($idPlayer9)
-    {
-        $this->id_player9 = $idPlayer9;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer9
-     *
-     * @return string
-     */
-    public function getIdPlayer9()
-    {
-        return $this->id_player9;
-    }
-
-    /**
-     * Set idPlayer10
-     *
-     * @param string $idPlayer10
-     *
-     * @return Market
-     */
-    public function setIdPlayer10($idPlayer10)
-    {
-        $this->id_player10 = $idPlayer10;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer10
-     *
-     * @return string
-     */
-    public function getIdPlayer10()
-    {
-        return $this->id_player10;
-    }
-
-    /**
-     * Set idPlayer11
-     *
-     * @param string $idPlayer11
-     *
-     * @return Market
-     */
-    public function setIdPlayer11($idPlayer11)
-    {
-        $this->id_player11 = $idPlayer11;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer11
-     *
-     * @return string
-     */
-    public function getIdPlayer11()
-    {
-        return $this->id_player11;
-    }
-
-    /**
-     * Set idPlayer12
-     *
-     * @param string $idPlayer12
-     *
-     * @return Market
-     */
-    public function setIdPlayer12($idPlayer12)
-    {
-        $this->id_player12 = $idPlayer12;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer12
-     *
-     * @return string
-     */
-    public function getIdPlayer12()
-    {
-        return $this->id_player12;
-    }
-
-    /**
-     * Set idPlayer13
-     *
-     * @param string $idPlayer13
-     *
-     * @return Market
-     */
-    public function setIdPlayer13($idPlayer13)
-    {
-        $this->id_player13 = $idPlayer13;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer13
-     *
-     * @return string
-     */
-    public function getIdPlayer13()
-    {
-        return $this->id_player13;
-    }
-
-    /**
-     * Set idPlayer14
-     *
-     * @param string $idPlayer14
-     *
-     * @return Market
-     */
-    public function setIdPlayer14($idPlayer14)
-    {
-        $this->id_player14 = $idPlayer14;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer14
-     *
-     * @return string
-     */
-    public function getIdPlayer14()
-    {
-        return $this->id_player14;
-    }
-
-    /**
-     * Set idPlayer15
-     *
-     * @param string $idPlayer15
-     *
-     * @return Market
-     */
-    public function setIdPlayer15($idPlayer15)
-    {
-        $this->id_player15 = $idPlayer15;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer15
-     *
-     * @return string
-     */
-    public function getIdPlayer15()
-    {
-        return $this->id_player15;
-    }
-
-    /**
-     * Set idPlayer16
-     *
-     * @param string $idPlayer16
-     *
-     * @return Market
-     */
-    public function setIdPlayer16($idPlayer16)
-    {
-        $this->id_player16 = $idPlayer16;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer16
-     *
-     * @return string
-     */
-    public function getIdPlayer16()
-    {
-        return $this->id_player16;
-    }
-
-    /**
-     * Set idPlayer17
-     *
-     * @param string $idPlayer17
-     *
-     * @return Market
-     */
-    public function setIdPlayer17($idPlayer17)
-    {
-        $this->id_player17 = $idPlayer17;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer17
-     *
-     * @return string
-     */
-    public function getIdPlayer17()
-    {
-        return $this->id_player17;
-    }
-
-    /**
-     * Set idPlayer18
-     *
-     * @param string $idPlayer18
-     *
-     * @return Market
-     */
-    public function setIdPlayer18($idPlayer18)
-    {
-        $this->id_player18 = $idPlayer18;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer18
-     *
-     * @return string
-     */
-    public function getIdPlayer18()
-    {
-        return $this->id_player18;
-    }
-
-    /**
-     * Set idPlayer19
-     *
-     * @param string $idPlayer19
-     *
-     * @return Market
-     */
-    public function setIdPlayer19($idPlayer19)
-    {
-        $this->id_player19 = $idPlayer19;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer19
-     *
-     * @return string
-     */
-    public function getIdPlayer19()
-    {
-        return $this->id_player19;
-    }
-
-    /**
-     * Set idPlayer20
-     *
-     * @param string $idPlayer20
-     *
-     * @return Market
-     */
-    public function setIdPlayer20($idPlayer20)
-    {
-        $this->id_player20 = $idPlayer20;
-
-        return $this;
-    }
-
-    /**
-     * Get idPlayer20
-     *
-     * @return string
-     */
-    public function getIdPlayer20()
-    {
-        return $this->id_player20;
+        $players = [$this->id_player1, $this->id_player2, $this->id_player3, $this->id_player4, $this->id_player5];
+        return $players;
     }
 }

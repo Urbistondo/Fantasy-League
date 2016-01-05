@@ -5,12 +5,12 @@ namespace UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Belong1
+ * Belong
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Belong1
+class Belong
 {
     /**
      * @var integer
@@ -58,7 +58,7 @@ class Belong1
      *
      * @param integer $teamId
      *
-     * @return Belong1
+     * @return Belong
      */
     public function setTeamId($teamId)
     {
@@ -82,7 +82,7 @@ class Belong1
      *
      * @param integer $leagueId
      *
-     * @return Belong1
+     * @return Belong
      */
     public function setLeagueId($leagueId)
     {
@@ -106,7 +106,7 @@ class Belong1
      *
      * @param integer $playerId
      *
-     * @return Belong1
+     * @return Belong
      */
     public function setPlayerId($playerId)
     {

@@ -24,6 +24,12 @@ class LeagueController extends Controller
 		}
 	}
 
+	public function leaguePasswordAction($league_id)
+	{
+		$league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);
+		return $this->render('UserBundle:League:leaguepassword.html.twig', array('league_id' => $league_id, 'league_password' => $league->getLeaguePassword()));
+	}
+
 	public function newLeagueAction()
 	{
 		$error = false;

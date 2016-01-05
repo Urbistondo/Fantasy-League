@@ -26,7 +26,7 @@ class UserController extends Controller
 
 	public function loginAction()
 	{
-		return $this->render('UserBundle:User:login.html.twig', array('error' => false));
+		return $this->render('UserBundle:User:login.html.twig', array('message' => false));
 	}
 
 	public function signupAction()
@@ -55,12 +55,12 @@ class UserController extends Controller
 			}
 			else
 			{
-				return $this->render('UserBundle:User:login.html.twig', array('error' => "Invalid username or password"));
+				return $this->render('UserBundle:User:login.html.twig', array('message' => "Invalid username or password"));
 			}
 		}
 		else
 		{
-			return $this->render('UserBundle:User:login.html.twig', array('error' => "There was an error submitting the form</br>Please try again or contact the administrators"));
+			return $this->render('UserBundle:User:login.html.twig', array('message' => "There was an error submitting the form</br>Please try again or contact the administrators"));
 		}
 	}
 

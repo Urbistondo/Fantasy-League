@@ -1,13 +1,13 @@
-{% extends "UserBundle::layout.html.twig" %}
+{% extends "AdminBundle::admin.html.twig" %}
 {% block title %}Fantasy - League{% endblock %}
 
 {% block body %}
     <div id="navmenu"> 
 		<ul>
-		  <li><a href="http://fantasy/app_dev.php/admin/leagues/create">Add league</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/leagues/list/true">Edit league</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/leagues/list/false">Remove league</a></li>
-		  <li><a href="http://fantasy/app_dev.php/admin/logout">Exit</a></li>
+		  <li><a href="{{ path('admin_leagues_create') }}">Add league</a></li>
+		  <li><a href="{{ path('admin_leagues_list', { 'edit': 1 }) }}">Edit league</a></li>
+		  <li><a href="{{ path('admin_leagues_list', { 'edit': 0 }) }}">Remove league</a></li>
+		  <li><a href="{{ path('admin_logout') }}">Exit</a></li>
 		</ul>
 	</div>
 
@@ -17,14 +17,16 @@
 
 	<script>
 		$(document).ready(
-	    function validate()
-	    {
-	        $('#signupButton').click(
-	        function()
-	        {
-	        	
-	        }
-	    });
+		    function validate()
+		    {
+		        $('#signupButton').click(
+			        function()
+			        {
+			        	
+			        }
+			    )
+		    }
+		);
 	</script>
 {% endblock %}
 
