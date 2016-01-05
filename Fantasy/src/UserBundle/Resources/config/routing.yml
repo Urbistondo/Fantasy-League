@@ -73,3 +73,7 @@ user_updateEleven:
 user_showPlayer:
     pattern: /viewplayer/{player_id}
     defaults: {_controller: UserBundle:Team:showPlayer }
+
+user_showMarket:
+    pattern: /market
+    defaults: {_controller: UserBundle:Market:listMarket }

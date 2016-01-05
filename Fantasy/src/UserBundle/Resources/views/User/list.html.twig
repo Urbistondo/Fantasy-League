@@ -24,6 +24,7 @@
 					<th>Position</th>
 					<th>Club</th>
 					<th>Points</th>
+					
 				</tr>
 
 				{% for item in items %}
@@ -33,11 +34,42 @@
 						<td>{{ item.getPosition() }}</td>
 						<td>{{ item.getClub() }}</td>
 						<td>{{ item.getPoints() }}</td>
+						
 					</tr>
 				{% endfor %}
 			</table></br>
 			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
 				<button class="btn btn-primary" id="#editButton">Edit</button>
+			</form>
+		{% elseif type == 'Player' and edit == "market" %}
+			<h5>This is the current market</h5>
+
+			<table class="table table-bordered table-striped table-hover">
+				<tr>
+					<th>Name</th>
+					<th>Lastname</th>
+					<th>Position</th>
+					<th>Club</th>
+					<th>Points</th>
+					<th>Value</th>
+					<th>Bid</th>
+				</tr>
+
+				{% for item in items %}
+					<tr class="clickable-row">
+						<td class="player_name">{{ item.getName() }}</td>
+						<td class="player_lastname">{{ item.getLastname() }}</td>
+						<td>{{ item.getPosition() }}</td>
+						<td>{{ item.getClub() }}</td>
+						<td>{{ item.getPoints() }}</td>
+						<td>{{ item.getValue() }}</td>
+						<td class="bid" contenteditable='true'></td>
+						<td><button class="btn btn-primary bidButton" >Bid</button></td>
+					</tr>
+				{% endfor %}
+			</table></br>
+			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
+				<button class="btn btn-primary" id="#bidButton">Bid</button>
 			</form>
 		{% elseif type == 'Player' and edit == "true" %}
 			<form action="" method="POST" id="selectForm">
@@ -153,6 +185,19 @@
 					    var selectedValues = [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(), $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(), $("#select9").val(), $("#select10").val(), 
 					    	$("#select11").val()];
 					    $(this).closest("form").attr("action", "{{ path('user_updateEleven') }}");
+					}
+				)
+
+
+				$(".bidButton").click(
+				    function()
+				    {
+					   
+					   var player_name=$(this).parent().parent().next('.player_name').html();
+					  
+					   var player_lastname=$(this).parent().children().closest('.player_lastname').val();
+					   var bid=$(this).parent().children().closest('.bid').val();
+					   alert(player_name);
 					}
 				)
 
