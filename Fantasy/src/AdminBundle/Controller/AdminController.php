@@ -183,7 +183,7 @@ class AdminController extends Controller
             $new_players = array();
             for ($i = 0; $i < 5; $i++)
             {
-                $random = rand(0, (count($available_players) - 1));
+                $random = mt_rand(0, (count($available_players) - 1));
                 array_push($new_players, $available_players[$random]);
                 unset($available_players[$random]);
                 $available_players = array_values($available_players);

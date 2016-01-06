@@ -25,7 +25,7 @@ class LeagueController extends Controller
 		}
 	}
 
-	public function leaguePasswordAction($league_id, $league_password)
+	public function leaguePasswordAction($league_id)
 	{
 		$request = $this->getRequest();
 		$league = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->find($league_id);

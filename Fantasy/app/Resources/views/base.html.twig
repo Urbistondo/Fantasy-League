@@ -33,7 +33,7 @@
                 }
             </style>
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('Football.ico') }}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
     <body>
@@ -54,7 +54,7 @@
                                 <li><a href="">Contact</a></li>
                                 <li><a href="{{ path('admin_logout') }}">Exit</a></li>
                             {% else %}
-                                <li><a href="{{ path('user_listTeams') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+                                <li><a href="{{ path('user_index') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
                                 <li><a href="{{ path('user_listTeams') }}">Teams</a></li>
                                 <li><a href="{{ path('user_newLeague') }}">Leagues</a></li>
                                 <li><a href="">Forum</a></li>
@@ -77,7 +77,7 @@
                 {% block sidebar %}{% endblock %}
             </aside>
 
-            <div id="footer">
+            <div class="footer navbar-fixed-bottom" id="footer">
                 {% block footer %}
                     Fantasy League - All right reserved to Juan Garayalde and <a href="https://twitter.com/javiurbistondo">Javi Urbistondo</a>
                 {% endblock %}

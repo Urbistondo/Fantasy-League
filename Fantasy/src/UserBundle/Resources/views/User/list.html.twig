@@ -3,6 +3,10 @@
 
 {% block body %}
 	<div id="item-list">
+		{% if message %}
+			<h4 id="message">{{ message }}</h4>
+		{% endif %}
+	
 		<h3>{{ title }}</h3>
 		{% if type == 'League' %}
 			<h5>Click on a league below to join it</h5>

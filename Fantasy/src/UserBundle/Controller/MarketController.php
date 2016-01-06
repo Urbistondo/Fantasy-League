@@ -28,17 +28,11 @@ class MarketController extends Controller
 					}
 					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
 						'type' => "Player", 'edit' => 'market'));
-					}
-				
+				}
 		}
 		else
 		{
 			return $this->redirectToRoute('user_index');
 		}
 	}
-
-
-
-
-
 }

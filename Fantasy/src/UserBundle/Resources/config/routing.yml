@@ -40,14 +40,14 @@ user_listTeams:
 
 user_leaguePassword:
     pattern: /teams/league/{league_id}
-    defaults: { _controller: UserBundle:League:leaguePassword, league_password: 0 }
+    defaults: { _controller: UserBundle:League:leaguePassword }
     requirements:
         league_id:  \d+
         _method: GET
 
 user_checkLeaguePassword:
-    pattern: /teams/league/{league_id}/{league_password}
-    defaults: { _controller: UserBundle:League:leaguePassword, league_password: "league3" }
+    pattern: /teams/league/{league_id}
+    defaults: { _controller: UserBundle:League:leaguePassword }
     requirements:
         league_id:  \d+
         _method: POST
