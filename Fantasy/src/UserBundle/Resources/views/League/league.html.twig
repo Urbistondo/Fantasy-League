@@ -1,15 +1,81 @@
-{% extends "UserBundle:User:layout.html.twig" %}
+{% extends "UserBundle::layout.html.twig" %}
 {% block title %}Fantasy - Create a league{% endblock %}
 
 {% block body %}
-    <form action="{{ path('user_createLeague') }}" method="POST" name="loginForm" onsubmit="return(validate());">
-    	Name <input id="name" type="text" name="name" placeholder="Name"><br>
-	  	Password <input id="password" type="text" name="password" placeholder="Password"><br>
-	  	Capacity <input id="capacity" type="text" name="capacity" placeholder="Maximum number of players"><br>
-	  	<input id="leagueButton" type="submit" value="Create">
-	</form>
+	<div class="container">
+		<div class="col-md-4 text-center">
+			<legend>League information</legend>
+
+			{% if message %}
+				<h4 id="message">{{ message }}</h4>
+			{% endif %}
+
+		    <form class="horizontal-form" action="{{ path('user_createLeague') }}" role="form" action="" method="POST" onsubmit="return(validate());">
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="inputName">Name</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="text" name="name" id="inputName" placeholder="Name" required autofocus>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="inputPassword">Password</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="password" name="password" id="inputPassword" placeholder="Password" required>
+		    		</div>
+		    	</div>
+
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="inputCapacity">Capacity</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="text" name="capacity" id="inputCapacity" placeholder="Capacity" required>
+		    		</div>
+		    	</div>
+			  	<button class="btn btn-primary" id="createButton" type="submit">Create</button></br>
+			</form>
+		</div>
+	</div>
 {% endblock %}
 
 {% block javascript %}
-
+	<script>
+	    $(document).ready(
+		    function validate()
+		    {
+		        $('#createButton').click(
+			        function()
+			        {
+			        	if ($('#inputName').val().length < 50)
+			        	{
+			        		if ($('#inputPassword').val().length < 30)
+			        		{
+			        			if ($('#inputCapacity').val().length < 3)
+			        			{
+			        				return true;
+			        			}
+			        			else
+			        			{
+			        				alert("The capacity must be 1-3 characters");
+					        		$('#inputCapacity').focus();
+					        		return false;
+			        			}
+			        		}
+			        		else
+			        		{	
+				        		alert("The password must be 1-30 characters");
+				        		$('#inputPassword').focus();
+				        		return false;
+			        		}
+			        	}
+			        	else
+			        	{
+			        		alert("The username must be 1-30 characters");
+			        		$('#inputName').focus();
+			        		return false;
+			        	}
+			        }
+			    );
+		    }
+		);
+	</script>
 {% endblock %}

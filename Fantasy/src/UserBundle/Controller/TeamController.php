@@ -29,8 +29,8 @@ class TeamController extends Controller
 
 	public function listTeamsAction()
 	{
-		$session=$this->getRequest()->getSession();
-		$user=$session->get('user');
+		$session = $this->getRequest()->getSession();
+		$user = $session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));

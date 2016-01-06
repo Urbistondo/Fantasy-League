@@ -14,3 +14,13 @@ th {
 .glyphicon {
 	margin-right: 15px;
 }
+
+.sidebar {
+	width: 241px;
+	padding: 10px;
+	display: inline-block;
+	float: right;
+	border-left: 1px solid #ccc;
+	padding: 10px;
+	margin-bottom: 20px;
+}

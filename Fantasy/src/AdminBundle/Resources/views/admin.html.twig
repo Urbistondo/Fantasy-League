@@ -1,22 +1,7 @@
 {% extends "UserBundle::layout.html.twig" %}
 {% block title %}Fantasy - Admin{% endblock %}
 
-{% block menu %}
-	<nav class="navbar navbar-inverse">
-	  <div class="container">
-	    <ul class="nav navbar-nav side-nav">
-		  <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
-		  <li><a href="{{ path('admin_players') }}">Players</a></li>
-		  <li><a href="{{ path('admin_leagues') }}">Leagues</a></li>
-		  <li><a href="">Forum</a></li>
-		  <li><a href="">Rules</a></li>
-		  <li><a href="">Contact</a></li>
-		  <li><a href="{{ path('admin_update_markets') }}">Update</a></li>
-		  <li><a href="{{ path('admin_logout') }}">Exit</a></li>
-		</ul>
-	  </div>
-	</nav>
-
+{% block body %}
 	{% if message %}
 		<h4 id="message">{{ message }}</h4>
 	{% endif %}

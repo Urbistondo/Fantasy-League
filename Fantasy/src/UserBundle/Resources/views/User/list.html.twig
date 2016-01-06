@@ -1,7 +1,7 @@
-{% extends "UserBundle:User:home.html.twig" %}
+{% extends "UserBundle::layout.html.twig" %}
 {% block title %}Fantasy - {{ title }}{% endblock %}
 
-{% block container %}
+{% block body %}
 	<div id="item-list">
 		<h3>{{ title }}</h3>
 		{% if type == 'League' %}
@@ -161,13 +161,13 @@
 				{% endfor %}
 			</table></br>
 
-			<form action="{{ path('user_joinLeague') }}" method="GET">
+			<form action="{{ path('user_listLeagues') }}" method="GET">
 			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
 			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
 			</br>
-			<form action="{{ path('user_joinLeague') }}" method="GET">
+			<form action="{{ path('user_listLeagues') }}" method="GET">
 			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
 			</form>
 		{% endif %}
