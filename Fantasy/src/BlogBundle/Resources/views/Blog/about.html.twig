@@ -1,0 +1,17 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block title %}Sobre mí{% endblock%}
+
+{% block body %}
+	<div id="photo-div">
+    	<img id="about-photo" src="{{ asset('https://scontent-mad1-1.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/11846741_10204793273421568_4183635569284579651_n.jpg?oh=a34a83e5240d4626db79fbfab681d806&oe=56C63131') }}">
+    	<h1>Urbistondo</h1>
+    </div> 
+
+    <p id="aboutText">Me llamo Javier Urbistondo. Tengo 21 años y vivo en mi ciudad natal, San Sebastian. Estudio un doble grado de Administracion y Direccion de Empresas e Ingenieria Informatica en la Deusto Business School. Me apasionan la ciencia, la tecnologia y la economía. Soy un gran fan del fútbol y de la Formula 1.</p>
+{% endblock %}
+
+{% block sidebar %}
+    <a class="twitter-timeline" href="https://twitter.com/JaviUrbistondo" data-widget-id="501106865267163136">Tweets by @JaviUrbistondo</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{% endblock %}

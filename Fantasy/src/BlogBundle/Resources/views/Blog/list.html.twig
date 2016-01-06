@@ -1,0 +1,29 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %}Urbiblog - Posts{% endblock %}
+
+{% block body %}
+    {% for post in posts %}
+        <article class="post">
+            <div class="date"><time datetime="{{ post.date|date('c') }}">{{ post.date|date('l, F j, Y') }}</time></div>
+            <header>
+                <h2><a href="{{ path('blogger_blog_show', { 'id': post.id }) }}">{{ post.title }}</a></h2>
+            </header>
+
+            <div class="snippet">
+                <p>{{ post.body(200) }}</p>
+                <p class="continue"><a href="{{ path('blogger_blog_show', { 'id': post.id }) }}">Seguir leyendo...</a></p>
+            </div>
+
+            <footer class="meta">
+                <p>Comentarios: -</p>
+            </footer>
+        </article>
+    {% else %}
+        <p>No hay entradas en este blog</p>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+    <a class="twitter-timeline" href="https://twitter.com/JaviUrbistondo" data-widget-id="501106865267163136">Tweets by @JaviUrbistondo</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{% endblock %}

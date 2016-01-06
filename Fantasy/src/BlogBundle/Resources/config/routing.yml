@@ -1,0 +1,22 @@
+blogger_blog_list:
+    pattern: /
+    defaults: { _controller: BloggerBlogBundle:Blog:list }
+
+blogger_blog_about:
+    pattern: /about
+    defaults: { _controller: BloggerBlogBundle:Blog:about }
+
+blogger_blog_show:
+    pattern: /show/{id}
+    defaults: { _controller: BloggerBlogBundle:Blog:show }
+
+blogger_blog_contact:
+    pattern:  /contact
+    defaults: { _controller: BloggerBlogBundle:Blog:contact }
+
+blogger_comment_create:
+    pattern:  /comment/{post_id}
+    defaults: { _controller: BloggerBlogBundle:Comment:create }
+    requirements:
+        _method: POST
+        post_id: \d+

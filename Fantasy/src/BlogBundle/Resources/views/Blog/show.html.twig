@@ -1,0 +1,33 @@
+{% extends "BlogBundle::layout.html.twig" %}
+{% block title %}Urbiblog - Posts{% endblock %}
+
+{% block body %}
+	<h1>{{post.title}}</h1>
+
+	<div class="date">Publicado: {{post.date|date('d-m-Y')}}</div>
+
+	<div class="body">
+		{{post.body}}
+	</div>
+
+	<section class="comments" id="comments">
+		<section class="previous-comments">
+			<h3>Comentarios</h3>
+			{% include 'BlogBundle:Comment:list.html.twig' with { 'comments': comments } %}
+		</section>
+
+		<h3>Añadir comentario</h3>
+        {{ render(controller( 'BlogBundle:Comment:new', { 'post_id': post.id } )) }}
+	</section>
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('css/blog.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block sidebar %}
+    <a class="twitter-timeline" href="https://twitter.com/JaviUrbistondo" data-widget-id="501106865267163136">Tweets by @JaviUrbistondo</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{% endblock %}

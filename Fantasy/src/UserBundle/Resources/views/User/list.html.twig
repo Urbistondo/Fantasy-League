@@ -18,7 +18,7 @@
 			</br>
 		{% endif %}
 
-		{% if type == 'Player' and edit == "false" %}
+		{% if type == 'Player' and edit == "false" and items|length > 0 %}
 			<h5>This is your current starting eleven</h5>
 
 			<table class="table table-bordered table-striped table-hover">
@@ -44,6 +44,11 @@
 			</table></br>
 			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
 				<button class="btn btn-primary" id="#editButton">Edit</button>
+			</form>
+		{% elseif type == 'Player' and edit == "false" and items|length == 0%}
+			<h5>You haven't set up your starting eleven yet!</h5>
+			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
+				<button class="btn btn-primary" id="#editButton">Get started!</button>
 			</form>
 		{% elseif type == 'Player' and edit == "market" %}
 			<h5>This is the current market</h5>

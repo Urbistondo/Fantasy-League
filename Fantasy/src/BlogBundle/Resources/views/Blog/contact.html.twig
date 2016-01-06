@@ -1,0 +1,18 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block title %}Contact{% endblock%}
+
+{% block body %}
+    <h1>Contacta conmigo</h1>
+    
+    <p>Puedes encontrarme en las siguientes redes sociales:</p>
+	<ul>
+		<li><a href="https://twitter.com/javiurbistondo" target="_blank">Twitter</a></li>
+		<li><a href="https://www.linkedin.com/in/javierurbistondo" target="_blank">LinkedIn</a></li>
+	</ul>
+{% endblock %}
+
+{% block sidebar %}
+    <a class="twitter-timeline" href="https://twitter.com/JaviUrbistondo" data-widget-id="501106865267163136">Tweets by @JaviUrbistondo</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{% endblock %}

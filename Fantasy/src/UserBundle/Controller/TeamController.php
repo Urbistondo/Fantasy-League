@@ -70,7 +70,8 @@ class TeamController extends Controller
 					}
 				else
 				{
-					return $this->render('UserBundle:User:index.html.twig');
+					return $this->render('UserBundle:User:list.html.twig', array('items' => false, 'title' => "Starting eleven", 'message' => false, 
+						'type' => "Player", 'edit' => $edit));
 				}
 			}
 			else
