@@ -188,16 +188,16 @@
 					}
 				)
 
-
 				$(".bidButton").click(
 				    function()
 				    {
-					   
-					   var player_name=$(this).parent().parent().next('.player_name').html();
+					   //$("th.header").bind("click", function(e) { $(this).css("background-color", "yellow"); });
+					   $(this).prevUntil(".player_name").css("background-color", "yellow");
+					   //var player_name=$(this).parent().parent().next('.player_name').html();
 					  
-					   var player_lastname=$(this).parent().children().closest('.player_lastname').val();
-					   var bid=$(this).parent().children().closest('.bid').val();
-					   alert(player_name);
+					   //var player_lastname=$(this).parent().children().closest('.player_lastname').val();
+					   //var bid=$(this).parent().children().closest('.bid').val();
+					   //alert(player_name);
 					}
 				)
 

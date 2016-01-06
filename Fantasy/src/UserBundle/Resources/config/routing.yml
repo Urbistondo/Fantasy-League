@@ -9,19 +9,23 @@ user_home:
 user_login:
     pattern: /login
     defaults: { _controller: UserBundle:User:login }
+    requirements:
+        _method: GET
 
 user_signup:
     pattern: /signup
     defaults: { _controller: UserBundle:User:signup }
+    requirements:
+        _method: GET
 
 user_loginAttempt:
-    pattern: /loginAttempt
+    pattern: /login
     defaults: { _controller: UserBundle:User:loginAttempt }
     requirements:
         _method: POST
 
 user_signupAttempt:
-    pattern: /signupAttempt
+    pattern: /signup
     defaults: { _controller: UserBundle:User:signupAttempt }
     requirements:
         _method: POST
@@ -37,14 +41,22 @@ user_listTeams:
 user_leaguePassword:
     pattern: /teams/league/{league_id}
     defaults: { _controller: UserBundle:League:leaguePassword }
+    requirements:
+        league_id:  \d+
 
 user_newTeam:
     pattern: /teams/new/{league_id}
     defaults: { _controller: UserBundle:Team:newTeam }
+    requirements:
+        _method: POST
+        league_id:  \d+
 
 user_createTeam:
     pattern: /teams/create/{league_id}
     defaults: { _controller: UserBundle:Team:createTeam }
+    requirements:
+        _method: POST
+        league_id:  \d+
 
 user_joinLeague:
     pattern: /leagues/join
