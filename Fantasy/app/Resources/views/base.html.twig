@@ -3,6 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Fantasy{% endblock %}</title>
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('/css/bootstrap.css') }}" />
             <link rel="stylesheet" type="text/css" href="{{ asset('/css/custom.css') }}" />
@@ -34,9 +37,54 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     </head>
     <body>
-        {% block menu %}{% endblock %}
-        {% block body %}{% endblock %}
-        {% block container %}{% endblock %}
+        <section id="wrapper">
+            <header id="header">
+            <div class="navigation-div">
+                {% block navigation %}
+                    <nav class="navbar navbar-inverse">
+                      <div class="container">
+                        <ul class="nav navbar-nav side-nav">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin_home') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+                                <li><a href="{{ path('admin_players') }}">Players</a></li>
+                                <li><a href="{{ path('admin_leagues') }}">Leagues</a></li>
+                                <li><a href="{{ path('admin_update_markets') }}">Update</a></li>
+                                <li><a href="">Forum</a></li>
+                                <li><a href="">Rules</a></li>
+                                <li><a href="">Contact</a></li>
+                                <li><a href="{{ path('admin_logout') }}">Exit</a></li>
+                            {% else %}
+                                <li><a href="{{ path('user_listTeams') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
+                                <li><a href="{{ path('user_listTeams') }}">Teams</a></li>
+                                <li><a href="{{ path('user_newLeague') }}">Leagues</a></li>
+                                <li><a href="">Forum</a></li>
+                                <li><a href="">Rules</a></li>
+                                <li><a href="">Contact</a></li>
+                                <li><a href="{{ path('user_exit') }}">Exit</a></li>
+                            {% endif %}
+                        </ul>
+                      </div>
+                    </nav>
+                {% endblock %}
+            </div>
+            </header>
+
+            <section class="main-col">
+                {% block body %}{% endblock %}
+            </section>
+
+            <aside class="col-md-2 sidebar">
+                {% block sidebar %}{% endblock %}
+            </aside>
+
+            <div id="footer">
+                {% block footer %}
+                    Fantasy League - All right reserved to Juan Garayalde and <a href="https://twitter.com/javiurbistondo">Javi Urbistondo</a>
+                {% endblock %}
+            </div>
+
+        </section>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
