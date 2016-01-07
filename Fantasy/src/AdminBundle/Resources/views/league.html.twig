@@ -1,7 +1,10 @@
 {% extends "UserBundle::layout.html.twig" %}
-{% block title %}Fantasy - League{% endblock %}
+{% block title %}Fantasy - Leagues{% endblock %}
 
 {% block body %}
+	{% if message != false %}
+		<h4>{{ message }}</h4>
+	{% endif %}
     <div id="navmenu"> 
 		<ul>
 		  <li><a href="{{ path('admin_leagues_create') }}">Add league</a></li>
@@ -10,26 +13,4 @@
 		  <li><a href="{{ path('admin_logout') }}">Exit</a></li>
 		</ul>
 	</div>
-
-	{% if message != false %}
-		<h3>{{ message }}</h3>
-	{% endif %}
-
-	<script>
-		$(document).ready(
-		    function validate()
-		    {
-		        $('#signupButton').click(
-			        function()
-			        {
-			        	
-			        }
-			    )
-		    }
-		);
-	</script>
-{% endblock %}
-
-{% block javascript %}
-
 {% endblock %}

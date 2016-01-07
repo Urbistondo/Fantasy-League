@@ -2,10 +2,6 @@ user_index:
     pattern: /
     defaults: { _controller: UserBundle:User:index }
 
-user_home:
-    pattern: /home
-    defaults: { _controller: UserBundle:User:home }
-
 user_login:
     pattern: /login
     defaults: { _controller: UserBundle:User:login }

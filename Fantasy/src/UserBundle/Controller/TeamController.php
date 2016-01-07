@@ -33,7 +33,7 @@ class TeamController extends Controller
 		$user = $session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams", 'message' => false, 'type' => "Team", 'edit' => false));
 	}
 
 	public function newTeamAction($league_id)
@@ -160,7 +160,7 @@ class TeamController extends Controller
 	            $em->flush();
 
 				$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team"));
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team", 'edit' => false));
 			}
 		}
 		else
@@ -172,7 +172,7 @@ class TeamController extends Controller
 		$user=$session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team", 'edit' => false));
 	}
 
 	public function editElevenAction()
@@ -212,25 +212,44 @@ class TeamController extends Controller
 			array_push($players, $goalkeeper, $defender1, $defender2, $defender3, $defender4, $midfielder1, $midfielder2, $midfielder3, $midfielder4, 
 				 $striker1, $striker2);
 
-			$eleven = new Eleven();
-			$eleven->setTeamId($team_id);
-			$eleven->setUserId($user_id);
-			$eleven->setGoalkeeper($goalkeeper);
-			$eleven->setDefender1($defender1);
-			$eleven->setDefender2($defender2);
-			$eleven->setDefender3($defender3);
-			$eleven->setDefender4($defender4);
-			$eleven->setMidfielder1($midfielder1);
-			$eleven->setMidfielder2($midfielder2);
-			$eleven->setMidfielder3($midfielder3);
-			$eleven->setMidfielder4($midfielder4);
-			$eleven->setStriker1($striker1);
-			$eleven->setStriker2($striker2);
+			$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id, 'user_id' => $user_id));
+			if ($eleven == null)
+			{
+				$eleven = new Eleven();
+				$eleven->setTeamId($team_id);
+				$eleven->setUserId($user_id);
+				$eleven->setGoalkeeper($goalkeeper);
+				$eleven->setDefender1($defender1);
+				$eleven->setDefender2($defender2);
+				$eleven->setDefender3($defender3);
+				$eleven->setDefender4($defender4);
+				$eleven->setMidfielder1($midfielder1);
+				$eleven->setMidfielder2($midfielder2);
+				$eleven->setMidfielder3($midfielder3);
+				$eleven->setMidfielder4($midfielder4);
+				$eleven->setStriker1($striker1);
+				$eleven->setStriker2($striker2);
+				$em->persist($eleven);
+			}
+			else
+			{
+				$eleven->setTeamId($team_id);
+				$eleven->setUserId($user_id);
+				$eleven->setGoalkeeper($goalkeeper);
+				$eleven->setDefender1($defender1);
+				$eleven->setDefender2($defender2);
+				$eleven->setDefender3($defender3);
+				$eleven->setDefender4($defender4);
+				$eleven->setMidfielder1($midfielder1);
+				$eleven->setMidfielder2($midfielder2);
+				$eleven->setMidfielder3($midfielder3);
+				$eleven->setMidfielder4($midfielder4);
+				$eleven->setStriker1($striker1);
+				$eleven->setStriker2($striker2);
+			}
 
-			$em = $this->getDoctrine()->getEntityManager();
 			$em->flush();
-			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-				'type' => "Player", 'edit' => false));
+			return $this->redirectToRoute('user_listTeams');
 		}
 		else
 		{

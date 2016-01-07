@@ -2,13 +2,65 @@
 {% block title %}Fantasy - Log in{% endblock %}
 
 {% block body %}
-    <form action="{{ path('admin_login_check') }}" method="POST" class="login">
-	    <label for="username">Usuario:</label>
-	    <input type="text" id="username" name="_username" value="{{ last_username }}"/>
+	<div class="container">
+		<div class="col-md-4">
+			<legend>Admin login information</legend>
 
-	    <label for="password">Contraseña:</label>
-	    <input type="password" id="password" name="_password" />
+			{% if message %}
+				<h4 id="message">{{ message }}</h4>
+			{% endif %}
 
-	  	<button id="loginButton" type="submit">Logout</button>
-	</form>
+		    <form class="horizontal-form" role="form" action="{{ path('admin_login_check') }}" method="POST">
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="email">Username</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="text" name="_username" id="inputUsername" placeholder="Username" required autofocus>
+		    		</div>
+		    	</div>
+		    	
+		    	<div class="form-group">
+		    		<label class="control-label col-md-4 text-right" for="password">Password</label>
+		    		<div class="col-md-8">
+		    			<input class="form-control" type="password" name="_password" id="inputPassword" placeholder="Password" required>
+		    		</div>
+		    	</div>
+			  	<button class="btn btn-primary" id="loginButton" type="submit">Log in</button></br>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+	    $(document).ready(
+		    function validate()
+		    {
+		        $('#loginButton').click(
+			        function()
+			        {
+			        	if ($('#inputUsername').val().length < 30)
+			        	{
+			        		if ($('#inputPassword').val().length < 30)
+			        		{
+			        			$(this).closest("form").attr("action", "{{ path('admin_login_check') }}");
+			        			return true;
+			        		}
+			        		else
+			        		{	
+				        		alert("The password must be 1-30 characters");
+				        		$('#inputPassword').focus();
+				        		return false;
+			        		}
+			        	}
+			        	else
+			        	{
+			        		alert("The username must be 1-30 characters");
+			        		$('#inputUsername').focus();
+			        		return false;
+			        	}
+			        }
+			    );
+		    }
+		);
+	</script>
 {% endblock %}

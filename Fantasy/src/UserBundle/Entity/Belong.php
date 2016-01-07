@@ -24,6 +24,7 @@ class Belong
     /**
      * @var integer
      *
+     * @ORM\ManyToOne(targetEntity="Team", inversedBy="")
      * @ORM\Column(name="team_id", type="integer")
      */
     private $team_id;

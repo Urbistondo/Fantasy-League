@@ -102,11 +102,6 @@ class UserController extends Controller
 		}
 	}
 
-	public function homeAction()
-	{
-		return $this->render('UserBundle:User:home.html.twig', array('message' => false));
-	}
-
 	public function exitAction()
 	{
 		$session=$this->getRequest()->getSession();

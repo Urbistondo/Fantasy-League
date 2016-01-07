@@ -34,3 +34,15 @@ th {
 .btn {
 	margin: 5px;
 }
+
+div {
+	text-align: center;
+}
+
+.table {
+	text-align: left;
+}
+
+h3, h5 {
+	text-align: center;
+}

@@ -81,75 +81,95 @@
 				<button class="btn btn-primary" id="#bidButton">Bid</button>
 			</form>
 		{% elseif type == 'Player' and edit == "true" %}
-			<form action="" method="POST" id="selectForm">
-				<select id="select1" name="select1">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select2" name="select2">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select3" name="select3">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select4" name="select4">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select5" name="select5">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select6" name="select6">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select7" name="select7">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select8" name="select8">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select9" name="select9">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select10" name="select10">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-		        <select id="select11" name="select11">
-					<option disabled selected> --Select a player -- </option>
-					{% for item in items %}
-		                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
-		            {% endfor %}
-		        </select></br>
-			<button class="btn btn-primary" id="updateButton">Update</button>
-			</form>
+			<div class="container" id="selects">
+				<!--<form action="" method="POST" id="selectForm">
+					{% for i in 0..11 %}
+						<select class="select">
+							<option disabled selected> --Select a player -- </option>
+							{% for item in items %}
+								<option value="{{ item.getId() }}"> {{ item.getPosition() }} -> {{ item.getName() }}</option>
+							{% endfor %}
+						</select></br>
+					{% endfor %}
+					<button class="btn btn-primary" id="updateButton">Update</button>
+				</form>-->
+
+
+
+				<form action="" method="POST" id="selectForm">
+					<select id="select1" name="select1">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select2" name="select2">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select3" name="select3">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select4" name="select4">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select5" name="select5">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select6" name="select6">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select7" name="select7">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select8" name="select8">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select9" name="select9">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select10" name="select10">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+			        <select id="select11" name="select11">
+						<option disabled selected> --Select a player -- </option>
+						{% for item in items %}
+			                <option value="{{ item.getId() }}">{{ item.getPosition() }} -> {{ item.getName() }}</option>
+			            {% endfor %}
+			        </select></br>
+					<button class="btn btn-primary" id="updateButton">Update</button>
+				</form>
+
+
+
+
+			</div>
 		{% endif %}
 
 		{% if type == "Team" and items|length > 0 %}
@@ -171,13 +191,13 @@
 			</table></br>
 
 			<form action="{{ path('user_listLeagues') }}" method="GET">
-			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
+			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
-			<h5>Your don't own any teams yet! Click on "Create" to get started</h5>
+			<h5>Your don't own any teams yet! Click on "Create new team" to get started</h5>
 			</br>
 			<form action="{{ path('user_listLeagues') }}" method="GET">
-			    <button class="btn btn-primary"  id="createTeamButton">Create</button>
+			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% endif %}
 	</div>
@@ -187,10 +207,25 @@
 	<script>
 	    $(document).ready(
 	    	function()
-		    {
+		    {	
 			    $("#updateButton").click(
 				    function()
 				    {
+					    //var selectedValues = [];
+					    //$('#mySelectBox option').each(
+					    	//function()
+						    //{
+	    						//if(this.selected)
+	    						//{
+	    						//	selectedValues.push(this.val());
+	    						//}
+	    						//else
+	    						//{
+	    							//alert("You must select a player for each position");
+	    							//break;
+	    						//}
+	    					//}
+
 					    var selectedValues = [$("#select1").val(), $("#select2").val(), $("#select3").val(), $("#select4").val(), $("#select5").val(), $("#select6").val(), $("#select7").val(), $("#select8").val(), $("#select9").val(), $("#select10").val(), 
 					    	$("#select11").val()];
 					    $(this).closest("form").attr("action", "{{ path('user_updateEleven') }}");
