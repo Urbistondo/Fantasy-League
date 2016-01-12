@@ -42,12 +42,12 @@
 					</tr>
 				{% endfor %}
 			</table></br>
-			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
+			<form action="{{ path('user_showTeam', {'edit': 1}) }}" method="GET">
 				<button class="btn btn-primary" id="#editButton">Edit</button>
 			</form>
 		{% elseif type == 'Player' and edit == "false" and items|length == 0%}
 			<h5>You haven't set up your starting eleven yet!</h5>
-			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
+			<form action="{{ path('user_showTeam', {'edit': 1}) }}" method="GET">
 				<button class="btn btn-primary" id="#editButton">Get started!</button>
 			</form>
 		{% elseif type == 'Player' and edit == "market" %}
@@ -62,37 +62,47 @@
 					<th>Points</th>
 					<th>Value</th>
 					<th>Bid</th>
+					<th></th>
 				</tr>
 
 				{% for item in items %}
 					<tr class="clickable-row">
-						<td class="player_name">{{ item.getName() }}</td>
+
+						<td class="player_name">{{ item.getId() }}</td>
 						<td class="player_lastname">{{ item.getLastname() }}</td>
 						<td>{{ item.getPosition() }}</td>
 						<td>{{ item.getClub() }}</td>
 						<td>{{ item.getPoints() }}</td>
 						<td>{{ item.getValue() }}</td>
 						<td class="bid" contenteditable='true'></td>
-						<td><button class="btn btn-primary bidButton" >Bid</button></td>
+						<td>
+							<form action="" method="GET">
+								<button class="btn btn-primary bidButton" id="bidButton{{ loop.index }}">Bid</button>
+							</form>
+						</td>
 					</tr>
 				{% endfor %}
 			</table></br>
-			<form action="{{ path('user_editEleven', { 'edit': "true" }) }}" method="GET">
-				<button class="btn btn-primary" id="#bidButton">Bid</button>
-			</form>
 		{% elseif type == 'Player' and edit == "true" %}
 			<div class="container" id="selectDiv">
 				<form action="" method="POST" id="selectForm">
 					{% for i in 1..11 %}
 						<select class="select" id="select{{ i }}" name="select{{ i }}">
-							{% for j in 0..10 %}
-								{% if i == (j + 1) %}
-								 	<option value="{{ eleven[j].getId() }}" selected>{{ eleven[j].getName() }} {{ eleven[j].getLastname() }}</option>
-									{% for item in items %}
-										<option value="{{ item.getId() }}">{{ item.getName() }} {{ item.getLastname() }}</option>
-									{% endfor %}
-								{% endif %}
-							{% endfor %}
+							{% if eleven != false %}
+								{% for j in 0..10 %}
+									{% if i == (j + 1) %}
+									 	<option value="{{ eleven[j].getId() }}" selected>{{ eleven[j].getName() }} {{ eleven[j].getLastname() }}</option>
+										{% for item in items %}
+											<option value="{{ item.getId() }}">{{ item.getName() }} {{ item.getLastname() }}</option>
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<option disabled selected> -- Select a player -- </option>
+								{% for item in items %}
+									<option value="{{ item.getId() }}">{{ item.getName() }} {{ item.getLastname() }}</option>
+								{% endfor %}
+							{% endif %}
 						</select></br>
 					{% endfor %}
 					<button class="btn btn-primary" id="updateButton">Update</button>
@@ -110,7 +120,7 @@
 
 				{% for item in items %}
 					<tr class="clickable-row" data-href="">
-						<td><a href="{{ path('user_showTeam', {'league_id': item.getLeagueId(), 'team_id': item.getTeamId(), 'edit': "false"}) }}">
+						<td><a href="{{ path('user_saveTeam', {'league_id': item.getLeagueId(), 'team_id': item.getTeamId()}) }}">
 						{{ item.getTeamName() }}</a></td>
 						<td>{{ item.getLeagueName() }}</td>
 						<td>{{ item.getPoints() }}</td>
@@ -122,11 +132,41 @@
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
+			<div id="exTab3" class="container">	
+				<ul class="nav nav-pills">
+					<li class="active"><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
+					<li><a href="#2b" data-toggle="tab">Show team</a></li>
+					<li><a href="#3b" data-toggle="tab">Manage team</a></li>
+		  			<li><a href="#4a" data-toggle="tab">Market</a></li>
+				</ul>
+			</div>
 			<h5>Your don't own any teams yet! Click on "Create new team" to get started</h5>
 			</br>
 			<form action="{{ path('user_listLeagues') }}" method="GET">
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
+		{% elseif type == "TeamRanking" and items|length > 0 %}
+			<div id="exTab3" class="container">	
+				<ul class="nav nav-pills">
+					<li class="active"><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
+					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
+					<li><a href="#3b" data-toggle="tab">Manage team</a></li>
+		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
+				</ul>
+			</div>
+			<table class="table table-bordered table-striped table-hover">
+				<tr>
+					<th>Team name</th>
+					<th>Points</th>
+				</tr>
+
+				{% for item in items %}
+					<tr class="clickable-row" data-href="">
+						<td>{{ item.getTeamName() }}</td>
+						<td>{{ item.getPoints() }}</td>
+					</tr>
+				{% endfor %}
+			</table></br>
 		{% endif %}
 	</div>
 {% endblock %}
@@ -146,20 +186,21 @@
 				$(".bidButton").click(
 				    function()
 				    {
-					   //$("th.header").bind("click", function(e) { $(this).css("background-color", "yellow"); });
-					   $(this).prevUntil(".player_name").css("background-color", "yellow");
-					   //var player_name=$(this).parent().parent().next('.player_name').html();
-					  
-					   //var player_lastname=$(this).parent().children().closest('.player_lastname').val();
-					   //var bid=$(this).parent().children().closest('.bid').val();
-					   //alert(player_name);
-					}
-				)
-
-			    $(".clickable-row").click(
-			    	function ()
-				    {
-					   	//How do we redirect the user to the team page from here.
+				    	var value = parseInt($(this).parent().parent().find('td').eq(5).text());
+				    	var bid = parseInt($(this).parent().parent().find('td').eq(6).text());
+				    	if (bid <= value)
+				    	{
+				    		var string1 = "{{ path('user_placeBid', {'player_id': ";
+				    		var player_id = $(this).parent().parent().find('td').eq(0).text();
+				    		var string2 = ", 'bid': ";
+				    		var string3 = "}) }}";
+							var result = string1 + player_id + string2 + bid + string3;
+				    		$(this).closest("form").attr("action", result);
+				    	}
+				    	else
+				    	{
+				    		alert("The bid must be at least as big as the player's value");
+				    	}
 					}
 				)
 			}

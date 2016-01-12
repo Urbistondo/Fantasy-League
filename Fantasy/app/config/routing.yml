@@ -6,6 +6,6 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
 
-blog:
+forum:
     resource: "@BlogBundle/Resources/config/routing.yml"
-    prefix:   /blog/
+    prefix:   /forum/

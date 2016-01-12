@@ -26,12 +26,7 @@ class Compete
     * @ORM\Id
     * @ORM\Column(type="integer")
     */
-    protected $user_id;
-
-	/**
-	* @ORM\Column(type="text")
-	*/
-	protected $user_username;
+    protected $team_id;
 
     /**
      * Set league_id
@@ -82,50 +77,26 @@ class Compete
     }
 
     /**
-     * Set user_id
+     * Set team_id
      *
-     * @param integer $user_id
+     * @param integer $team_id
      *
      * @return Compete
      */
-    public function setUserId($user_id)
+    public function setTeamId($team_id)
     {
-        $this->user_id = $user_id;
+        $this->team_id = $team_id;
 
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get team_id
      *
      * @return integer
      */
-    public function getUserId()
+    public function getTeamId()
     {
-        return $this->user_id;
-    }
-
-    /**
-     * Set user_username
-     *
-     * @param string $user_username
-     *
-     * @return Compete
-     */
-    public function setUserUsername($user_username)
-    {
-        $this->user_username = $user_username;
-
-        return $this;
-    }
-
-    /**
-     * Get user_username
-     *
-     * @return string
-     */
-    public function getUserUsername()
-    {
-        return $this->user_username;
+        return $this->team_id;
     }
 }

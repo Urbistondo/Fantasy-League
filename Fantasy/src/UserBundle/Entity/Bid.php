@@ -31,6 +31,13 @@ class Bid
     /**
      * @var integer
      *
+     * @ORM\Column(name="team_id", type="integer")
+     */
+    private $team_id;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="user_id", type="integer")
      */
     private $user_id;
@@ -82,6 +89,30 @@ class Bid
     public function getLeagueId()
     {
         return $this->league_id;
+    }
+
+    /**
+     * Set teamId
+     *
+     * @param integer $teamId
+     *
+     * @return Bid
+     */
+    public function setTeamId($teamId)
+    {
+        $this->team_id = $teamId;
+
+        return $this;
+    }
+
+    /**
+     * Get teamId
+     *
+     * @return integer
+     */
+    public function getTeamId()
+    {
+        return $this->team_id;
     }
 
     /**

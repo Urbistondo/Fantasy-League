@@ -1,10 +1,16 @@
-{% for comment in comments %}
-    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
-        <header>
-            <p><span class="highlight">{{ comment.user }}</span> comentó el <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time></p>
-        </header>
-        <p>{{ comment.comment }}</p>
-    </article>
-{% else %}
-    <p>Todavía hay comentarios para este post. ¡Sé el primero en comentar!</p>
-{% endfor %}
+{% extends "UserBundle::layout.html.twig" %}
+{% block title %}Fantasy - Forum{% endblock %}
+
+{% block body %}
+	<h3>Forum</h3>
+	{% for comment in comments %}
+	    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+	        <header>
+	            <p><span class="highlight">{{ comment.user }}</span> commented on <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time></p>
+	        </header>
+	        <p>{{ comment.comment }}</p>
+	    </article>
+	{% else %}
+	    <p>There are no comments on the forum yet</p>
+	{% endfor %}
+{% endblock %}

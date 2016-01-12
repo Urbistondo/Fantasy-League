@@ -10,13 +10,13 @@ namespace BlogBundle\Entity;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getCommentsForPost($postId, $approved = true)
+	public function getComments($approved = true)
 	{
-		$qp = $this->createQueryBuilder('c')->select('c')->where('c.post = :post_id')->addOrderBy('c.created')->setParameter('post_id', $postId);
-
+		$qp = $this->createQueryBuilder('c')->select('c')->addOrderBy('c.created');
 		if (false === is_null($approved))
+		{
 			$qp->andWhere('c.approved = :approved')->setParameter('approved', $approved);
-
+		}
 		return $qp->getQuery()->getResult();
 	}
 }

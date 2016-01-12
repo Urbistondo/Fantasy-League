@@ -39,12 +39,6 @@ class Comment
     private $approved;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    private $post;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $created;
@@ -200,33 +194,9 @@ class Comment
         return $this->updated;
     }
 
-    /**
-     * Set post
-     *
-     * @param \BlogBundle\Entity\Post $post
-     *
-     * @return Comment
-     */
-    public function setPost(\BlogBundle\Entity\Post $post = null)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * Get post
-     *
-     * @return \BlogBundle\Entity\Post
-     */
-    public function getPost()
-    {
-        return $this->post;
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('user', new NotBlank(array('message' => 'Debes indicar tu nombre')));
-        $metadata->addPropertyConstraint('comment', new NotBlank(array('message' => 'Debes escribir tu comentario')));
+        $metadata->addPropertyConstraint('user', new NotBlank(array('message' => 'You must enter a username')));
+        $metadata->addPropertyConstraint('comment', new NotBlank(array('message' => 'You must enter a comment')));
     }
 }

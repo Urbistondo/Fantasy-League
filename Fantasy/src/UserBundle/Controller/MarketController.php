@@ -8,24 +8,26 @@ class MarketController extends Controller
 {
 	public function listMarketAction()
 	{
-		$session=$this->getRequest()->getSession();
-		$user=$session->get('user');
-		$league_id=$session->get('league_id');
+		$session = $this->getRequest()->getSession();
+		$user = $session->get('user');
+		$league_id = $session->get('league_id');
 		if ($league_id != null)
 		{
 			$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
 			if ($market != null)
 			{
-				$aux = array();
 				$aux = $market->getPlayers();
 				$players = array();
 				foreach ($aux as $id)
 				{
 					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
-					array_push($players, $player);
+					if ($player != null)
+					{
+						array_push($players, $player);
+					}
 				}
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
-					'type' => "Player", 'edit' => 'market'));
+					'type' => "Player", 'edit' => "market"));
 			}
 		}
 		else
@@ -36,9 +38,9 @@ class MarketController extends Controller
 
 	public function sellPlayerAction($player_id)
 	{
-		$session=$this->getRequest()->getSession();
-		$user=$session->get('user');
-		$league_id=$session->get('league_id');
+		$session = $this->getRequest()->getSession();
+		$user = $session->get('user');
+		$league_id = $session->get('league_id');
 		if ($league_id != null)
 		{
 			$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
@@ -60,6 +62,20 @@ class MarketController extends Controller
 		{
 			return $this->redirectToRoute('user_index');
 		}
+	}
+
+	public function placeBidAction($player_id, $bid)
+	{
+		$session = $this->getRequest()->getSession();
+		$bid = new Bid();
+		$bid->setLeagueId($session->get('league_id'));
+		$bid->setTeamId($session->get('team_id'));
+		$bid->setUserId($session->get('user')->getId());
+		$bid->setPlayerId($player_id);
+		$bid->setBid($bid);
+		$em->persist($bid);
+		$em->flush();
+		return $this->redirectToRoute('user_showRanking');
 	}
 }
 ?>

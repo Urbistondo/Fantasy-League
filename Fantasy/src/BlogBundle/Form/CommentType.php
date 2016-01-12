@@ -15,24 +15,17 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', null, array('label' => 'Usuario', 'attr' => array('oninvalid' => 'setCustomValidity("Tienes que introducir un nombre de usuario")', 'oninput' => 'setCustomValidity("")')))
-            ->add('comment', null, array('label' => 'Comentario', 'attr' => array('oninvalid' => 'setCustomValidity("Tienes que introducir un comentario")', 'oninput' => 'setCustomValidity("")')))
-            /**->add('approved')
-            *->add('created')
-            *->add('updated')
-            ->add('post')
-            */
+            ->add('user', null, array('label' => 'User', 'attr' => array('oninvalid' => 'setCustomValidity("You must enter a username")', 'oninput' => 'setCustomValidity("")')))
+            ->add('comment', null, array('label' => 'Comment', 'attr' => array('oninvalid' => 'setCustomValidity("You must enter a comment")', 'oninput' => 'setCustomValidity("")')))
         ;
     }
     
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolve)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'BlogBundle\Entity\Comment'
-        ));
+        $resolve->setDefaults(array('data_class' => 'BlogBundle\Entity\Comment'));
     }
 
     /**

@@ -41,18 +41,26 @@ class TeamController extends Controller
 		return $this->render('UserBundle:Team:teamform.html.twig', array('league_id' => $league_id));
 	}
 
-	public function showTeamAction($league_id, $team_id, $edit)
+	public function saveTeamAction($league_id, $team_id)
 	{
-		$session=$this->getRequest()->getSession();
+		$session = $this->getRequest()->getSession();
+		$session->set('league_id', $league_id);
+		$session->set('team_id', $team_id);
+		return $this->redirectToRoute('user_showRanking');
+	}
+
+	public function showTeamAction($edit)
+	{
+		$session = $this->getRequest()->getSession();
 		$user = $session->get('user');
 		$user_id = $user->getId();
-		$result = $this->get('doctrine')->getManager()->getRepository('UserBundle:Compete')->findOneBy(array('user_id' => $user_id, 'league_id' => $league_id));
+		$league_id = $session->get('league_id');
+		$team_id = $session->get('team_id');
+		$result = $this->get('doctrine')->getManager()->getRepository('UserBundle:Compete')->findOneBy(array('team_id' => $team_id, 'league_id' => $league_id));
 		$result2 = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('user_id' => $user_id, 'team_id' => $team_id));
 		if ($result != null && $result2 != null)
 		{
-			$session->set('league_id', $league_id);
-			$session->set('team_id', $team_id);
-			if ($edit == "false")
+			if ($edit == 0)
 			{
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
 				if ($eleven != null)
@@ -66,12 +74,12 @@ class TeamController extends Controller
 						array_push($players, $player);
 					}
 					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-						'type' => "Player", 'edit' => $edit));
+						'type' => "Player", 'edit' => "false"));
 					}
 				else
 				{
 					return $this->render('UserBundle:User:list.html.twig', array('items' => false, 'title' => "Starting eleven", 'message' => false, 
-						'type' => "Player", 'edit' => $edit));
+						'type' => "Player", 'edit' => "false"));
 				}
 			}
 			else
@@ -84,15 +92,24 @@ class TeamController extends Controller
 					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
 					array_push($players, $player);
 				}
-				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id, 'user_id' => $user_id))->getPlayers();
-				$currentplayers = array();
-				foreach ($eleven as $currentplayer)
+				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id, 'user_id' => $user_id));
+				if ($eleven != null)
 				{
-					$currentplayer = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($currentplayer);
-					array_push($currentplayers, $currentplayer);
+					$eleven = $eleven->getPlayers();
+					$currentplayers = array();
+					foreach ($eleven as $currentplayer)
+					{
+						$currentplayer = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($currentplayer);
+						array_push($currentplayers, $currentplayer);
+					}
+					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => $currentplayers, 'title' => "Choose your starting eleven", 'message' => false, 
+						'type' => "Player", 'edit' => "true"));
 				}
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => $currentplayers, 'title' => "Choose your starting eleven", 'message' => false, 
-					'type' => "Player", 'edit' => $edit));
+				else
+				{
+					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => false, 'title' => "Choose your starting eleven", 'message' => false, 
+					'type' => "Player", 'edit' => "true"));
+				}
 			}
 		}
 		else
@@ -127,14 +144,14 @@ class TeamController extends Controller
 				$team->setUserId($user_id);
 				$team->setPoints(0);
 				$team->setMoney(20000000);
+				$em->persist($team);
+				$em->flush();
 
 				$compete = new Compete();
 				$compete->setLeagueId($league_id);
 				$compete->setLeagueName($league_name);
-				$compete->setUserId($user_id);
-				$compete->setUserUserName($user->getName());
+				$compete->setTeamId($team->getTeamId());
 
-				$em->persist($team);
 				$em->persist($compete);
 				$em->flush();
 
@@ -182,14 +199,6 @@ class TeamController extends Controller
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team", 'edit' => false));
 	}
 
-	public function editElevenAction()
-	{
-		$session = $this->getRequest()->getSession();
-		$league_id = $session->get('league_id');
-		$team_id = $session->get('team_id');
-		return $this->redirectToRoute('user_showTeam', array('league_id' => $league_id, 'team_id' => $team_id, 'edit' => "true"), 301);
-	}
-
 	public function updateElevenAction(Request $request)
 	{
 		$session = $this->getRequest()->getSession();
@@ -198,11 +207,10 @@ class TeamController extends Controller
 		$user = $session->get('user');
 		$user_id = $user->getId();
 
-		$em = $this->getDoctrine()->getEntityManager();
-		$repository = $em->getRepository('UserBundle:Eleven');
-
 		if($request->getMethod()=='POST')
 		{
+			$em = $this->getDoctrine()->getEntityManager();
+
 			$goalkeeper=$request->get('select1');
 			$defender1=$request->get('select2');
 			$defender2=$request->get('select3');
@@ -272,6 +280,22 @@ class TeamController extends Controller
 			throw $this->createNotFoundException();
 		}
 		return $this->render('UserBundle:Team:showplayer.html.twig', array('player' => $player));
+	}
+
+	public function showRankingAction()
+	{
+		$session = $this->getRequest()->getSession();
+		$league_id = $session->get('league_id');
+		$competes = $this->get('doctrine')->getManager()->getRepository('UserBundle:Compete')->findBy(array('league_id' => $league_id));
+		$teams = array();
+		foreach ($competes as $compete)
+		{
+			$team = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('team_id' => $compete->getTeamId()));
+			array_push($teams, $team);
+		}
+		//Array needs to be sorted
+		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Ranking", 'message' => false, 
+						'type' => "TeamRanking", 'edit' => false));
 	}
 }
 ?>
