@@ -13,22 +13,48 @@ class MarketController extends Controller
 		$league_id=$session->get('league_id');
 		if ($league_id != null)
 		{
-			
 			$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
-				if ($market != null)
+			if ($market != null)
+			{
+				$aux = array();
+				$aux = $market->getPlayers();
+				$players = array();
+				foreach ($aux as $id)
 				{
-					$aux = array();
-					$aux = $market->getPlayers();
-					$players = array();
-					foreach ($aux as $id)
-					{
-						
-						$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
-						array_push($players, $player);
-					}
-					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
-						'type' => "Player", 'edit' => 'market'));
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
+					array_push($players, $player);
 				}
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
+					'type' => "Player", 'edit' => 'market'));
+			}
+		}
+		else
+		{
+			return $this->redirectToRoute('user_index');
+		}
+	}
+
+	public function sellPlayerAction($player_id)
+	{
+		$session=$this->getRequest()->getSession();
+		$user=$session->get('user');
+		$league_id=$session->get('league_id');
+		if ($league_id != null)
+		{
+			$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
+			$players = $market->getPlayers();
+			foreach ($players as $player)
+			{
+				if ($player == $player_id)
+				{
+					return $this->redirectToRoute('user_showPlayer', array('player_id' => $player_id));
+				}
+			}
+			$market->setNextPlayer($player_id);
+			$em = $this->getDoctrine()->getEntityManager();
+   			$em->flush();
+   			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
+			'type' => "Player", 'edit' => 'market'));
 		}
 		else
 		{
@@ -36,3 +62,4 @@ class MarketController extends Controller
 		}
 	}
 }
+?>

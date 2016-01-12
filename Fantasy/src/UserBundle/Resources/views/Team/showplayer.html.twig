@@ -1,8 +1,10 @@
 {% extends "UserBundle::layout.html.twig" %}
-{% block title %}Fantasy - {{ player.getName()}}{% endblock %}
+{% block title %}Fantasy - {{ player.getName()}} {{ player.getLastname()}}{% endblock %}
 
-{% block container %}
-
+{% block body %}
+  {% if message %}
+    <h4 id="message">{{ message }}</h4>
+  {% endif %}
   <table class="table table-bordered table-striped table-hover" style="width:50%">
     <tr>
       <th>Name</th>
@@ -23,5 +25,9 @@
       <td>{{ player.getValue() }}</td>
     </tr>
   </table>
+
+  <form class="horizontal-form" role="form" action="{{ path('user_sellPlayer', {'player_id': player.getId()}) }}" method="POST" onsubmit="return(validate());">
+      <button class="btn btn-primary" id="marketButton" type="submit">Put on tranfer market</button></br>
+  </form>
 
 {% endblock %}

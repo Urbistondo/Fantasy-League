@@ -93,3 +93,7 @@ user_showPlayer:
 user_showMarket:
     pattern: /market
     defaults: {_controller: UserBundle:Market:listMarket }
+
+user_sellPlayer:
+    pattern: /market/sellPlayer/{player_id}
+    defaults: {_controller: UserBundle:Market:sellPlayer }
