@@ -84,7 +84,14 @@ class TeamController extends Controller
 					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
 					array_push($players, $player);
 				}
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Choose your starting eleven", 'message' => false, 
+				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id, 'user_id' => $user_id))->getPlayers();
+				$currentplayers = array();
+				foreach ($eleven as $currentplayer)
+				{
+					$currentplayer = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($currentplayer);
+					array_push($currentplayers, $currentplayer);
+				}
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => $currentplayers, 'title' => "Choose your starting eleven", 'message' => false, 
 					'type' => "Player", 'edit' => $edit));
 			}
 		}
