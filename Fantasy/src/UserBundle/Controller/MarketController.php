@@ -32,7 +32,7 @@ class MarketController extends Controller
 		}
 		else
 		{
-			return $this->redirectToRoute('user_index');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 
@@ -60,7 +60,7 @@ class MarketController extends Controller
 		}
 		else
 		{
-			return $this->redirectToRoute('user_index');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 

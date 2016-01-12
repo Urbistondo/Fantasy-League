@@ -15,15 +15,15 @@ class TeamController extends Controller
 {
 	public function indexAction()
 	{
-		$session=$this->getRequest()->getSession();
-		$user=$session->get('user');
+		$session = $this->getRequest()->getSession();
+		$user = $session->get('user');
 		if ($user != null)
 		{
 			return $this->redirectToRoute('user_listTeams');
 		}
 		else
 		{
-			return $this->render('UserBundle:User:index.html.twig');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 
@@ -114,7 +114,7 @@ class TeamController extends Controller
 		}
 		else
 		{
-			return $this->render('UserBundle:User:index.html.twig');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 
@@ -130,7 +130,7 @@ class TeamController extends Controller
 			$team = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('league_id'=>$league_id, 'user_id' => $user_id));
 			if($team)
 			{
-				return $this->render('UserBundle:User:home.html.twig', array('message' => 'You already have a team in that league'));
+				return $this->redirect('user_showRanking', array('message' => 'You already have a team in that league'));
 			}
 			else
 			{
@@ -189,7 +189,7 @@ class TeamController extends Controller
 		}
 		else
 		{
-			throw $this->createNotFoundException('There was an unexpected problem. Please try again or contact the administrators.');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 
 		$session=$this->getRequest()->getSession();
@@ -268,7 +268,7 @@ class TeamController extends Controller
 		}
 		else
 		{
-			return $this->render('UserBundle:User:signup.html.twig', array('message' => 'There was an unexpected problem. Please try again or contact the administrators'));
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 
@@ -293,9 +293,21 @@ class TeamController extends Controller
 			$team = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('team_id' => $compete->getTeamId()));
 			array_push($teams, $team);
 		}
-		//Array needs to be sorted
+		for ($i = 0; $i < count($teams); $i++)
+		{
+			for ($j = 0; $j < count($teams) - 1 - $i; $j++)
+			{
+				if ($teams[$i]->getPoints() < $teams[$i + 1]->getPoints())
+				{
+					$aux = $teams[$i];
+					$teams[$i] = $teams[$i + 1];
+					$teams[$i + 1] = $aux;
+				}
+			}
+
+		}
 		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Ranking", 'message' => false, 
-						'type' => "TeamRanking", 'edit' => false));
+			'type' => "TeamRanking", 'edit' => false));
 	}
 }
 ?>

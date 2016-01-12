@@ -36,7 +36,7 @@ class UserController extends Controller
 
 	public function loginAttemptAction(Request $request)
 	{
-		$session=$this->getRequest()->getSession();
+		$session = $this->getRequest()->getSession();
 		$em = $this->getDoctrine()->getEntityManager();
 		$repository = $em->getRepository('UserBundle:User');
 
@@ -69,12 +69,13 @@ class UserController extends Controller
 		$em = $this->getDoctrine()->getEntityManager();
 		$repository = $em->getRepository('UserBundle:User');
 
-		if($request->getMethod()=='POST')
+		if($request->getMethod() == 'POST')
 		{
-			$username=$request->get('username');
-			$password=$request->get('password');
-			$name=$request->get('name');
-			$email=$request->get('email');
+			$username = $request->get('username');
+			$password = $request->get('password');
+			$encodedPass = sha1($password);
+			$name = $request->get('name');
+			$email = $request->get('email');
 
 			$user = $repository->findOneBy(array('username'=>$username));
 			if($user)
@@ -85,7 +86,7 @@ class UserController extends Controller
 			{
 				$user = new User();
 				$user->setUsername($username);
-				$user->setPassword($password);
+				$user->setPassword($encodedPass);
 				$user->setName($name);
 				$user->setEmail($email);
 				$user->setPrivileges(false);

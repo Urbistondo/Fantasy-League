@@ -21,7 +21,7 @@ class LeagueController extends Controller
 		}
 		else
 		{
-			return $this->redirectToRoute('user_index');
+			return $this->render('UserBundle:User:error.html.twig');
 		}
 	}
 

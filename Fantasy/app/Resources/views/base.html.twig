@@ -50,16 +50,12 @@
                                     <li><a href="{{ path('admin_leagues') }}">Leagues</a></li>
                                     <li><a href="{{ path('admin_update_markets') }}">Update</a></li>
                                     <li><a href="{{ path('admin_update_markets') }}">Forum</a></li>
-                                    <li><a href="">Rules</a></li>
-                                    <li><a href="">Contact</a></li>
                                     <li><a href="{{ path('admin_logout') }}">Exit</a></li>
                                 {% else %}
                                     <li><a href="{{ path('user_index') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</a></li>
                                     <li><a href="{{ path('user_listTeams') }}">Teams</a></li>
                                     <li><a href="{{ path('user_newLeague') }}">Leagues</a></li>
                                     <li><a href="{{ path('blogger_blog_list') }}">Forum</a></li>
-                                    <li><a href="">Rules</a></li>
-                                    <li><a href="">Contact</a></li>
                                     <li><a href="{{ path('user_exit') }}">Exit</a></li>
                                 {% endif %}
                             </ul>

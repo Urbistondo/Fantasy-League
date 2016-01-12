@@ -21,6 +21,15 @@
 		{% if type == 'Player' and edit == "false" and items|length > 0 %}
 			<h5>This is your current starting eleven</h5>
 
+			<div class="container tabs">	
+				<ul class="nav nav-pills">
+					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
+					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
+					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
+		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
+				</ul>
+			</div>
+
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<th>Name</th>
@@ -83,6 +92,9 @@
 					</tr>
 				{% endfor %}
 			</table></br>
+			<form action="{{ path('user_showTeam', {'edit': 0}) }}" method="GET">
+				<button class="btn btn-primary" id="addButton">Add players</button>
+			</form>
 		{% elseif type == 'Player' and edit == "true" %}
 			<div class="container" id="selectDiv">
 				<form action="" method="POST" id="selectForm">
@@ -132,25 +144,17 @@
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
-			<div id="exTab3" class="container">	
-				<ul class="nav nav-pills">
-					<li class="active"><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="#2b" data-toggle="tab">Show team</a></li>
-					<li><a href="#3b" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="#4a" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
 			<h5>Your don't own any teams yet! Click on "Create new team" to get started</h5>
 			</br>
 			<form action="{{ path('user_listLeagues') }}" method="GET">
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "TeamRanking" and items|length > 0 %}
-			<div id="exTab3" class="container">	
+			<div class="container tabs">	
 				<ul class="nav nav-pills">
-					<li class="active"><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
+					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
 					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="#3b" data-toggle="tab">Manage team</a></li>
+					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
 		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
 				</ul>
 			</div>

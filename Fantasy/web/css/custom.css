@@ -3,10 +3,6 @@
 	border-radius: 0px;
 }
 
-.navbar a {
-    color: white;
-}
-
 th {
 	background-color: #003C8F;
 	color: #FFFFFF;
@@ -26,12 +22,7 @@ th {
 	margin-bottom: 20px;
 }
 
-.footer {
-	text-align: center;
-	margin-bottom: 0.75%;
-}
-
-.btn {
+.btn, .select {
 	margin: 5px;
 }
 
@@ -45,4 +36,19 @@ div {
 
 h3, h5 {
 	text-align: center;
+}
+
+.tabs .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+
+.tabs .tab-content {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+
+.footer {
+	text-align: center;
+	margin-bottom: 0.75%;
 }
