@@ -2,11 +2,18 @@
 {% block title %}Fantasy - Create a team{% endblock %}
 
 {% block body %}
-    <form action="" method="POST" name="teamForm" onsubmit="return(validate());">
-    	Team name <input id="team_name" type="text" name="team_name" placeholder="Team name"><br>
-	  	<input id="teamButton" type="submit" value="Create team">
-	  	<input id="cancelButton" type="submit" value="Cancel">
-	</form>
+	<div class="container col-md-4">
+		<form action="" method="POST" name="teamForm" onsubmit="return(validate());">
+			<div class="form-group">
+				<label class="control-label col-md-6 text-right" for="inputName">Team name</label>
+				<div class="col-md-6">
+					<input class="form-control" id="team_name" type="text" name="team_name" placeholder="Team name" required autofocus>
+				</div>
+			</div>
+			<button class="btn btn-primary" id="teamButton" type="submit">Create</button>
+			<button class="btn btn-danger" id="cancelButton" type="submit">Cancel</button>
+		</form>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

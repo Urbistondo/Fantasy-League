@@ -2,15 +2,26 @@
 {% block title %}Fantasy - Forum{% endblock %}
 
 {% block body %}
-	<h3>Forum</h3>
-	{% for comment in comments %}
-	    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
-	        <header>
-	            <p><span class="highlight">{{ comment.user }}</span> commented on <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time></p>
-	        </header>
-	        <p>{{ comment.comment }}</p>
-	    </article>
-	{% else %}
-	    <p>There are no comments on the forum yet</p>
-	{% endfor %}
+	<div class="container">
+		<div class="col-md-4">
+			<legend>Forum</legend>
+			{% for comment in comments %}
+			    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+			        <header>
+			            <p><span class="highlight">{{ comment.user }}</span> commented on <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time></p>
+			        </header>
+			        <p>{{ comment.comment }}</p>
+			    </article>
+			{% else %}
+			<h4>There are no comments on the forum yet</h4>
+			{% endfor %}
+			<form class="horizontal-form" role="form" action="{{ path('blogger_comment_new') }}" method="GET" onsubmit="return(validate());">
+			  	<button class="btn btn-primary" id="addCommentButton" type="submit">Add a comment</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	
 {% endblock %}

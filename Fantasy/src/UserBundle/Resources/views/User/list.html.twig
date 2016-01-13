@@ -7,20 +7,11 @@
 			<h4 id="message">{{ message }}</h4>
 		{% endif %}
 	
-		<h3>{{ title }}</h3>
+		<legend>{{ title }}</legend>
 		
 		{% if type == 'ListPlayers' and items|length > 0 %}
 			<h5>This is your current starting eleven</h5>
-
-			<div class="container tabs">	
-				<ul class="nav nav-pills">
-					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
-
+			{% include 'UserBundle:User:teammenu.html.twig' %}
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<th>Name</th>
@@ -52,19 +43,9 @@
 			</form>
 		{% elseif type == 'MarketPlayers' %}
 			<h5>This is the current market</h5>
-
-			<div class="container tabs">	
-				<ul class="nav nav-pills">
-					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
-
+			{% include 'UserBundle:User:teammenu.html.twig' %}
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
-					<th>Id</th>
 					<th>Name</th>
 					<th>Lastname</th>
 					<th>Position</th>
@@ -72,40 +53,30 @@
 					<th>Points</th>
 					<th>Value</th>
 					<th>Bid</th>
-					<th></th>
 				</tr>
 
 				{% for item in items %}
 					<tr>
-						<td>{{ item.getId() }}</td>
 						<td>{{ item.getName() }}</td>
 						<td>{{ item.getLastname() }}</td>
 						<td>{{ item.getPosition() }}</td>
 						<td>{{ item.getClub() }}</td>
 						<td>{{ item.getPoints() }}</td>
 						<td>{{ item.getValue() }}</td>
-						<td class="bid" contenteditable='true'></td>
 						<td>
-							<form action="" method="GET" onclick="bid()">
+							<form action="{{ path('user_placeBid', { 'player_id': item.getId()}) }}" method="GET" onclick="bid()">
+								<input type="text" name="bid" id="inputBid{{ loop.index }}">
 								<button class="btn btn-primary bidButton" id="bidButton{{ loop.index }}">Bid</button>
 							</form>
 						</td>
 					</tr>
 				{% endfor %}
-			</table></br>
+			</table>
 			<form action="{{ path('user_showTeam', {'edit': -1}) }}" method="GET">
 				<button class="btn btn-primary" id="addButton">Add players</button>
 			</form>
 		{% elseif type == 'AddPlayers' %}
-			<div class="container tabs">	
-				<ul class="nav nav-pills">
-					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
-
+			{% include 'UserBundle:User:teammenu.html.twig' %}
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<th>Name</th>
@@ -134,14 +105,7 @@
 				{% endfor %}
 			</table></br>
 		{% elseif type == 'EditPlayers' %}
-			<div class="container tabs">	
-				<ul class="nav nav-pills">
-					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
+			{% include 'UserBundle:User:teammenu.html.twig' %}
 			<div class="container" id="selectDiv">
 				<form action="" method="POST" id="selectForm">
 					{% for i in 1..11 %}

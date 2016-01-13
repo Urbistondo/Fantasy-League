@@ -73,8 +73,6 @@ user_updateEleven:
 user_showTeam:
     pattern: /teams/{edit}
     defaults: { _controller: UserBundle:Team:showTeam }
-    requirements:
-        league_id:  \d+
 
 user_saveTeam:
     pattern: /teams/{league_id}/{team_id}
@@ -116,11 +114,10 @@ user_createMarket:
         league_id:  \d+
 
 user_placeBid:
-    pattern: /market/placebid/{player_id}/{bid}
+    pattern: /market/placebid/{player_id}
     defaults: {_controller: UserBundle:Market:placeBid }
     requirements:
         player_id:  \d+
-        bid:  \d+
 
 user_sellPlayer:
     pattern: /market/sellPlayer/{player_id}

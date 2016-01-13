@@ -31,9 +31,16 @@ class TeamController extends Controller
 	{
 		$session = $this->getRequest()->getSession();
 		$user = $session->get('user');
-		$user_id = $user->getId();
-		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Teams", 'message' => false, 'type' => "Team", 'edit' => false));
+		if ($user)
+		{
+			$user_id = $user->getId();
+			$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
+			return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Teams", 'message' => false, 'type' => "Team"));
+		}
+		else
+		{
+			return $this->render('UserBundle:Team:list.html.twig', array('items' => false, 'title' => "Teams", 'message' => false, 'type' => "Team"));
+		}
 	}
 
 	public function newTeamAction($league_id)
@@ -60,12 +67,11 @@ class TeamController extends Controller
 		$result2 = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('user_id' => $user_id, 'team_id' => $team_id));
 		if ($result != null && $result2 != null)
 		{
-			if ($edit < 1)
+			if ($edit == 0)
 			{
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
 				if ($eleven != null)
 				{
-					$aux = array();
 					$aux = $eleven->getPlayers();
 					$players = array();
 					foreach ($aux as $id)
@@ -73,16 +79,8 @@ class TeamController extends Controller
 						$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
 						array_push($players, $player);
 					}
-					if ($edit == 0)
-					{
-						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-						'type' => "ListPlayers"));
-					}
-					else
-					{
-						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Add players to the", 'message' => false, 
-						'type' => "AddPlayers"));
-					}
+					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
+					'type' => "ListPlayers"));
 				}
 				else
 				{
@@ -90,14 +88,25 @@ class TeamController extends Controller
 						'type' => "ListPlayers"));
 				}
 			}
+			else if ($edit < 0)
+			{
+				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
+				$players = array();
+				foreach ($belongs as $belong)
+				{
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $belong->getPlayerId()));
+					array_push($players, $player);
+				}
+				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Add players to the market", 'message' => false, 
+						'type' => "AddPlayers"));
+			}
 			else
 			{
 				$belongs = $this->get('doctrine')->getManager()->getRepository('UserBundle:Belong')->findBy(array('team_id' => $team_id, 'league_id' => $league_id));
 				$players = array();
 				foreach ($belongs as $belong)
 				{
-					$id = $belong->getPlayerId();
-					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($id);
+					$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->find($belong->getPlayerId());
 					array_push($players, $player);
 				}
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id, 'user_id' => $user_id));
@@ -138,7 +147,7 @@ class TeamController extends Controller
 			$team = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('league_id'=>$league_id, 'user_id' => $user_id));
 			if($team)
 			{
-				return $this->redirect('user_showRanking', array('message' => 'You already have a team in that league'));
+				return $this->redirectToRoute('user_listTeams');
 			}
 			else
 			{
@@ -192,7 +201,7 @@ class TeamController extends Controller
 	            $em->flush();
 
 				$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-				return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team", 'edit' => false));
+				return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team"));
 			}
 		}
 		else
@@ -204,7 +213,7 @@ class TeamController extends Controller
 		$user=$session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team", 'edit' => false));
+		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team"));
 	}
 
 	public function updateElevenAction(Request $request)
@@ -272,7 +281,7 @@ class TeamController extends Controller
 			}
 
 			$em->flush();
-			return $this->redirectToRoute('user_listTeams');
+			return $this->redirectToRoute('user_showRanking');
 		}
 		else
 		{
@@ -315,7 +324,7 @@ class TeamController extends Controller
 
 		}
 		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Ranking", 'message' => false, 
-			'type' => "TeamRanking", 'edit' => false));
+			'type' => "TeamRanking"));
 	}
 }
 ?>

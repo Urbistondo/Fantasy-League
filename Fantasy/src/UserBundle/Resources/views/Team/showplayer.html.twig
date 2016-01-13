@@ -2,9 +2,6 @@
 {% block title %}Fantasy - {{ player.getName()}} {{ player.getLastname()}}{% endblock %}
 
 {% block body %}
-  {% if message %}
-    <h4 id="message">{{ message }}</h4>
-  {% endif %}
   <table class="table table-bordered table-striped table-hover" style="width:50%">
     <tr>
       <th>Name</th>
@@ -30,4 +27,8 @@
       <button class="btn btn-primary" id="marketButton" type="submit">Put on tranfer market</button></br>
   </form>
 
+{% endblock %}
+
+{% block javascripts %}
+  
 {% endblock %}

@@ -17,7 +17,7 @@ class LeagueController extends Controller
 		if ($user != null)
 		{
 			$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
-			return $this->render('UserBundle:League:list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => false, 'type' => "League"));
+			return $this->render('UserBundle:League:list.html.twig', array('items' => $leagues, 'message' => false));
 		}
 		else
 		{

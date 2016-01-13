@@ -7,7 +7,7 @@
 			<h4 id="message">{{ message }}</h4>
 		{% endif %}
 	
-		<h3>{{ title }}</h3>
+		<legend>{{ title }}</legend>
 
 		{% if type == "Team" and items|length > 0 %}
 			<table class="table table-bordered table-striped table-hover">
@@ -31,20 +31,12 @@
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "Team" and items|length == 0 %}
-			<h5>Your don't own any teams yet! Click on "Create new team" to get started</h5>
-			</br>
+			<h5 id="emptyMessage">Your don't own any teams yet! Click on "Create new team" to get started</h5></br>
 			<form action="{{ path('user_listLeagues') }}" method="GET">
 			    <button class="btn btn-primary"  id="createTeamButton">Create new team</button>
 			</form>
 		{% elseif type == "TeamRanking" and items|length > 0 %}
-			<div class="container tabs">	
-				<ul class="nav nav-pills">
-					<li><a href="{{ path('user_showRanking') }}" data-toggle="tab">Ranking</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 0}) }}" data-toggle="tab">Show team</a></li>
-					<li><a href="{{ path('user_showTeam', {'edit': 1}) }}" data-toggle="tab">Manage team</a></li>
-		  			<li><a href="{{ path('user_showMarket') }}" data-toggle="tab">Market</a></li>
-				</ul>
-			</div>
+			{% include 'UserBundle:User:teammenu.html.twig' %}
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<th>Team name</th>
@@ -52,7 +44,7 @@
 				</tr>
 
 				{% for item in items %}
-					<tr class="clickable-row" data-href="">
+					<tr class="clickable-row">
 						<td>{{ item.getTeamName() }}</td>
 						<td>{{ item.getPoints() }}</td>
 					</tr>
@@ -60,4 +52,18 @@
 			</table></br>
 		{% endif %}
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+	    $(document).ready(
+	    	function update()
+		    {
+			    if($('#emptyMessage').length >0 )
+			    {
+				   swal({   title: "Fantasy League",   text: "Welcome to Fantasy League!",   type: "success",   confirmButtonText: "OK" }); 
+				}
+			}
+		);
+	</script>
 {% endblock %}

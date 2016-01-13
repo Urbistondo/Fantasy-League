@@ -1,6 +1,16 @@
-<form action="{{ path('blogger_comment_create') }}" method="POST" {{ form_enctype(form) }} class="blogger">
-    {{ form_widget(form) }}
-    <p>
-        <input type="submit" value="Submit">
-    </p>
-</form>
+{% extends 'UserBundle::layout.html.twig' %}
+
+{% block title %}Fantasy - Add comment{% endblock%}
+
+{% block body %}
+	<div class="container">
+			<form action="{{ path('blogger_comment_create') }}" method="GET" {{ form_enctype(form) }} class="blogger">
+			    {{ form_widget(form) }}
+			    <button class="btn btn-primary" id="addCommentButton" type="submit">Add a comment</button>
+			</form>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	
+{% endblock %}

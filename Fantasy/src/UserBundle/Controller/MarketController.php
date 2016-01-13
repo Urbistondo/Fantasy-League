@@ -3,6 +3,7 @@
 namespace UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\Bid;
 use UserBundle\Entity\Market;
 
@@ -93,15 +94,16 @@ class MarketController extends Controller
 		}
 	}
 
-	public function placeBidAction($player_id, $bid)
+	public function placeBidAction(Request $request, $player_id)
 	{
 		$session = $this->getRequest()->getSession();
+		$bid_value = $request->get('bid');
 		$bid = new Bid();
 		$bid->setLeagueId($session->get('league_id'));
 		$bid->setTeamId($session->get('team_id'));
 		$bid->setUserId($session->get('user')->getId());
 		$bid->setPlayerId($player_id);
-		$bid->setBid($bid);
+		$bid->setBid($bid_value);
 		$em = $this->getDoctrine()->getEntityManager();
 		$em->persist($bid);
 		$em->flush();

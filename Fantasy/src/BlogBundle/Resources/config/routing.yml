@@ -2,8 +2,10 @@ blogger_blog_list:
     pattern: /
     defaults: { _controller: BlogBundle:Blog:list }
 
+blogger_comment_new:
+    pattern:  /comment/new
+    defaults: { _controller: BlogBundle:Comment:new }
+
 blogger_comment_create:
-    pattern:  /comment
+    pattern:  /comment/create
     defaults: { _controller: BlogBundle:Comment:create }
-    requirements:
-        _method: GET

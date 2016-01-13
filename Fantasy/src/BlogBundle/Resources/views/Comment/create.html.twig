@@ -1,8 +1,8 @@
-{% extends 'BlogBundle::layout.html.twig' %}
+{% extends 'UserBundle::layout.html.twig' %}
 
-{% block title %}Add comment{% endblock%}
+{% block title %}Fantasy - Add comment{% endblock%}
 
 {% block body %}
-    <h1>Add a comment on the forum</h1>
+    <legend>Add a comment on the forum</legend>
     {% include 'BlogBundle:Comment:form.html.twig' with { 'form': form } %}
 {% endblock %}

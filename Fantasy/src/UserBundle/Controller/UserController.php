@@ -91,10 +91,14 @@ class UserController extends Controller
 				$user->setEmail($email);
 				$user->setPrivileges(false);
 
+				$session = $this->getRequest()->getSession();
+				$session->clear();
+				$session->set('user', $user);
+
 				$em = $this->getDoctrine()->getEntityManager();
 				$em->persist($user);
 				$em->flush();
-				return $this->render('UserBundle:User:home.html.twig', array('message' => 'User added to database succesfully'));
+				return $this->redirectToRoute('user_listTeams');
 			}
 		}
 		else

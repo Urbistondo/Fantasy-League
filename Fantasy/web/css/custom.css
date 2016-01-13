@@ -61,6 +61,9 @@ h3, h5 {
 
 .footer {
 	text-align: center;
-	padding: 0.75%;
-	background-color: #FFFFFF;
+	padding: 0.5%;
+	background-color: #F5F5F5;
+	position: absolute;
+    bottom: 0;
+    width: 100%;
 }
