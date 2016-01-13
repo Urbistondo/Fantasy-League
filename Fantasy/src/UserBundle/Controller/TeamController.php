@@ -80,7 +80,7 @@ class TeamController extends Controller
 					}
 					else
 					{
-						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Add players to the market", 'message' => false, 
+						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Add players to the", 'message' => false, 
 						'type' => "AddPlayers"));
 					}
 				}

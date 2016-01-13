@@ -78,12 +78,10 @@ class LeagueController extends Controller
 				$league->setLeaguePassword($password);
 				$league->setLeagueCapacity($capacity);
 				$league->setLeagueAdminId($admin_id);
-
 				$em->persist($league);
 				$em->flush();
-
-				$leagues = $this->get('doctrine')->getManager()->getRepository('UserBundle:League')->findAll();
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $leagues, 'title' => "Leagues", 'message' => 'League added to database succesfully', 'type' => "League"));
+				$league_id = $repository->findOneBy(array('league_name' => $name))->getLeagueId();
+				return $this->redirectToRoute('user_createMarket', array('league_id' => $league_id));
 			}
 		}
 		else

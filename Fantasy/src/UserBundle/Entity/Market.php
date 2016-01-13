@@ -23,11 +23,6 @@ class Market
 	*/
 	protected $league_id;
 
-    /**
-    * @ORM\Column(type="integer")
-    */
-    protected $spots;
-
 	/**
 	* @ORM\Column(type="integer")
 	*/
@@ -161,30 +156,6 @@ class Market
     public function getLeagueId()
     {
         return $this->league_id;
-    }
-
-    /**
-     * Set spots
-     *
-     * @param string $spots
-     *
-     * @return Market
-     */
-    public function setSpots($spots)
-    {
-        $this->spots = $spots;
-
-        return $this;
-    }
-
-    /**
-     * Get spots
-     *
-     * @return string
-     */
-    public function getSpots()
-    {
-        return $this->spots;
     }
 
     /**

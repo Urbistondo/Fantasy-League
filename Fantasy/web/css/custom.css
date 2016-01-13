@@ -3,6 +3,13 @@
 	border-radius: 0px;
 }
 
+.navbar .navbar-inverse {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+  text-align: center;
+}
+
 th {
 	background-color: #003C8F;
 	color: #FFFFFF;

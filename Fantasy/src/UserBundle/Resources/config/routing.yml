@@ -66,6 +66,10 @@ user_showRanking:
     pattern: /teams/ranking
     defaults: {_controller: UserBundle:Team:showRanking }
 
+user_updateEleven:
+    pattern: /teams/eleven/update
+    defaults: { _controller: UserBundle:Team:updateEleven }
+
 user_showTeam:
     pattern: /teams/{edit}
     defaults: { _controller: UserBundle:Team:showTeam }
@@ -83,10 +87,6 @@ user_editEleven:
     pattern: /teams/edit
     defaults: { _controller: UserBundle:Team:editEleven }
 
-user_updateEleven:
-    pattern: /teams/eleven/update
-    defaults: { _controller: UserBundle:Team:updateEleven }
-
 user_listLeagues:
     pattern: /leagues/join
     defaults: { _controller: UserBundle:League:listLeagues }
@@ -102,15 +102,28 @@ user_createLeague:
 user_showPlayer:
     pattern: /viewplayer/{player_id}
     defaults: {_controller: UserBundle:Team:showPlayer }
+    requirements:
+        player_id:  \d+
 
 user_showMarket:
     pattern: /market
     defaults: {_controller: UserBundle:Market:listMarket }
 
+user_createMarket:
+    pattern: /market/create/{league_id}
+    defaults: {_controller: UserBundle:Market:createMarket }
+    requirements:
+        league_id:  \d+
+
 user_placeBid:
     pattern: /market/placebid/{player_id}/{bid}
     defaults: {_controller: UserBundle:Market:placeBid }
+    requirements:
+        player_id:  \d+
+        bid:  \d+
 
 user_sellPlayer:
     pattern: /market/sellPlayer/{player_id}
     defaults: {_controller: UserBundle:Market:sellPlayer }
+    requirements:
+        player_id:  \d+

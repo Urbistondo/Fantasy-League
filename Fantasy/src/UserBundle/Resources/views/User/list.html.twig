@@ -48,7 +48,7 @@
 		{% elseif type == 'ListPlayers' and items|length == 0 %}
 			<h5>You haven't set up your starting eleven yet!</h5>
 			<form action="{{ path('user_showTeam', {'edit': 1}) }}" method="GET">
-				<button class="btn btn-primary" id="#editButton">Get started!</button>
+				<button class="btn btn-primary" id="#startButton">Get started!</button>
 			</form>
 		{% elseif type == 'MarketPlayers' %}
 			<h5>This is the current market</h5>
@@ -86,7 +86,7 @@
 						<td>{{ item.getValue() }}</td>
 						<td class="bid" contenteditable='true'></td>
 						<td>
-							<form action="" method="GET">
+							<form action="" method="GET" onclick="bid()">
 								<button class="btn btn-primary bidButton" id="bidButton{{ loop.index }}">Bid</button>
 							</form>
 						</td>
@@ -173,33 +173,12 @@
 {% block javascripts %}
 	<script>
 	    $(document).ready(
-	    	function()
+	    	function update()
 		    {
 			    $("#updateButton").click(
 				    function()
 				    {
 					    $(this).closest("form").attr("action", "{{ path('user_updateEleven') }}");
-					}
-				)
-
-				$(".bidButton").click(
-				    function()
-				    {
-				    	var value = parseInt($(this).parent().parent().find('td').eq(5).text());
-				    	var bid = parseInt($(this).parent().parent().find('td').eq(6).text());
-				    	if (bid <= value)
-				    	{
-				    		var string1 = "{{ path('user_placeBid', {'player_id': ";
-				    		var player_id = $(this).parent().parent().find('td').eq(0).text();
-				    		var string2 = ", 'bid': ";
-				    		var string3 = "}) }}";
-							var result = string1 + player_id + string2 + bid + string3;
-				    		$(this).closest("form").attr("action", "{{ path('user_placeBid', {'player_id': ");
-				    	}
-				    	else
-				    	{
-				    		alert("The bid must be at least as big as the player's value");
-				    	}
 					}
 				)
 			}
