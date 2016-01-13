@@ -27,7 +27,7 @@ class MarketController extends Controller
 					}
 				}
 				return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
-					'type' => "Player", 'edit' => "market"));
+					'type' => "MarketPlayers"));
 			}
 		}
 		else
@@ -44,19 +44,20 @@ class MarketController extends Controller
 		if ($league_id != null)
 		{
 			$market = $this->get('doctrine')->getManager()->getRepository('UserBundle:Market')->findOneBy(array('league_id' => $league_id));
-			$players = $market->getPlayers();
-			foreach ($players as $player)
+			$player_ids = $market->getPlayers();
+			$players = array();
+			$boolean = 0;
+			foreach ($player_ids as $id)
 			{
-				if ($player == $player_id)
+				if ($id == $player_id)
 				{
-					return $this->redirectToRoute('user_showPlayer', array('player_id' => $player_id));
+					$boolean = 1;
 				}
 			}
 			$market->setNextPlayer($player_id);
 			$em = $this->getDoctrine()->getEntityManager();
    			$em->flush();
-   			return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Market", 'message' => false, 
-			'type' => "Player", 'edit' => 'market'));
+   			return $this->redirectToRoute('user_showRanking');
 		}
 		else
 		{

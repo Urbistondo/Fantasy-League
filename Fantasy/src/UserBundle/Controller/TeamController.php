@@ -33,7 +33,7 @@ class TeamController extends Controller
 		$user = $session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Teams", 'message' => false, 'type' => "Team", 'edit' => false));
+		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Teams", 'message' => false, 'type' => "Team", 'edit' => false));
 	}
 
 	public function newTeamAction($league_id)
@@ -60,7 +60,7 @@ class TeamController extends Controller
 		$result2 = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findOneBy(array('user_id' => $user_id, 'team_id' => $team_id));
 		if ($result != null && $result2 != null)
 		{
-			if ($edit == 0)
+			if ($edit < 1)
 			{
 				$eleven = $this->get('doctrine')->getManager()->getRepository('UserBundle:Eleven')->findOneBy(array('team_id' => $team_id));
 				if ($eleven != null)
@@ -73,13 +73,21 @@ class TeamController extends Controller
 						$player = $this->get('doctrine')->getManager()->getRepository('UserBundle:Player')->findOneBy(array('id' => $id));
 						array_push($players, $player);
 					}
-					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
-						'type' => "Player", 'edit' => "false"));
+					if ($edit == 0)
+					{
+						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Starting eleven", 'message' => false, 
+						'type' => "ListPlayers"));
 					}
+					else
+					{
+						return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'title' => "Add players to the market", 'message' => false, 
+						'type' => "AddPlayers"));
+					}
+				}
 				else
 				{
 					return $this->render('UserBundle:User:list.html.twig', array('items' => false, 'title' => "Starting eleven", 'message' => false, 
-						'type' => "Player", 'edit' => "false"));
+						'type' => "ListPlayers"));
 				}
 			}
 			else
@@ -103,12 +111,12 @@ class TeamController extends Controller
 						array_push($currentplayers, $currentplayer);
 					}
 					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => $currentplayers, 'title' => "Choose your starting eleven", 'message' => false, 
-						'type' => "Player", 'edit' => "true"));
+						'type' => "EditPlayers"));
 				}
 				else
 				{
 					return $this->render('UserBundle:User:list.html.twig', array('items' => $players, 'eleven' => false, 'title' => "Choose your starting eleven", 'message' => false, 
-					'type' => "Player", 'edit' => "true"));
+					'type' => "EditPlayers"));
 				}
 			}
 		}
@@ -184,7 +192,7 @@ class TeamController extends Controller
 	            $em->flush();
 
 				$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-				return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team", 'edit' => false));
+				return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => 'Team succesfully created', 'type' => "Team", 'edit' => false));
 			}
 		}
 		else
@@ -196,7 +204,7 @@ class TeamController extends Controller
 		$user=$session->get('user');
 		$user_id = $user->getId();
 		$teams = $this->get('doctrine')->getManager()->getRepository('UserBundle:Team')->findBy(array('user_id' => $user_id));
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team", 'edit' => false));
+		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Your teams", 'message' => false, 'type' => "Team", 'edit' => false));
 	}
 
 	public function updateElevenAction(Request $request)
@@ -306,7 +314,7 @@ class TeamController extends Controller
 			}
 
 		}
-		return $this->render('UserBundle:User:list.html.twig', array('items' => $teams, 'title' => "Ranking", 'message' => false, 
+		return $this->render('UserBundle:Team:list.html.twig', array('items' => $teams, 'title' => "Ranking", 'message' => false, 
 			'type' => "TeamRanking", 'edit' => false));
 	}
 }
